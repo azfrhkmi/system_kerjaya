@@ -15,6 +15,42 @@ $search = sanitize_input($_GET['search'] ?? '');
 $filter_kelas = sanitize_input($_GET['kelas'] ?? '');
 $filter_tahun = sanitize_input($_GET['tahun'] ?? '');
 
+$msg_success = null;
+$msg_error = null;
+
+// PROSES PADAM REKOD SOAL JAWAB MURID (OLEH ADMIN / SUPERADMIN)
+if (isset($_GET['delete_response'])) {
+    $response_id_to_delete = (int)$_GET['delete_response'];
+    try {
+        // Ambil maklumat murid untuk pemadaman fail & logging
+        $stmt_fetch = $pdo->prepare("SELECT * FROM responses WHERE id = ?");
+        $stmt_fetch->execute([$response_id_to_delete]);
+        $target_response = $stmt_fetch->fetch();
+
+        if ($target_response) {
+            // Padam fail dimuat naik jika wujud
+            if (!empty($target_response['fail_kerjaya'])) {
+                $file_to_delete = __DIR__ . '/../' . $target_response['fail_kerjaya'];
+                if (file_exists($file_to_delete)) {
+                    @unlink($file_to_delete);
+                }
+            }
+
+            // Padam rekod dari database
+            $stmt_del = $pdo->prepare("DELETE FROM responses WHERE id = ?");
+            $stmt_del->execute([$response_id_to_delete]);
+
+            $msg_success = "Rekod jawapan murid (" . htmlspecialchars($target_response['nama']) . ") telah berjaya dipadam!";
+            log_threat($pdo, 'RESPONSE_DELETED', "Pengguna {$_SESSION['user_email']} ({$_SESSION['user_role']}) telah memadam rekod murid ID #{$response_id_to_delete} ({$target_response['nama']} - {$target_response['email']})");
+        } else {
+            $msg_error = "Rekod murid tidak ditemui.";
+        }
+    } catch (PDOException $e) {
+        $msg_error = "Ralat pangkalan data semasa memadam rekod murid.";
+        log_threat($pdo, 'DB_ERROR', "Ralat SQL padam rekod: " . $e->getMessage());
+    }
+}
+
 // KEUPIAN QUERY DENGAN TAPISAN
 $where_clauses = [];
 $params = [];
@@ -75,6 +111,20 @@ require_once '../includes/header.php';
 
 <div class="container admin-container">
     
+    <?php if ($msg_success): ?>
+        <div style="background:#dcfce7; border:2px solid #86efac; color:#166534; border-radius:var(--radius-md); padding:16px 20px; margin-bottom:24px; font-weight:700; display:flex; align-items:center; gap:10px;">
+            <span style="font-size:1.4rem;">✅</span>
+            <div><?php echo $msg_success; ?></div>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($msg_error): ?>
+        <div style="background:#fee2e2; border:2px solid #fca5a5; color:#991b1b; border-radius:var(--radius-md); padding:16px 20px; margin-bottom:24px; font-weight:700; display:flex; align-items:center; gap:10px;">
+            <span style="font-size:1.4rem;">⚠️</span>
+            <div><?php echo $msg_error; ?></div>
+        </div>
+    <?php endif; ?>
+
     <!-- HEADER PAPAN PEMUKA -->
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom:30px; gap:16px;">
         <div>
@@ -250,10 +300,15 @@ require_once '../includes/header.php';
                                     }
                                     ?>
                                 </td>
-                                <td>
-                                    <button type="button" class="btn-outline nav-btn" style="padding:6px 12px; font-size:0.85rem;" onclick="viewStudentDetail(<?php echo htmlspecialchars(json_encode($r)); ?>)">
-                                        👁️ Lihat Jawapan
-                                    </button>
+                                <td style="white-space:nowrap;">
+                                    <div style="display:flex; gap:6px; flex-wrap:nowrap;">
+                                        <button type="button" class="btn-outline nav-btn" style="padding:5px 10px; font-size:0.8rem;" onclick="viewStudentDetail(<?php echo htmlspecialchars(json_encode($r)); ?>)">
+                                            👁️ Lihat
+                                        </button>
+                                        <a href="dashboard.php?delete_response=<?php echo $r['id']; ?>" class="btn-outline nav-btn" style="padding:5px 10px; font-size:0.8rem; border-color:#ef4444; color:#ef4444; text-decoration:none;" onclick="return confirm('Adakah anda pasti untuk memadam rekod jawapan murid <?php echo htmlspecialchars(addslashes($r['nama'])); ?>?')">
+                                            🗑️ Padam
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -284,7 +339,10 @@ require_once '../includes/header.php';
             <!-- Kandungan modal dijana secara dinamik oleh JS -->
         </div>
 
-        <div style="margin-top:25px; text-align:right;">
+        <div style="margin-top:25px; display:flex; justify-content:space-between; align-items:center;">
+            <a id="modalDeleteBtn" href="#" class="btn-outline nav-btn" style="border-color:#ef4444; color:#ef4444; text-decoration:none;" onclick="return confirm('Adakah anda pasti untuk memadam rekod murid ini?')">
+                🗑️ Padam Rekod Ini
+            </a>
             <button type="button" class="btn-primary nav-btn" onclick="closeModal('studentDetailModal')">Tutup</button>
         </div>
     </div>
@@ -375,6 +433,7 @@ function viewStudentDetail(data) {
     `;
 
     document.getElementById('modalStudentContent').innerHTML = content;
+    document.getElementById('modalDeleteBtn').href = "dashboard.php?delete_response=" + data.id;
     openModal('studentDetailModal');
 }
 </script>
