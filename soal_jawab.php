@@ -252,7 +252,7 @@ require_once 'includes/header.php';
                 📁 (d) Sila Upload File Kerjaya Anda
             </h3>
             <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:15px;">
-                Muat naik lukisan kerjaya, sijil, resume ringkas, atau dokumen cita-cita anda (Format PDF, DOC, DOCX, PNG, JPG, JPEG - Maksimum 10MB):
+                Sila layari <strong>DELIMa</strong> dan dengan menggunakan teknologi AI hasilkan bahan berkaitan inspirasi kerjaya anda dan muat turun di ruangan yang disediakan.
             </p>
             <div class="form-group">
                 <div class="file-upload-box" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px 20px;">
