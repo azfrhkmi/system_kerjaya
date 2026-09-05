@@ -1,6 +1,6 @@
-# 🚀 Sistem Penerokaan Kerjaya Impianku (Sekolah Rendah)
+# 🚀 Sistem Penerokaan Kerjaya Cherita (Sekolah Rendah)
 
-Sistem Penerokaan Kerjaya Sekolah Rendah yang interaktif, menarik, dan mesra kanak-kanak dibangunkan dengan **PHP 8** & **MySQL** (XAMPP / DBeaver). Sistem ini menyokong 3 peranan pengguna (**Pelajar**, **Admin Guru Kaunseling**, dan **Superadmin**).
+Sistem Penerokaan Kerjaya Sekolah Rendah yang interaktif, menarik, dan mesra kanak-kanak dibangunkan dengan **PHP 8**, **MySQL / SQLite**, dan **Pembantu AI**. Sistem ini menyokong 3 peranan pengguna (**Pelajar**, **Admin Guru Kaunseling**, dan **Superadmin**).
 
 ---
 
@@ -10,7 +10,7 @@ Sistem Penerokaan Kerjaya Sekolah Rendah yang interaktif, menarik, dan mesra kan
    - Reka bentuk berwarna-warni dengan animasi mikro CSS.
    - Penjelasan *"Apa itu Kerjaya?"* untuk sekolah rendah.
    - **Teori Howard Gardner (9 Kecerdasan Pelbagai)**.
-   - **Peti Explorasi RIASEC Interaktif** (Realistik, Investigatif, Sosial, Enterprising, Konvensional) dengan maksud Melayu & 5 contoh pekerjaan.
+   - **Pembantu AI Kerjaya Cherita** (Tanya AI & Jana Gambar Cita-cita 3D Pixar secara percuma & tanpa had).
    - Butang animasi CTA *"🚀 Tekan Untuk Sertai Soal Jawab Kerjaya"*.
 
 2. **Soal Jawab Pelajar (Normal User)**:
