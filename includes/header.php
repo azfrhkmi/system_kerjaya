@@ -27,8 +27,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <!-- NAVBAR RESPONSIF -->
     <nav class="navbar">
         <a href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../index.php' : 'index.php'; ?>" class="navbar-brand">
-            <span class="logo-icon">🚀</span>
-            <span>KERJAYA<span style="color:var(--secondary)">CHERITA</span></span>
+            <span class="logo-icon">🎁</span>
+            <span>PETI<span style="color:var(--secondary)">CHERITALAH</span></span>
         </a>
 
         <div class="nav-links">

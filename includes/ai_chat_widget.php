@@ -16,7 +16,7 @@
         <div style="display:flex; align-items:center; gap:10px;">
             <div style="font-size:2rem; background:rgba(255,255,255,0.2); padding:6px; border-radius:12px;">🤖</div>
             <div>
-                <h4 style="font-family:var(--font-heading); font-size:1.2rem; margin:0;">Pembantu AI Kerjaya Cherita</h4>
+                <h4 style="font-family:var(--font-heading); font-size:1.2rem; margin:0;">Pembantu AI Peti Cheritalah</h4>
                 <small style="opacity:0.9; font-size:0.8rem;">✨ Bersedia Menjawab & Jana Gambar Cita-Cita!</small>
             </div>
         </div>
@@ -28,7 +28,7 @@
         
         <!-- Mesej Aluan AI -->
         <div class="chat-bubble ai-bubble">
-            <div class="bubble-sender">🤖 AI Kerjaya Cherita:</div>
+            <div class="bubble-sender">🤖 AI Peti Cheritalah:</div>
             Hai adik! 👋 Saya Pembantu AI Kerjaya anda.
             <br><br>
             Saya boleh **menerangkan pelbagai cita-cita**, subjek STEM, dan **menjana gambar cita-cita (AI Image)** untuk anda! 🎨
@@ -61,7 +61,7 @@
             <button type="submit" id="aiSendBtn" class="ai-send-btn">🚀 Hantar</button>
         </form>
         <div style="text-align:center; margin-top:6px; font-size:0.75rem; color:#94a3b8;">
-            ⚡ Dikuasai oleh AI Kerjaya Cherita • Jana Gambar & Penerangan Cita-Cita
+            ⚡ Dikuasai oleh AI Peti Cheritalah • Jana Gambar & Penerangan Cita-Cita
         </div>
     </div>
 

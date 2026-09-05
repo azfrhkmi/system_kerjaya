@@ -11,7 +11,7 @@ require_once 'includes/header.php';
     </div>
     
     <h1 class="hero-title">
-        Terokai Minat & <span class="highlight">Bina Kerjaya Impian STEM!</span> 🚀
+        Terokai Minat & <span class="highlight">Bina Kerjaya STEM!</span> 🎁
     </h1>
     
     <p class="hero-subtitle">
@@ -137,7 +137,7 @@ require_once 'includes/header.php';
         <h2>Adakah Anda Bersedia Terokai Cita-Cita Anda? 🌟</h2>
         <p>Isi borang soal jawab kerjaya sekarang untuk berkongsi minat dan luahan rasa bersama Guru Bimbingan & Kaunseling sekolah anda!</p>
         <a href="soal_jawab.php" class="btn-cta-big">
-            🚀 Tekan Untuk Sertai Soal Jawab Kerjaya
+            🎁 Tekan Untuk Sertai Soal Jawab Kerjaya
         </a>
     </section>
 
