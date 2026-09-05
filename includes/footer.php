@@ -2,7 +2,7 @@
     <footer class="site-footer">
         <div class="container">
             <p style="font-weight: 700; color: #475569; margin-bottom: 8px;">
-                🎓 Sistem Penerokaan Kerjaya Impianku Sekolah Rendah
+                🎓 Sistem Penerokaan Kerjaya Cherita Sekolah Rendah
             </p>
             <p style="font-size: 0.88rem; color: #94a3b8;">
                 Direka khas dengan penuh kasih sayang untuk membantu murid membina impian & masa depan yang cemerlang.

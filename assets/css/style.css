@@ -1,5 +1,5 @@
 /* =========================================================
-   SISTEM PENEROKAAN KERJAYA - MASTER RESPONSIVE STYLESHEET
+   SISTEM PENEROKAAN KERJAYA CHERITA - MASTER RESPONSIVE STYLESHEET
    Sesuai & Responsif Sepenuhnya Untuk Laptop, Tablet & Telefon
    ========================================================= */
 
@@ -336,19 +336,29 @@ h1, h2, h3, h4, h5, .font-heading {
     display: block;
 }
 
-/* FILE UPLOAD BOX STYLING */
+/* FILE UPLOAD BOX STYLING - CENTERED */
 .file-upload-box {
     border: 2px dashed #818cf8;
     background: #f5f3ff;
-    padding: 24px;
+    padding: 30px 20px;
     border-radius: var(--radius-md);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     transition: all 0.25s ease;
 }
 
 .file-upload-box:hover {
     border-color: var(--primary);
     background: #ede9fe;
+}
+
+.file-upload-box input[type="file"] {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
 }
 
 /* BIG CTA BUTTON AT BOTTOM */

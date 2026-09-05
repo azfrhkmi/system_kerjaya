@@ -255,9 +255,9 @@ require_once 'includes/header.php';
                 Muat naik lukisan kerjaya, sijil, resume ringkas, atau dokumen cita-cita anda (Format PDF, DOC, DOCX, PNG, JPG, JPEG - Maksimum 10MB):
             </p>
             <div class="form-group">
-                <div class="file-upload-box">
-                    <input type="file" id="fail_kerjaya" name="fail_kerjaya" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="form-control" style="border:none; background:transparent;">
-                    <small style="color:var(--text-muted); display:block; margin-top:8px;">
+                <div class="file-upload-box" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px 20px;">
+                    <input type="file" id="fail_kerjaya" name="fail_kerjaya" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="form-control" style="border:none; background:transparent; max-width:340px; margin:0 auto; text-align:center;">
+                    <small style="color:var(--text-muted); display:block; margin-top:12px; text-align:center;">
                         📌 Pilih fail dari peranti anda untuk dihantar kepada Guru Kaunseling.
                     </small>
                 </div>

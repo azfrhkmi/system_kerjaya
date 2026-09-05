@@ -132,38 +132,7 @@ require_once 'includes/header.php';
         </div>
     </section>
 
-    <!-- SEKSYEN 3: PETI EXPLORASI KERJAYA (RIASEC) INTERAKTIF -->
-    <section class="section-block">
-        <div class="riasec-container">
-            <div class="section-header" style="margin-bottom:20px;">
-                <h2 style="color:#1e1b4b">🔎 Peti Explorasi Kerjaya RIASEC</h2>
-                <p>Sila tekan butang di bawah untuk melihat maksud serta 5 pekerjaan yang sesuai dengan kecenderungan anda!</p>
-            </div>
-
-            <div class="riasec-buttons-wrapper">
-                <button type="button" class="riasec-btn riasec-btn-R" onclick="showRiasecDetail('R')">
-                    ⚙️ (R) Realistik
-                </button>
-                <button type="button" class="riasec-btn riasec-btn-I" onclick="showRiasecDetail('I')">
-                    🔬 (I) Investigatif
-                </button>
-                <button type="button" class="riasec-btn riasec-btn-S" onclick="showRiasecDetail('S')">
-                    💬 (S) Sosial
-                </button>
-                <button type="button" class="riasec-btn riasec-btn-E" onclick="showRiasecDetail('E')">
-                    💼 (E) Enterprising (Keusahawanan)
-                </button>
-                <button type="button" class="riasec-btn riasec-btn-K" onclick="showRiasecDetail('K')">
-                    📊 (K) Konvensional
-                </button>
-            </div>
-
-            <!-- Bekas Paparan Maklumat RIASEC -->
-            <div id="riasecDisplay" class="riasec-detail-display"></div>
-        </div>
-    </section>
-
-    <!-- SEKSYEN 4: SERTAI SOAL JAWAB (BOTTOM CTA) -->
+    <!-- SEKSYEN 3: SERTAI SOAL JAWAB (BOTTOM CTA) -->
     <section class="cta-banner">
         <h2>Adakah Anda Bersedia Terokai Cita-Cita Anda? 🌟</h2>
         <p>Isi borang soal jawab kerjaya sekarang untuk berkongsi minat dan luahan rasa bersama Guru Bimbingan & Kaunseling sekolah anda!</p>
