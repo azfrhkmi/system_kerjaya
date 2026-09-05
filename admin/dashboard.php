@@ -223,7 +223,7 @@ require_once '../includes/header.php';
                 <select name="tahun" class="form-control" style="width:130px; padding:8px 14px;">
                     <option value="">-- Semua Tahun --</option>
                     <?php foreach (['1','2','3','4','5','6','PPKI'] as $t): ?>
-                        <option value="<?php echo $t; ?>" <?php echo ($filter_tahun === $t) ? 'selected' : ''; ?>>Tahun <?php echo $t; ?></option>
+                        <option value="<?php echo $t; ?>" <?php echo ($filter_tahun === $t) ? 'selected' : ''; ?>><?php echo ($t === 'PPKI') ? 'PPKI' : 'Tahun ' . $t; ?></option>
                     <?php endforeach; ?>
                 </select>
 
@@ -273,7 +273,7 @@ require_once '../includes/header.php';
                                 <td style="font-family:monospace; color:#475569;">
                                     <?php echo htmlspecialchars($r['email']); ?>
                                 </td>
-                                <td><span class="badge badge-info">Tahun <?php echo htmlspecialchars($r['tahun']); ?></span></td>
+                                <td><span class="badge badge-info"><?php echo ($r['tahun'] === 'PPKI') ? 'PPKI' : 'Tahun ' . htmlspecialchars($r['tahun']); ?></span></td>
                                 <td><span class="badge badge-info"><?php echo htmlspecialchars($r['kelas']); ?></span></td>
                                 <td>
                                     <small style="font-weight:700; color:#6366f1;">

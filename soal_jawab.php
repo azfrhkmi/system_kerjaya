@@ -153,7 +153,7 @@ require_once 'includes/header.php';
                         <div class="option-box">
                             <input type="radio" id="tahun_<?php echo $t; ?>" name="tahun" value="<?php echo $t; ?>" required <?php echo ($selected_tahun === $t) ? 'checked' : ''; ?>>
                             <label class="option-label" for="tahun_<?php echo $t; ?>">
-                                Tahun <?php echo $t; ?>
+                                <?php echo ($t === 'PPKI') ? 'PPKI' : 'Tahun ' . $t; ?>
                             </label>
                         </div>
                     <?php endforeach; ?>
