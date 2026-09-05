@@ -336,6 +336,39 @@ h1, h2, h3, h4, h5, .font-heading {
     display: block;
 }
 
+/* GARDNER SELECT GRID - 3x3 UNIFORM KEMAS LAYOUT */
+.gardner-select-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.gardner-option-card {
+    min-height: 56px;
+    height: 100%;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.98rem;
+    font-weight: 700;
+    line-height: 1.35;
+    border-radius: var(--radius-md);
+    border: 2px solid #e2e8f0;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.option-box input:checked + .gardner-option-card {
+    background: linear-gradient(135deg, #e0e7ff, #fbcfe8);
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.25);
+}
+
 /* FILE UPLOAD BOX STYLING - CENTERED */
 .file-upload-box {
     border: 2px dashed #818cf8;
@@ -739,6 +772,11 @@ h1, h2, h3, h4, h5, .font-heading {
         padding: 12px 14px;
     }
 
+    .gardner-select-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
     .chart-grid {
         grid-template-columns: 1fr;
     }
@@ -752,6 +790,10 @@ h1, h2, h3, h4, h5, .font-heading {
     .hero-badge {
         font-size: 0.8rem;
         padding: 6px 12px;
+    }
+
+    .gardner-select-grid {
+        grid-template-columns: 1fr;
     }
 
     .option-grid {

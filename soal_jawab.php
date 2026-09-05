@@ -217,10 +217,10 @@ require_once 'includes/header.php';
             <!-- Bekas Paparan Detail Teori Howard Gardner -->
             <div id="gardnerDisplay" class="gardner-detail-display" style="margin-bottom:24px;"></div>
 
-            <!-- Penandaan Pilihan Murid -->
+            <!-- Penandaan Pilihan Murid (Susunan Kemas 3x3 Grid) -->
             <div class="form-group">
-                <label class="form-label">Tandakan Teori Kecerdasan Yang Paling Sesuai Dengan Anda (Boleh pilih lebih dari satu):</label>
-                <div class="option-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));">
+                <label class="form-label" style="margin-bottom:14px;">Tandakan Teori Kecerdasan Yang Paling Sesuai Dengan Anda (Boleh pilih lebih dari satu):</label>
+                <div class="gardner-select-grid">
                     <?php 
                     $gardner_list = [
                         'Verbal-Linguistik' => '📚 Verbal-Linguistik',
@@ -237,8 +237,8 @@ require_once 'includes/header.php';
                     ?>
                         <div class="option-box">
                             <input type="checkbox" id="check_<?php echo md5($code); ?>" name="gardner_pilihan[]" value="<?php echo $code; ?>">
-                            <label class="option-label" for="check_<?php echo md5($code); ?>">
-                                ✅ <?php echo $label; ?>
+                            <label class="option-label gardner-option-card" for="check_<?php echo md5($code); ?>">
+                                <span><?php echo $label; ?></span>
                             </label>
                         </div>
                     <?php endforeach; ?>
