@@ -11,7 +11,7 @@ require_once 'includes/header.php';
     </div>
     
     <h1 class="hero-title">
-        Terokai Minat & <span class="highlight">Bina Cita-Cita Impianmu!</span> 🚀
+        Terokai Minat & <span class="highlight">Bina Kerjaya Impian STEM!</span> 🚀
     </h1>
     
     <p class="hero-subtitle">

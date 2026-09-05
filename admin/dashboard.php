@@ -51,7 +51,7 @@ $total_kaunseling = $pdo->query("SELECT COUNT(*) FROM responses WHERE komen_stat
 $total_prs = $pdo->query("SELECT COUNT(*) FROM responses WHERE komen_status = 'Perlu bantuan PRS'")->fetchColumn();
 $total_puas = $pdo->query("SELECT COUNT(*) FROM responses WHERE komen_status = 'Berpuas hati'")->fetchColumn();
 
-// DATA STATISTIK UNTUK CARTA CARTA CHART.JS
+// DATA STATISTIK UNTUK CARTA CHART.JS
 // 1. Mengikut Kelas
 $kelas_stats_raw = $pdo->query("SELECT kelas, COUNT(*) as cnt FROM responses GROUP BY kelas")->fetchAll();
 $kelas_labels = [];
@@ -61,16 +61,7 @@ foreach ($kelas_stats_raw as $r) {
     $kelas_counts[] = (int)$r['cnt'];
 }
 
-// 2. Mengikut Tahun
-$tahun_stats_raw = $pdo->query("SELECT tahun, COUNT(*) as cnt FROM responses GROUP BY tahun ORDER BY tahun ASC")->fetchAll();
-$tahun_labels = [];
-$tahun_counts = [];
-foreach ($tahun_stats_raw as $r) {
-    $tahun_labels[] = "Tahun " . $r['tahun'];
-    $tahun_counts[] = (int)$r['cnt'];
-}
-
-// 3. Mengikut Komen Status
+// 2. Mengikut Status Komen
 $komen_stats_raw = $pdo->query("SELECT komen_status, COUNT(*) as cnt FROM responses GROUP BY komen_status")->fetchAll();
 $komen_labels = [];
 $komen_counts = [];
@@ -171,7 +162,7 @@ require_once '../includes/header.php';
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:20px;">
             <div>
                 <h3 style="font-size:1.4rem; color:#1e1b4b;">📑 Senarai Rekod Jawapan Murid</h3>
-                <p style="color:var(--text-muted); font-size:0.9rem;">Klik butang "Lihat Jawapan" untuk membaca luahan rasa & minat RIASEC terperinci.</p>
+                <p style="color:var(--text-muted); font-size:0.9rem;">Klik butang "Lihat Jawapan" untuk membaca luahan rasa, Teori Howard Gardner & fail muat naik.</p>
             </div>
             
             <!-- BORANG TAPISAN & CARIAN -->
@@ -212,7 +203,8 @@ require_once '../includes/header.php';
                         <th>E-mel (Primary Key)</th>
                         <th>Tahun</th>
                         <th>Kelas</th>
-                        <th>RIASEC Pilihan</th>
+                        <th>Kecerdasan Howard</th>
+                        <th>Fail Kerjaya</th>
                         <th>Status Maklum Balas</th>
                         <th>Tindakan</th>
                     </tr>
@@ -239,6 +231,15 @@ require_once '../includes/header.php';
                                     </small>
                                 </td>
                                 <td>
+                                    <?php if (!empty($r['fail_kerjaya'])): ?>
+                                        <a href="../<?php echo htmlspecialchars($r['fail_kerjaya']); ?>" target="_blank" class="badge badge-success" style="text-decoration:none;">
+                                            📁 Muat Turun
+                                        </a>
+                                    <?php else: ?>
+                                        <span class="badge badge-info" style="background:#f1f5f9; color:#94a3b8;">Tiada Fail</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
                                     <?php 
                                     if ($r['komen_status'] === 'Ingin berjumpa guru bimbingan dan kaunseling') {
                                         echo '<span class="badge badge-danger">⚠️ Sesi Kaunseling</span>';
@@ -258,7 +259,7 @@ require_once '../includes/header.php';
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="9" style="text-align:center; padding:30px; color:var(--text-muted);">
+                            <td colspan="10" style="text-align:center; padding:30px; color:var(--text-muted);">
                                 📭 Tiada rekod jawapan murid ditemui bagi tapisan ini.
                             </td>
                         </tr>
@@ -338,6 +339,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function viewStudentDetail(data) {
     document.getElementById('modalStudentTitle').innerText = "📋 Jawapan: " + data.nama;
     
+    let failLink = '<span style="color:#94a3b8;">Tiada fail dimuat naik.</span>';
+    if (data.fail_kerjaya) {
+        failLink = `<a href="../${data.fail_kerjaya}" target="_blank" style="background:#10b981; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-weight:700; display:inline-block; margin-top:4px;">📥 Buka / Muat Turun Fail Kerjaya</a>`;
+    }
+
     const content = `
         <div style="background:#f8fafc; padding:16px; border-radius:12px; border:1px solid #e2e8f0;">
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:0.95rem;">
@@ -349,10 +355,15 @@ function viewStudentDetail(data) {
         </div>
 
         <div>
-            <h4 style="color:#1e1b4b; font-size:1.1rem; margin-bottom:6px;">🎁 Kategori RIASEC Pilihan:</h4>
+            <h4 style="color:#1e1b4b; font-size:1.1rem; margin-bottom:6px;">🧠 Kecerdasan Pelbagai Howard Gardner:</h4>
             <div style="background:#e0e7ff; color:#3730a3; padding:12px; border-radius:10px; font-weight:700;">
                 ${data.riasec_pilihan ? data.riasec_pilihan : 'Tiada pilihan dibuat.'}
             </div>
+        </div>
+
+        <div>
+            <h4 style="color:#1e1b4b; font-size:1.1rem; margin-bottom:6px;">📁 Fail Kerjaya Murid (Upload):</h4>
+            <div>${failLink}</div>
         </div>
 
         <div>

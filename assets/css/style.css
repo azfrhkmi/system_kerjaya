@@ -264,56 +264,64 @@ h1, h2, h3, h4, h5, .font-heading {
     line-height: 1.5;
 }
 
-/* RIASEC SECTION */
-.riasec-container {
-    background: linear-gradient(135deg, #eff6ff, #f0fdf4);
+/* HOWARD GARDNER INTERACTIVE BUTTONS SECTION */
+.gardner-interactive-container {
+    background: linear-gradient(135deg, #f0fdf4, #eff6ff);
     border-radius: 24px;
     padding: 30px 20px;
-    border: 2px dashed #a5b4fc;
+    border: 2px dashed #818cf8;
 }
 
-.riasec-buttons-wrapper {
+.gardner-buttons-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     margin-top: 20px;
 }
 
-.riasec-btn {
-    padding: 14px 22px;
+.gardner-btn {
+    padding: 12px 20px;
     border-radius: var(--radius-md);
     font-family: var(--font-heading);
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
-    border: 3px solid transparent;
+    border: 2px solid transparent;
     cursor: pointer;
     transition: all 0.25s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
 }
 
-.riasec-btn-R { background: #fee2e2; color: #dc2626; border-color: #fca5a5; }
-.riasec-btn-I { background: #e0f2fe; color: #0284c7; border-color: #7dd3fc; }
-.riasec-btn-S { background: #fef3c7; color: #d97706; border-color: #fcd34d; }
-.riasec-btn-E { background: #f3e8ff; color: #9333ea; border-color: #d8b4fe; }
-.riasec-btn-K { background: #dcfce7; color: #16a34a; border-color: #86efac; }
+.gardner-btn-verbal { background: #dbeafe; color: #1d4ed8; border-color: #93c5fd; }
+.gardner-btn-logik { background: #e0e7ff; color: #4338ca; border-color: #a5b4fc; }
+.gardner-btn-visual { background: #fce7f3; color: #be185d; border-color: #f9a8d4; }
+.gardner-btn-kinestetik { background: #fee2e2; color: #b91c1c; border-color: #fca5a5; }
+.gardner-btn-muzik { background: #ede9fe; color: #6d28d9; border-color: #c4b5fd; }
+.gardner-btn-interpersonal { background: #fef3c7; color: #b45309; border-color: #fcd34d; }
+.gardner-btn-intrapersonal { background: #ccfbf1; color: #0f766e; border-color: #5eead4; }
+.gardner-btn-naturalis { background: #d1fae5; color: #047857; border-color: #6ee7b7; }
+.gardner-btn-eksistensial { background: #f1f5f9; color: #334155; border-color: #cbd5e1; }
 
-.riasec-btn:hover, .riasec-btn.active {
+.gardner-btn:hover, .gardner-btn.active {
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
-.riasec-btn-R:hover, .riasec-btn-R.active { background: #dc2626; color: white; }
-.riasec-btn-I:hover, .riasec-btn-I.active { background: #0284c7; color: white; }
-.riasec-btn-S:hover, .riasec-btn-S.active { background: #d97706; color: white; }
-.riasec-btn-E:hover, .riasec-btn-E.active { background: #9333ea; color: white; }
-.riasec-btn-K:hover, .riasec-btn-K.active { background: #16a34a; color: white; }
+.gardner-btn-verbal:hover, .gardner-btn-verbal.active { background: #1d4ed8; color: white; }
+.gardner-btn-logik:hover, .gardner-btn-logik.active { background: #4338ca; color: white; }
+.gardner-btn-visual:hover, .gardner-btn-visual.active { background: #be185d; color: white; }
+.gardner-btn-kinestetik:hover, .gardner-btn-kinestetik.active { background: #b91c1c; color: white; }
+.gardner-btn-muzik:hover, .gardner-btn-muzik.active { background: #6d28d9; color: white; }
+.gardner-btn-interpersonal:hover, .gardner-btn-interpersonal.active { background: #b45309; color: white; }
+.gardner-btn-intrapersonal:hover, .gardner-btn-intrapersonal.active { background: #0f766e; color: white; }
+.gardner-btn-naturalis:hover, .gardner-btn-naturalis.active { background: #047857; color: white; }
+.gardner-btn-eksistensial:hover, .gardner-btn-eksistensial.active { background: #334155; color: white; }
 
-.riasec-detail-display {
+.gardner-detail-display {
     margin-top: 24px;
     background: white;
     border-radius: var(--radius-lg);
@@ -324,8 +332,23 @@ h1, h2, h3, h4, h5, .font-heading {
     animation: fadeIn 0.35s ease;
 }
 
-.riasec-detail-display.active {
+.gardner-detail-display.active {
     display: block;
+}
+
+/* FILE UPLOAD BOX STYLING */
+.file-upload-box {
+    border: 2px dashed #818cf8;
+    background: #f5f3ff;
+    padding: 24px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    transition: all 0.25s ease;
+}
+
+.file-upload-box:hover {
+    border-color: var(--primary);
+    background: #ede9fe;
 }
 
 /* BIG CTA BUTTON AT BOTTOM */
@@ -656,7 +679,6 @@ h1, h2, h3, h4, h5, .font-heading {
    MEDIA QUERIES (Sokongan Telefon Bimbit & Tablet)
    ========================================================= */
 
-/* Tablet & Telefon (max-width: 768px) */
 @media (max-width: 768px) {
     .navbar {
         padding: 10px 16px;
@@ -701,10 +723,10 @@ h1, h2, h3, h4, h5, .font-heading {
         padding: 24px 16px;
     }
 
-    .riasec-btn {
+    .gardner-btn {
         width: 100%;
-        font-size: 1rem;
-        padding: 12px 16px;
+        font-size: 0.95rem;
+        padding: 12px 14px;
     }
 
     .chart-grid {
@@ -712,7 +734,6 @@ h1, h2, h3, h4, h5, .font-heading {
     }
 }
 
-/* Telefon Kecil (max-width: 480px) */
 @media (max-width: 480px) {
     .hero-title {
         font-size: 1.8rem;

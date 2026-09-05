@@ -60,7 +60,7 @@ require_once 'includes/header.php';
             Mari Isi <span class="highlight">Maklumat Kerjaya Anda</span>
         </h1>
         <p style="color:var(--text-muted); font-size:1.1rem; max-width:650px; margin:0 auto;">
-            Sawab soalan di bawah dengan jujur untuk membantu kami mengenali minat dan cita-cita anda!
+            Jawab soalan di bawah dengan jujur untuk membantu kami mengenali minat dan cita-cita anda!
         </p>
     </div>
 

@@ -27,6 +27,13 @@ try {
     if ($table_check === 0 && file_exists(__DIR__ . '/../database.sql')) {
         $sql_schema = file_get_contents(__DIR__ . '/../database.sql');
         $pdo->exec($sql_schema);
+    } else {
+        // Pastikan lajur fail_kerjaya wujud
+        try {
+            $pdo->exec("ALTER TABLE `responses` ADD COLUMN `fail_kerjaya` VARCHAR(255) NULL AFTER `riasec_pilihan`");
+        } catch (Exception $e_col) {
+            // Abaikan jika lajur sudah wujud
+        }
     }
 
 } catch (Exception $e_mysql) {
@@ -58,6 +65,7 @@ try {
                 kelas TEXT NOT NULL,
                 luahan_rasa TEXT NULL,
                 riasec_pilihan TEXT NULL,
+                fail_kerjaya TEXT NULL,
                 komen_status TEXT NOT NULL,
                 submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP
             );
@@ -72,6 +80,13 @@ try {
             );
         ");
 
+        // Semak lajur fail_kerjaya dalam SQLite
+        try {
+            $pdo->exec("ALTER TABLE responses ADD COLUMN fail_kerjaya TEXT NULL");
+        } catch (Exception $e_sqcol) {
+            // Abaikan jika lajur wujud
+        }
+
         // Seed data akaun asas jika SQLite masih kosong
         $count_user = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
         if ($count_user == 0) {
@@ -84,9 +99,9 @@ try {
 
             // Sample responses
             $stmt_r = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt_r->execute(['adam.haris@student.edu.my', 'Adam Haris bin Azman', '6', 'Bestari', 'Saya suka membaiki mainan dan basikal. Cita-cita nak jadi Jurutera!', 'R (Realistik), I (Investigatif)', 'Berpuas hati']);
-            $stmt_r->execute(['nur.sara@student.edu.my', 'Nur Sara Damia', '5', 'Amanah', 'Saya suka membantu kawan-kawan yang sedih. Ingin jadi Guru!', 'S (Sosial)', 'Berpuas hati']);
-            $stmt_r->execute(['daniel.hakim@student.edu.my', 'Daniel Hakim', '3', 'Efektif', 'Saya rasa kurang berkeyakinan di kelas.', 'R (Realistik)', 'Ingin berjumpa guru bimbingan dan kaunseling']);
+            $stmt_r->execute(['adam.haris@student.edu.my', 'Adam Haris bin Azman', '6', 'Bestari', 'Saya suka membaiki mainan dan basikal. Cita-cita nak jadi Jurutera!', 'Logik-Matematik, Kinestetik', 'Berpuas hati']);
+            $stmt_r->execute(['nur.sara@student.edu.my', 'Nur Sara Damia', '5', 'Amanah', 'Saya suka membantu kawan-kawan yang sedih. Ingin jadi Guru!', 'Interpersonal, Verbal-Linguistik', 'Berpuas hati']);
+            $stmt_r->execute(['daniel.hakim@student.edu.my', 'Daniel Hakim', '3', 'Efektif', 'Saya rasa kurang berkeyakinan di kelas.', 'Kinestetik, Naturalis', 'Ingin berjumpa guru bimbingan dan kaunseling']);
         }
 
     } catch (Exception $e_sqlite) {
