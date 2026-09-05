@@ -92,11 +92,7 @@ require_once 'includes/header.php';
 
             </form>
 
-            <div style="margin-top:25px; background:#f8fafc; border-radius:var(--radius-md); padding:14px; text-align:left; font-size:0.85rem; color:#64748b; border:1px solid #e2e8f0;">
-                <strong style="color:#334155; display:block; margin-bottom:4px;">💡 Demo Log Masuk Awalan:</strong>
-                <div>• <strong>Superadmin:</strong> superadmin@kerjaya.edu.my (super123)</div>
-                <div>• <strong>Admin Guru:</strong> admin@kerjaya.edu.my (admin123)</div>
-            </div>
+            
 
         </div>
 
