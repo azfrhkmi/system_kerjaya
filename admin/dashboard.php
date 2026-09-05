@@ -355,7 +355,7 @@ function viewStudentDetail(data) {
         </div>
 
         <div>
-            <h4 style="color:#1e1b4b; font-size:1.1rem; margin-bottom:6px;">🧠 Kecerdasan Pelbagai Howard Gardner:</h4>
+            <h4 style="color:#1e1b4b; font-size:1.1rem; margin-bottom:6px;">🎁 Kecerdasan Pelbagai Howard Gardner:</h4>
             <div style="background:#e0e7ff; color:#3730a3; padding:12px; border-radius:10px; font-weight:700;">
                 ${data.riasec_pilihan ? data.riasec_pilihan : 'Tiada pilihan dibuat.'}
             </div>

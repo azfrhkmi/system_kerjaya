@@ -196,7 +196,7 @@ require_once 'includes/header.php';
 
             <!-- BAHAGIAN C: PETI EXPLORASI KECERDASAN PELBAGAI (TEORI HOWARD GARDNER) -->
             <h3 style="font-size:1.4rem; color:var(--accent-purple); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                🧠 (c) Peti Explorasi Kecerdasan Pelbagai (Teori Howard Gardner)
+                🎁 (c) Peti Explorasi Kecerdasan Pelbagai (Teori Howard Gardner)
             </h3>
             <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:18px;">
                 Tekan mana-mana butang di bawah untuk membaca penerangan maksud & 5 pekerjaan yang sesuai, kemudian tandakan kategori kecerdasan pilihan anda!

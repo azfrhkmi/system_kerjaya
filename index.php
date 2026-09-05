@@ -60,7 +60,7 @@ require_once 'includes/header.php';
     <!-- SEKSYEN 2: TEORI HOWARD GARDNER (9 KECERDASAN PELBAGAI) -->
     <section class="section-block">
         <div class="section-header">
-            <h2>🧠 Teori Kecerdasan Pelbagai Howard Gardner</h2>
+            <h2>🎁 Teori Kecerdasan Pelbagai Howard Gardner</h2>
             <p>Terdapat 9 jenis kecerdasan pelbagai yang diguna pakai dalam sistem pendidikan:</p>
         </div>
 

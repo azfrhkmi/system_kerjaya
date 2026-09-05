@@ -6,7 +6,6 @@
 <button id="aiFabBtn" class="ai-fab-btn" onclick="toggleAiChat()" title="Tanya AI Kerjaya & Jana Gambar!">
     <span class="ai-fab-icon">🤖</span>
     <span class="ai-fab-text">Tanya AI Kerjaya</span>
-    <span class="ai-fab-badge">PERCUMA</span>
 </button>
 
 <!-- TETINGKAP CHAT AI -->
@@ -51,7 +50,7 @@
             🚀 Apa itu Kerjaya STEM?
         </button>
         <button type="button" class="prompt-chip" onclick="sendQuickPrompt('Apakah 9 jenis kecerdasan pelbagai Teori Howard Gardner?')">
-            🧠 Terangkan Teori Howard Gardner
+            🎁 Terangkan Teori Howard Gardner
         </button>
     </div>
 
@@ -62,7 +61,7 @@
             <button type="submit" id="aiSendBtn" class="ai-send-btn">🚀 Hantar</button>
         </form>
         <div style="text-align:center; margin-top:6px; font-size:0.75rem; color:#94a3b8;">
-            ⚡ Dikuasai oleh AI Kerjaya Cherita • Jana Gambar & Penerangan Percuma
+            ⚡ Dikuasai oleh AI Kerjaya Cherita • Jana Gambar & Penerangan Cita-Cita
         </div>
     </div>
 
