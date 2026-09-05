@@ -9,11 +9,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($page_title) ? htmlspecialchars($page_title) . " - " : ""; ?>Sistem Penerokaan Kerjaya Cherita</title>
+    <title><?php echo isset($page_title) ? htmlspecialchars($page_title) . " - " : ""; ?>Sistem Penerokaan Kerjaya Impianku</title>
     
     <!-- Meta SEO & Mobile Viewport -->
-    <meta name="description" content="Sistem Penerokaan Kerjaya Cherita Sekolah Rendah berdasarkan Teori Howard Gardner.">
-    <meta name="author" content="Sistem Kerjaya Cherita Sekolah Rendah">
+    <meta name="description" content="Sistem Penerokaan Kerjaya Interaktif Sekolah Rendah berdasarkan Teori Howard Gardner dan RIASEC.">
+    <meta name="author" content="Sistem Kerjaya Sekolah Rendah">
     <meta name="theme-color" content="#6366f1">
 
     <!-- CSS & Fonts -->

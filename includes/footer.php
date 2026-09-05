@@ -13,6 +13,10 @@
         </div>
     </footer>
 
+    <!-- AI CHAT WIDGET & SCRIPT -->
+    <?php require_once __DIR__ . '/ai_chat_widget.php'; ?>
+    <script src="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../assets/js/ai_chat.js' : 'assets/js/ai_chat.js'; ?>"></script>
+
     <!-- JS Scripts -->
     <script src="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../assets/js/main.js' : 'assets/js/main.js'; ?>"></script>
 </body>
