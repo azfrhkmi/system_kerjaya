@@ -104,15 +104,27 @@ async function processAiImageGeneration(userText, loadingId) {
 // LOGIK JAWAPAN DINAMIK AI KERJAYA (DINAMIK & BEBAS UNTUK APA SAHAJA SOALAN)
 async function processAiTextAnswer(userText, loadingId) {
     try {
-        // Panggil Enjin Pemprosesan AI Dinamik
-        const aiAnswer = generateDynamicAiResponse(userText);
+        const pathPrefix = (window.location.pathname.includes('/admin/')) ? '../' : '';
+        const response = await fetch(pathPrefix + 'api_ai.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: userText })
+        });
         
-        removeLoadingBubble(loadingId);
-        appendMessage('ai', aiAnswer, true);
+        if (response.ok) {
+            const data = await response.json();
+            removeLoadingBubble(loadingId);
+            if (data && data.reply) {
+                appendMessage('ai', data.reply, true);
+                return;
+            }
+        }
+        throw new Error('API Response Error');
 
     } catch (err) {
         removeLoadingBubble(loadingId);
-        appendMessage('ai', "⚠️ Maaf, Pembantu AI mengalami ralat sambungan. Sila cuba lagi.", false);
+        const aiAnswer = generateDynamicAiResponse(userText);
+        appendMessage('ai', aiAnswer, true);
     }
 }
 
