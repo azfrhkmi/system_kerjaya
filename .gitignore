@@ -1,0 +1,8 @@
+# Temporary & Log files
+*.log
+.DS_Store
+Thumbs.db
+
+# Vendor & IDE
+.vscode/
+.idea/
