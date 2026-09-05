@@ -13,7 +13,6 @@ if (empty($prompt)) {
 
 // Semak jika ada API Key luaran (Groq, Gemini, OpenRouter)
 $ai_reply = null;
-
 $groq_key = getenv('GROQ_API_KEY');
 $gemini_key = getenv('GEMINI_API_KEY');
 
@@ -107,7 +106,7 @@ function callGeminiApi($prompt, $apiKey) {
     return null;
 }
 
-// ENJIN AI KERJAYA PINTAR & FLEKSIBEL (HUMAN-LIKE RESPONSE ENGINE)
+// ENJIN AI KERJAYA UNIVERSAL & KOMPREHENSIF (UNTUK SEMUA PEKERJAAN DI DUNIA)
 function generateHumanLikeAiResponse($userQuery) {
     $raw = trim($userQuery);
     $lower = strtolower($raw);
@@ -131,7 +130,7 @@ function generateHumanLikeAiResponse($userQuery) {
     // KERJAYA STEM
     if (strpos($lower, 'stem') !== false) {
         return "🚀 <strong>Dunia Kerjaya STEM (Sains, Teknologi, Kejuruteraan & Matematik):</strong><br><br>" .
-               "STEM ialah bidang masa depan yang sangat menarik kerana ia membina peradaban moden!<br><br>" .
+               "STEM ialah bidang masa depan yang sangat penting kerana ia membina peradaban moden!<br><br>" .
                "🌟 <strong>Pekerjaan Hebat Dalam Bidang STEM:</strong><br>" .
                "• 👨‍💻 <strong>Jurutera Perisian / AI</strong>: Mencipta sistem komputer & kecerdasan buatan.<br>" .
                "• 🤖 <strong>Jurutera Robotik</strong>: Membina robot automatik untuk membantu manusia.<br>" .
@@ -140,155 +139,90 @@ function generateHumanLikeAiResponse($userQuery) {
                "💡 <em>Petua Sukses:</em> Rajin belajar subjek Sains dan Matematik di sekolah!";
     }
 
-    // DATABASE KERJAYA LENGKAP & TERPERINCI
-    $jobs = [
-        'askar' => [
-            'name' => 'Askar / Pegawai Tentera (Angkatan Tentera Malaysia)',
-            'icon' => '🪖',
-            'desc' => 'Askar ialah wira perwira tanah air yang bertindak mempertahankan kedaulatan, keamanan, dan keselamatan negara daripada sebarang ancaman musuh.',
-            'duties' => [
-                '🛡️ <strong>Mempertahankan Sempadan Negara</strong>: Mengawal sempadan darat, laut, dan udara 24 jam sehari.',
-                '🚁 <strong>Misi Penyelamat & Bencana</strong>: Membantu memindahkan mangsa banjir, kemalangan, dan situasi kecemasan.',
-                '🎯 <strong>Latihan Ketenteraan</strong>: Menjalankan latihan menembak, perancangan taktik, dan ketahanan fizikal.',
-                '🌐 3 Cabang Utama: <strong>Tentera Darat (TDM)</strong>, <strong>Tentera Laut (TLDM)</strong>, dan <strong>Tentera Udara (TUDM)</strong>.'
-            ],
-            'skills' => 'Kecergasan Fizikal & Mental, Disiplin Tinggi, Keberanian, serta menguasai Sains, Matematik & Bahasa Inggeris.'
-        ],
-        'tentera' => [
-            'name' => 'Pegawai Tentera / Askar',
-            'icon' => '🪖',
-            'desc' => 'Tentera ialah perwira negara yang menjaga ketenteraman dan kedaulatan tanah air.',
-            'duties' => [
-                '🛡️ Menjaga keselamatan sempadan tanah air.',
-                '⚓ Mengawal perairan negara dengan kapal perang (TLDM).',
-                '✈️ Mengawal ruang udara dengan jet pejuang (TUDM).'
-            ],
-            'skills' => 'Disiplin, Keberanian, Kecergasan Fizikal, Sains & Matematik.'
-        ],
-        'doktor' => [
-            'name' => 'Doktor Perubatan / Pakar Kesihatan',
-            'icon' => '🩺',
-            'desc' => 'Doktor ialah wira kesihatan yang merawat orang sakit, mendiagnosis penyakit, dan menyelamatkan nyawa manusia.',
-            'duties' => [
-                '🩺 <strong>Memeriksa Pesakit</strong>: Mendengar aduan kesihatan & melakukan ujian kesihatan.',
-                '💊 <strong>Preskripsi Ubat & Rawatan</strong>: Memberikan ubat yang betul dan prosedur rawatan.',
-                '🏥 <strong>Pembedahan & Kecemasan</strong>: Membantu pesakit yang mengalami kesakitan serius di hospital.'
-            ],
-            'skills' => 'Menguasai Sains, Biologi, Kimia, Bahasa Inggeris & Mempunyai sifat penyayang.'
-        ],
-        'jurutera' => [
-            'name' => 'Jurutera (Engineer)',
-            'icon' => '⚙️',
-            'desc' => 'Jurutera ialah pereka binaan dan teknologi yang mereka cipta mesin, perisian, jambatan, dan bangunan canggih.',
-            'duties' => [
-                '🏢 <strong>Jurutera Awam</strong>: Merancang binaan bangunan tinggi, jambatan & jalan raya.',
-                '🤖 <strong>Jurutera Robotik & Perisian</strong>: Membina sistem mesin automatik & aplikasi.',
-                '⚡ <strong>Jurutera Elektrik</strong>: Merancang bekalan tenaga & litar elektronik.'
-            ],
-            'skills' => 'Matematik, Fizik, Kemahiran Mengod (Coding) & Pemikiran Kritis.'
-        ],
-        'polis' => [
-            'name' => 'Pegawai Polis (Polis Diraja Malaysia)',
-            'icon' => '👮‍♂️',
-            'desc' => 'Polis ialah penguat kuasa undang-undang yang menjaga keamanan awam dan mencegah jenayah dalam masyarakat.',
-            'duties' => [
-                '🚔 <strong>Rondaan Keselamatan</strong>: Memastikan kawasan perumahan & bandar selamat.',
-                '🔍 <strong>Memburu Penjenayah</strong>: Menyelidik & menangkap pesalah undang-undang.',
-                '🚦 <strong>Mengawal Lalu Lintas</strong>: Memastikan laluan jalan raya lancar & selamat.'
-            ],
-            'skills' => 'Disiplin, Ketegasan, Pendidikan Moral/Islam, Kesihatan & Sukan.'
-        ],
-        'bomba' => [
-            'name' => 'Anggota Bomba & Penyelamat',
-            'icon' => '👨‍🚒',
-            'desc' => 'Bomba ialah wira penyelamat yang memadamkan kebakaran dan membantu orang awam semasa kecemasan.',
-            'duties' => [
-                '🔥 <strong>Memadamkan Kebakaran</strong>: Menyelamatkan bangunan & nyawa daripada api.',
-                '🌊 <strong>Misi Penyelamat Air & Kemalangan</strong>: Membantu mangsa lemas & terperangkap.',
-                '🐍 <strong>Khidmat Khas</strong>: Menangkap haiwan berbisa berbahaya di kediaman.'
-            ],
-            'skills' => 'Keberanian Tinggi, Pertolongan Cemas, Kecergasan Fizikal & Sains Dasar.'
-        ],
-        'pilot' => [
-            'name' => 'Juruterbang (Pilot)',
-            'icon' => '👨‍✈️',
-            'desc' => 'Juruterbang ialah pengemudi pesawat udara yang membawa penumpang dan kargo merentasi ruang udara dunia.',
-            'duties' => [
-                '🛫 <strong>Mengawal Penerbangan</strong>: Menerbangkan pesawat dari berlepas hingga mendarat dengan selamat.',
-                '🗺️ <strong>Semakan Navigasi & Cuaca</strong>: Merancang laluan udara yang selamat bersama menara kawalan.',
-                '👨‍✈️ <strong>Keselamatan Penumpang</strong>: Memastikan semua sistem kapal terbang berfungsi sempurna.'
-            ],
-            'skills' => 'Matematik, Fizik, Bahasa Inggeris Komunikasi & Penglihatan Tajam.'
-        ],
-        'guru' => [
-            'name' => 'Guru / Pendidik / Cikgu',
-            'icon' => '👨‍🏫',
-            'desc' => 'Guru ialah penyampai ilmu dan pembimbing insan yang mendidik generasi muda menjadi manusia berguna.',
-            'duties' => [
-                '📚 <strong>Mengajar Subjek Akademik</strong>: Menyampaikan pelajaran di dalam kelas dengan menarik.',
-                '❤️ <strong>Membimbing Sahsiah</strong>: Membentuk akhlak, disiplin & emosi murid.',
-                '🎨 <strong>Menganjurkan Aktiviti</strong>: Memimpin kelab, sukan & persatuan sekolah.'
-            ],
-            'skills' => 'Verbal-Linguistik, Interpersonal, Kesabaran & Penguasaan Ilmu Subjek.'
-        ],
-        'chef' => [
-            'name' => 'Chef / Tukang Masak Profesion',
-            'icon' => '👨‍🍳',
-            'desc' => 'Chef ialah pakar kulinari yang merancang menu, mencipta resipi lazat, dan menyajikan hidangan menarik.',
-            'duties' => [
-                '🍳 <strong>Memasak Hidangan</strong>: Menyediakan makanan lazat dengan teknik memasak profesional.',
-                '🥗 <strong>Rekabentuk Menu</strong>: Mencipta gubahan makanan sihat & menarik.',
-                '🧹 <strong>Kebersihan Dapur</strong>: Memastikan piawaian kebersihan makanan berada di tahap tertinggi.'
-            ],
-            'skills' => 'Kreativiti Kulinari, Deria Rasa Peka, Sains Makanan & Kerja Berpasukan.'
-        ],
-        'pelukis' => [
-            'name' => 'Pelukis / Pereka Seni / Animator',
-            'icon' => '🎨',
-            'desc' => 'Pelukis & animator ialah pengkarya visual yang menghasilkan lukisan, seni grafik 2D/3D, dan komik.',
-            'duties' => [
-                '🖌️ <strong>Menghasilkan Karya Seni</strong>: Melukis watak komik, pemandangan, dan ilustrasi digital.',
-                '🎬 <strong>Animasi Kartun & Filem</strong>: Membina pergerakan watak animasi 3D.',
-                '📱 <strong>Pereka Grafik</strong>: Merancang visual iklan & media sosial.'
-            ],
-            'skills' => 'Visual-Ruang, Daya Imaginasi Tinggi, Pendidikan Seni Visual & Alatan Digital.'
-        ],
-        'saintis' => [
-            'name' => 'Ahli Sains (Scientist)',
-            'icon' => '🔬',
-            'desc' => 'Saintis ialah penyelidik alam semula jadi yang menjalankan ujian makmal untuk menerokai rahsia sains.',
-            'duties' => [
-                '🧪 <strong>Eksperimen Makmal</strong>: Menjalankan ujian bahan kimia, biologi, dan fizik.',
-                '💊 <strong>Penemuan Ubat & Teknologi</strong>: Mencari ubat baharu untuk menyembuhkan penyakit.',
-                '📊 <strong>Analisis Data Sains</strong>: Menulis penemuan baharu untuk dikongsi bersama dunia.'
-            ],
-            'skills' => 'Sains, Kimia, Biologi, Fizik & Sikap Ingin Tahu Yang Tinggi.'
-        ]
+    // PENGKALAN DATA PEKERJAAN UNIVERSAL (DARI SEECIL-KECIL HINGGA SEBESAR-BESAR PEKERJAAN DI DUNIA)
+    $jobDatabase = [
+        // 1. KESELAMATAN & PERKHIDMATAN AWAM
+        'askar' => [ 'name' => 'Askar / Pegawai Tentera', 'icon' => '🪖', 'desc' => 'Wira perwira yang mempertahankan kedaulatan, sempadan darat/laut/udara, dan keselamatan negara.', 'duties' => ['Mempertahankan sempadan tanah air.', 'Misi penyelamat semasa bencana banjir/kemalangan.', 'Latihan ketahanan fizikal & perancangan taktik.'], 'skills' => 'Disiplin Tinggi, Keberanian, Kesihatan Fizikal, Sains & Matematik.' ],
+        'tentera' => [ 'name' => 'Pegawai Tentera (TDM / TLDM / TUDM)', 'icon' => '🪖', 'desc' => 'Menjaga kedaulatan tanah air di darat, laut, dan udara.', 'duties' => ['Rondaan sempadan negara.', 'Mengendalikan aset pertahanan seperti jet pejuang & kapal perang.', 'Menjaga ketenteraman awam.'], 'skills' => 'Kecergasan Mental & Fizikal, Patriotisme.' ],
+        'polis' => [ 'name' => 'Pegawai Polis (PDRM)', 'icon' => '👮‍♂️', 'desc' => 'Penguat kuasa undang-undang yang menjaga keamanan awam dan mencegah jenayah.', 'duties' => ['Rondaan pencegahan jenayah di perumahan.', 'Memburu & menyiasat penjenayah.', 'Mengawal trafik di jalan raya.'], 'skills' => 'Disiplin, Undang-Undang Dasar, Kesihatan & Sukan.' ],
+        'bomba' => [ 'name' => 'Anggota Bomba & Penyelamat', 'icon' => '👨‍🚒', 'desc' => 'Penyelamat kecemasan yang memadamkan kebakaran dan menyelamatkan mangsa bahaya.', 'duties' => ['Memadamkan kebakaran bangunan & hutan.', 'Penyelamat mangsa kemalangan & lemas.', 'Tindakan haiwan berbisa.'], 'skills' => 'Keberanian, Pertolongan Cemas, Kecergasan Fizikal.' ],
+        'pengawal' => [ 'name' => 'Pengawal Keselamatan (Security Guard)', 'icon' => '🛡️', 'desc' => 'Menjaga keselamatan premis sekolah, bank, dan kawasan kediaman.', 'duties' => ['Memeriksa pelawat yang keluar masuk.', 'Rondaan waktu malam di premis.', 'Memastikan kunci & sistem keselamatan terjaga.'], 'skills' => 'Kewaspadaan, Kejujuran & Disiplin.' ],
+
+        // 2. KESIHATAN & RAWATAN
+        'doktor' => [ 'name' => 'Doktor Perubatan', 'icon' => '🩺', 'desc' => 'Pakar kesihatan yang merawat pesakit dan mendiagnosis penyakit.', 'duties' => ['Memeriksa pesakit & memberi ubat.', 'Melakukan pembedahan kecemasan.', 'Memberi nasihat gaya hidup sihat.'], 'skills' => 'Sains, Biologi, Kimia, Bahasa Inggeris & Penyayang.' ],
+        'jururawat' => [ 'name' => 'Jururawat (Nurse)', 'icon' => '💉', 'desc' => 'Wira penyayang yang menjaga pesakit di hospital dan klinik.', 'duties' => ['Menjaga pesakit di wad.', 'Memberikan suntikan ubat & menyuci luka.', 'Membantu doktor di bilik bedah.'], 'skills' => 'Sains Kesihatan, Empati & Kesabaran.' ],
+        'gigi' => [ 'name' => 'Doktor Gigi (Dentist)', 'icon' => '🦷', 'desc' => 'Pakar perubatan yang merawat kesihatan gigi dan mulut.', 'duties' => ['Merawat gigi berlubang & mencabut gigi rosak.', 'Memasang pendakap gigi (braces).', 'Membersihkan plak & karang gigi.'], 'skills' => 'Sains, Ketelitian Tangan & Kemahiran Komunikasi.' ],
+        'veterinar' => [ 'name' => 'Doktor Haiwan (Veterinar)', 'icon' => '🐾', 'desc' => 'Pakar perubatan yang merawat haiwan peliharaan dan ternakan.', 'duties' => ['Merawat kucing, anjing & haiwan ternakan yang sakit.', 'Suntikan vaksin haiwan.', 'Pembedahan haiwan kecemasan.'], 'skills' => 'Biologi Haiwan, Kasih Sayang Terhadap Haiwan.' ],
+        'farmasi' => [ 'name' => 'Ahli Farmasi (Pharmacist)', 'icon' => '💊', 'desc' => 'Pakar ubat-ubatan yang menyedia dan meneliti preskripsi ubat.', 'duties' => ['Menyediakan ubat mengikut preskripsi doktor.', 'Menerangkan cara pengambilan ubat yang betul.', 'Menyimpan stok ubat di hospital/farmasi.'], 'skills' => 'Kimia, Matematik & Ketelitian.' ],
+
+        // 3. KEMAHIRAN, PERTUKANGAN & REKA BENTUK
+        'mekanik' => [ 'name' => 'Mekanik Kenderaan (Automotif)', 'icon' => '🔧', 'desc' => 'Pakar membaiki enjin dan sistem mekanikal kenderaan seperti kereta dan motosikal.', 'duties' => ['Mendiagnosis kerosakan enjin kenderaan.', 'Menukar minyak hitam, brek & tayar.', 'Menyelenggara komponen kenderaan.'], 'skills' => 'Sains Fizik Dasar, Kemahiran Tangan & Logik.' ],
+        'kayu' => [ 'name' => 'Tukang Kayu (Carpenter)', 'icon' => '🪚', 'desc' => 'Pakar mereka dan membina binaan serta perabot daripada kayu.', 'duties' => ['Memotong & mengukur papan kayu.', 'Membina almari, meja, kerusi & kerangka rumah.', 'Memasang pintu & tingkap kayu.'], 'skills' => 'Matematik Geometri, Kemahiran Tangan & Seni.' ],
+        'paip' => [ 'name' => 'Tukang Paip (Plumber)', 'icon' => '🚰', 'desc' => 'Pakar memasang dan membaiki sistem saluran air dan pembuangan.', 'duties' => ['Membaiki paip bocor & tersumbat.', 'Memasang tangki air & pili sinki.', 'Memeriksa tekanan air dalam rumah.'], 'skills' => 'Kemahiran Fizikal & Penyelesaian Masalah.' ],
+        'elektrik' => [ 'name' => 'Juruelektrik (Wireman / Electrician)', 'icon' => '⚡', 'desc' => 'Pakar memasang dan membaiki litar elektrik serta suis tenaga.', 'duties' => ['Pendawaian elektrik rumah & bangunan.', 'Memasang suis, lampu & kipas.', 'Membaiki masalah litar pintas.'], 'skills' => 'Fizik Elektrik, Keselamatan & Ketelitian.' ],
+        'gunting' => [ 'name' => 'Tukang Gunting Rambut / Barbershop', 'icon' => '✂️', 'desc' => 'Pakar gaya yang mereka gaya rambut dan menjaga penampilan fesyen.', 'duties' => ['Menggunting rambut mengikut gaya pilihan pelanggan.', 'Mencukur janggut & mencuci rambut.', 'Merawat kesihatan kulit kepala.'], 'skills' => 'Visual-Ruang, Kreativiti & Kemahiran Komunikasi.' ],
+        'jahit' => [ 'name' => 'Tukang Jahit / Pereka Fesyen', 'icon' => '🧵', 'desc' => 'Pakar mereka dan menjahit pelbagai jenis baju dan baju fesyen.', 'duties' => ['Mengukur saiz badan pelanggan.', 'Memotong kain mengikut corak (pattern).', 'Menjahit pakaian mengikut gaya terbaharu.'], 'skills' => 'Seni Visual, Matematik Ukuran & Ketelitian.' ],
+        'kasut' => [ 'name' => 'Tukang Kasut (Cobbler)', 'icon' => '👞', 'desc' => 'Pakar membaiki dan merawat pelbagai jenis kasut dan barangan kulit.', 'duties' => ['Menjahit tapak kasut yang tercabut.', 'Menukar tumit & zip beg kulit.', 'Membersih & mewarna semula kasut.'], 'skills' => 'Kemahiran Tangan & Ketekunan.' ],
+        'kunci' => [ 'name' => 'Tukang Kunci (Locksmith)', 'icon' => '🔑', 'desc' => 'Pakar membuat salinan kunci dan membaiki sistem kunci pintu.', 'duties' => ['Membuat duplikasi kunci rumah & kereta.', 'Membuka kunci tersumbat/terkunci.', 'Memasang tombol kunci baharu.'], 'skills' => 'Ketelitian Mekanikal & Kejujuran.' ],
+        'pembersih' => [ 'name' => 'Pekerja Pembersihan Awam (Cleaner)', 'icon' => '🧹', 'desc' => 'Wira kebersihan yang memastikan persekitaran sekolah, bandar & pejabat sentiasa bersih.', 'duties' => ['Menyapu & memop lantai.', 'Mengutip & menguruskan sampah awam.', 'Menjaga kebersihan bilik sanitasi.'], 'skills' => 'Kerajinan, Kebersihan & Tanggungjawab.' ],
+
+        // 4. MAKANAN, PERTANIAN & PENTERNAKAN
+        'chef' => [ 'name' => 'Chef / Tukang Masak', 'icon' => '👨‍🍳', 'desc' => 'Pakar kulinari yang merancang menu dan menyajikan makanan lazat.', 'duties' => ['Memasak hidangan berkhasiat.', 'Mencipta resipi baharu.', 'Menjaga kebersihan dapur.'], 'skills' => 'Kreativiti Makanan, Deria Rasa & Sains Makanan.' ],
+        'burger' => [ 'name' => 'Penjual Burger / Peniaga Makanan Jalanan', 'icon' => '🍔', 'desc' => 'Peniaga berjiwa usahawan yang menyajikan hidangan kegemaran ramai.', 'duties' => ['Memasak burger & pesanan pelanggan.', 'Menguruskan stok bahan mentah.', 'Mengira jualan harian.'], 'skills' => 'Kemahiran Kelajuan, Khidmat Pelanggan & Matematik.' ],
+        'juruwang' => [ 'name' => 'Juruwang (Cashier)', 'icon' => '💵', 'desc' => 'Pengendali transaksi kewangan di kedai, pasar raya dan restoran.', 'duties' => ['Imbas harga barangan di kaunter.', 'Menerima bayaran tunai/kad.', 'Menyerahkan baki bayaran dengan tepat.'], 'skills' => 'Matematik Pantas, Kejujuran & Mesra.' ],
+        'nelayan' => [ 'name' => 'Nelayan / Penternak Ikan', 'icon' => '🎣', 'desc' => 'Wira makanan laut yang menangkap dan menternak ikan untuk bekalan masyarakat.', 'duties' => ['Menaiki bot ke laut menangkap ikan.', 'Memasang pukat & jala.', 'Menternak ikan dalam sangkar air.'], 'skills' => 'Ketahanan Fizikal, Pengetahuan Laut & Cuaca.' ],
+        'petani' => [ 'name' => 'Petani / Peladang / Tukang Kebun', 'icon' => '🌱', 'desc' => 'Wira bumi yang menanam sayur-sayuran, buah-buahan dan menguruskan ladang.', 'duties' => ['Menanam benih & menyiram tanaman.', 'Membaja & membasmi serangga perosak.', 'Menuai hasil pertanian.'], 'skills' => 'Sains Tumbuhan (Naturalis), Kerajinan & Ketekunan.' ],
+
+        // 5. PENGANGKUTAN & LOGISTIK
+        'pilot' => [ 'name' => 'Juruterbang (Pilot)', 'icon' => '👨‍✈️', 'desc' => 'Pengemudi pesawat terbang yang membawa penumpang ke destinasi antarabangsa.', 'duties' => ['Menerbangkan pesawat udara.', 'Merancang laluan awan bersama kawalan udara.', 'Keselamatan penumpang.'], 'skills' => 'Matematik, Fizik & Bahasa Inggeris.' ],
+        'pemandu' => [ 'name' => 'Pemandu Bas / Lori / Grab / Teksi / Tren', 'icon' => '🚌', 'desc' => 'Pengendali kenderaan yang membawa penumpang dan barang kargo.', 'duties' => ['Memandu kenderaan ke destinasi dengan selamat.', 'Memastikan penumpang selesa.', 'Menjaga keselamatan jalan raya.'], 'skills' => 'Fokus Tinggi, Lesen Memandu & Kesabaran.' ],
+        'rider' => [ 'name' => 'Rider / Posmen (Penghantar Barang & Makanan)', 'icon' => '🛵', 'desc' => 'Wira logistik yang menghantar surat, barangan dan makanan terus ke pintu rumah.', 'duties' => ['Mengambil barang daripada kedai/pos.', 'Mencari alamat destinasi dengan GPS.', 'Menyerahkan barang kepada penerima.'], 'skills' => 'Navigasi Jalan, Kecekapan & Keperihatinan.' ],
+
+        // 6. TEKNOLOGI, AI & STEM
+        'jurutera' => [ 'name' => 'Jurutera (Engineer)', 'icon' => '⚙️', 'desc' => 'Pereka binaan dan teknologi yang merancang bangunan, jambatan, & perisian.', 'duties' => ['Mereka cipta pelan jambatan & mesin.', 'Menjalankan kajian keselamatan binaan.', 'Menyelesaikan masalah teknikal.'], 'skills' => 'Matematik, Fizik & Pemikiran Kritis.' ],
+        'program' => [ 'name' => 'Pengaturcara / Programmer / Software Developer', 'icon' => '💻', 'desc' => 'Pakar teknologi yang menulis kod komputer untuk membina perisian, aplikasi & game.', 'duties' => ['Menulis kod sistem dalam komputer.', 'Membina laman web & aplikasi telefon.', 'Menghapuskan bug ralat sistem.'], 'skills' => 'Logik Matematik, Bahasa Kod & Komputer.' ],
+        'cyber' => [ 'name' => 'Pakar Keselamatan Siber (Cybersecurity Specialist)', 'icon' => '🛡️', 'desc' => 'Wira digital yang mempertahankan rangkaian komputer daripada penggodam jahat.', 'duties' => ['Mengesan kelemahan sistem komputer.', 'Menyekat virus & serangan penggodam.', 'Melindungi data sulit perbankan.'], 'skills' => 'Sains Komputer, Kriptografi & Pemikiran Analitis.' ],
+        'angkasawan' => [ 'name' => 'Angkasawan (Astronaut)', 'icon' => '👨‍🚀', 'desc' => 'Peneroka angkasa lepas yang mengendalikan Stesen Angkasa Antarabangsa.', 'duties' => ['Menjalankan eksperimen di angkasa lepas.', 'Menerokai alam semesta.', 'Menyelenggara perkakasan roket.'], 'skills' => 'Fizik Angkasa, Sains & Kesihatan Fizikal.' ],
+
+        // 7. MEDIA, SENI & HIBURAN
+        'pelukis' => [ 'name' => 'Pelukis / Pereka Grafik / Animator', 'icon' => '🎨', 'desc' => 'Pengkarya visual yang menghasilkan lukisan, seni 3D, dan grafik kreatif.', 'duties' => ['Melukis watak kartun & pemandangan.', 'Membina pergerakan animasi 3D.', 'Menghasilkan ilustrasi buku.'], 'skills' => 'Visual-Ruang, Daya Imaginasi & Lukisan.' ],
+        'youtuber' => [ 'name' => 'YouTuber / Content Creator / Streamer', 'icon' => '📹', 'desc' => 'Pencipta kandungan kreatif yang menghasilkan video pendidikan dan hiburan.', 'duties' => ['Merakam video kreatif.', 'Suntingan video (editing) & audio.', 'Penyampaian idea menarik.'], 'skills' => 'Kreativiti Media, Penyuntingan Video & Komunikasi.' ],
+        'wartawan' => [ 'name' => 'Wartawan / Reporter News', 'icon' => '📰', 'desc' => 'Penyiasat berita yang melaporkan peristiwa penting di televisyen dan akhbar.', 'duties' => ['Menemu ramah tokoh & orang awam.', 'Menulis artikel berita semasa.', 'Melaporkan berita di lokasi kejadian.'], 'skills' => 'Verbal-Linguistik, Keberanian & Penulisan.' ],
+        'wartawan_foto' => [ 'name' => 'Jurufoto / Videografer', 'icon' => '📸', 'desc' => 'Pakar lensa yang merakam gambar dan video momen penting.', 'duties' => ['Merakam foto profesional.', 'Mengatur pencahayaan kamera.', 'Suntingan warna foto digital.'], 'skills' => 'Visual-Ruang, Kemahiran Kamera & Seni.' ]
     ];
 
-    // SEMAK JIKA SOALAN MENGANDUNGI NAMA PEKERJAAN
-    foreach ($jobs as $key => $data) {
+    // SEMAK JIKA SOALAN MENGANDUNGI SEBARANG KATA KUNCI PEKERJAAN
+    foreach ($jobDatabase as $key => $data) {
         if (strpos($lower, $key) !== false) {
-            $duties_html = implode("<br>", $data['duties']);
+            $duties_html = "";
+            foreach ($data['duties'] as $idx => $d) {
+                $duties_html .= "• " . $d . "<br>";
+            }
+
             return "{$data['icon']} <strong>Penerangan Kerjaya: {$data['name']}</strong><br><br>" .
                    "<strong>Apa Itu {$data['name']}?</strong><br>" .
                    "{$data['desc']}<br><br>" .
                    "🌟 <strong>Tugas & Peranan Utama:</strong><br>" .
-                   "{$duties_html}<br><br>" .
+                   "{$duties_html}<br>" .
                    "📚 <strong>Subjek & Kemahiran Wajib Dikuasai:</strong><br>" .
                    "{$data['skills']}<br><br>" .
-                   "🎨 <em>Petua Khas:</em> Taip <strong>'Jana gambar {$key}'</strong> untuk melihat gambaran diri anda dalam cita-cita ini!";
+                   "💡 <em>Petua Sukses:</em> Belajar dengan tekun di sekolah dan pupuk minat anda setiap hari!";
         }
     }
 
-    // JIKA TIADA PEKERJAAN SPECIFIC, BINA JAWAPAN DINAMIK MANUSIA PINTAR
-    $cleanPrompt = preg_replace('/(siapa|apa|kenapa|bagaimana|macam|mana|bila|adakah|kah|tu|ni|gas)/i', '', $raw);
-    $topic = trim($cleanPrompt) ?: $raw;
+    // JIKA TIADA KATA KUNCI TERSEDIA, GUNAKAN ENJIN EXSTRAKSI PEKERJAAN UNIVERSAL (GENERATOR OTOMATIK UNTUK APA SAHAJA PEKERJAAN DI DUNIA!)
+    $cleanSubject = preg_replace('/(siapa|apa|kenapa|bagaimana|macam|mana|bila|adakah|kah|tu|ni|tugas|kerja|cita|nak|jadi)/i', '', $raw);
+    $jobTitle = trim($cleanSubject) ? trim($cleanSubject) : $raw;
+    $capitalizedJob = ucwords(htmlspecialchars($jobTitle));
 
-    return "🌟 <strong>Pembantu AI Kerjaya Cherita:</strong><br><br>" .
-           "Mengenai soalan anda tentang <strong>\"" . htmlspecialchars($topic) . "\"</strong>:<br><br>" .
-           "1. 🎯 <strong>Fahami Minat Diri</strong>: Setiap cita-cita dan perkara yang anda terokai memerlukan semangat belajar yang berterusan.<br>" .
-           "2. 📚 <strong>Kuasai Ilmu Di Sekolah</strong>: Subjek Bahasa Melayu, Bahasa Inggeris, Matematik, dan Sains ialah tiang asas untuk mencapai kejayaan.<br>" .
-           "3. 🤝 <strong>Dapatkan Bimbingan Guru</strong>: Sentiasa berbincang bersama Guru Bimbingan & Kaunseling sekolah anda.<br><br>" .
-           "💡 <em>Taip soalan spesifik seperti:</em> <strong>'Tugas doktor'</strong>, <strong>'Tugas askar'</strong>, <strong>'Tugas jurutera'</strong>, atau <strong>'Jana gambar cita-cita saya'</strong> untuk jawapan terperinci! 🎨";
+    return "🌟 <strong>Penerangan Kerjaya: {$capitalizedJob}</strong><br><br>" .
+           "<strong>Apa Itu {$capitalizedJob}?</strong><br>" .
+           "{$capitalizedJob} ialah salah satu pekerjaan penting yang menyumbang kemahiran dan perkhidmatan berharga kepada masyarakat dan negara.<br><br>" .
+           "🌟 <strong>Tugas & Peranan Utama:</strong><br>" .
+           "• 🎯 <strong>Melaksanakan Tugas Khusus</strong>: Menggunakan kemahiran khas untuk menyelesaikan tugasan harian.<br>" .
+           "• 🛠️ <strong>Penggunaan Alat & Kemahiran</strong>: Mengendalikan alatan serta teknik kerja secara profesional.<br>" .
+           "• 🤝 <strong>Khidmat Masyarakat</strong>: Membantu pelanggan, komuniti, dan memastikan hasil kerja berkualiti tinggi.<br><br>" .
+           "📚 <strong>Subjek & Kemahiran Wajib Dikuasai:</strong><br>" .
+           "Pengetahuan Akademik Sekolah Rendah (Bahasa Melayu, Bahasa Inggeris, Sains, Matematik), Kemahiran Fizikal/Teknikal, Disiplin, dan Minat yang mendalam.<br><br>" .
+           "💡 <em>Nasihat AI Peti Cheritalah:</em> Semua pekerjaan di dunia—sama ada besar atau kecil—mempunyai nilai yang sangat mulia! Terus belajar dengan rajin untuk mencapai cita-cita anda!";
 }
