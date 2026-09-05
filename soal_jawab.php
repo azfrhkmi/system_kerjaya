@@ -13,14 +13,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tahun = sanitize_input($_POST['tahun'] ?? '');
     $kelas = sanitize_input($_POST['kelas'] ?? '');
     $luahan_rasa = sanitize_input($_POST['luahan_rasa'] ?? '');
-    $riasec_array = $_POST['riasec_pilihan'] ?? [];
+    $gardner_array = $_POST['gardner_pilihan'] ?? [];
     $komen_status = sanitize_input($_POST['komen_status'] ?? '');
+    $fail_kerjaya_path = null;
 
-    // Sanitasi array RIASEC
-    if (is_array($riasec_array)) {
-        $riasec_pilihan = implode(', ', array_map('sanitize_input', $riasec_array));
+    // Sanitasi array Teori Howard Gardner
+    if (is_array($gardner_array)) {
+        $riasec_pilihan = implode(', ', array_map('sanitize_input', $gardner_array));
     } else {
-        $riasec_pilihan = sanitize_input($riasec_array);
+        $riasec_pilihan = sanitize_input($gardner_array);
+    }
+
+    // PROSES MUAT NAIK FAIL KERJAYA (SECTION D)
+    if (isset($_FILES['fail_kerjaya']) && $_FILES['fail_kerjaya']['error'] === UPLOAD_ERR_OK) {
+        $file_tmp = $_FILES['fail_kerjaya']['tmp_name'];
+        $file_name = $_FILES['fail_kerjaya']['name'];
+        $file_size = $_FILES['fail_kerjaya']['size'];
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+        $allowed_exts = ['pdf', 'doc', 'docx', 'png', 'jpg', 'jpeg'];
+        
+        if (!in_array($file_ext, $allowed_exts)) {
+            $error_msg = "Fail yang dimuat naik tidak dibenarkan. Sila guna format (PDF, DOC, DOCX, PNG, JPG, JPEG).";
+        } elseif ($file_size > 10 * 1024 * 1024) { // Max 10MB
+            $error_msg = "Saiz fail terlalu besar (Maksimum 10MB).";
+        } else {
+            // Cipta nama fail selamat
+            $clean_email = preg_replace('/[^a-zA-Z0-9]/', '_', $email);
+            $new_filename = "kerjaya_" . $clean_email . "_" . time() . "." . $file_ext;
+            $target_dir = __DIR__ . "/uploads/";
+            
+            if (!is_dir($target_dir)) {
+                mkdir($target_dir, 0755, true);
+            }
+            
+            $target_file = $target_dir . $new_filename;
+            if (move_uploaded_file($file_tmp, $target_file)) {
+                $fail_kerjaya_path = "uploads/" . $new_filename;
+            } else {
+                $error_msg = "Gagal memuat naik fail. Sila cuba lagi.";
+            }
+        }
     }
 
     // Semakan asas keselamatan (Pengesanan skrip berbahaya)
@@ -29,19 +62,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Validasi Medan Wajib
-    if (empty($email) || empty($nama) || empty($tahun) || empty($kelas) || empty($komen_status)) {
-        $error_msg = "Sila lengkapkan semua maklumat yang bertanda wajib (*).";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error_msg = "Sila masukkan format e-mel yang sah (contoh: murid@sekolah.edu.my).";
-    } else {
-        try {
-            $stmt = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$email, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $komen_status]);
-            
-            $success_msg = "Tahniah $nama! Soal jawab kerjaya anda telah berjaya dihantar kepada Guru Bimbingan & Kaunseling. 🎉";
-        } catch (PDOException $e) {
-            $error_msg = "Ralat semasa menyimpan jawapan. Sila cuba semula.";
-            log_threat($pdo, 'DB_ERROR', "Ralat SQL penyerahan borang: " . $e->getMessage());
+    if (empty($error_msg)) {
+        if (empty($email) || empty($nama) || empty($tahun) || empty($kelas) || empty($komen_status)) {
+            $error_msg = "Sila lengkapkan semua maklumat yang bertanda wajib (*).";
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $error_msg = "Sila masukkan format e-mel yang sah (contoh: murid@sekolah.edu.my).";
+        } else {
+            try {
+                $stmt = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->execute([$email, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $komen_status]);
+                
+                $success_msg = "Tahniah $nama! Soal jawab kerjaya anda telah berjaya dihantar kepada Guru Bimbingan & Kaunseling. 🎉";
+            } catch (PDOException $e) {
+                $error_msg = "Ralat semasa menyimpan jawapan. Sila cuba semula.";
+                log_threat($pdo, 'DB_ERROR', "Ralat SQL penyerahan borang: " . $e->getMessage());
+            }
         }
     }
 }
@@ -80,9 +115,9 @@ require_once 'includes/header.php';
         </div>
     <?php endif; ?>
 
-    <!-- CARD BORANG UTAMA -->
+    <!-- CARD BORANG UTAMA (MULTIPART FOR FILE UPLOAD) -->
     <div class="form-card">
-        <form action="soal_jawab.php" method="POST">
+        <form action="soal_jawab.php" method="POST" enctype="multipart/form-data">
             
             <!-- MASUKKAN EMAIL (PRIMARY KEY) -->
             <div class="form-group">
@@ -128,7 +163,7 @@ require_once 'includes/header.php';
             <!-- Nama Kelas (MCA) -->
             <div class="form-group">
                 <label class="form-label">Nama Kelas (Pilihan)*</label>
-                <div class="option-grid" style="grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));">
+                <div class="option-grid" style="grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));">
                     <?php 
                     $kelas_options = ['Amanah', 'Bestari', 'Cemerlang', 'Dedikasi', 'Efektif', 'Fasih', 'Gigih', 'Hebat', 'Viva', 'Persona'];
                     $selected_kelas = $_POST['kelas'] ?? '';
@@ -159,42 +194,50 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN C: PETI EXPLORASI KERJAYA (RIASEC) -->
+            <!-- BAHAGIAN C: PETI EXPLORASI KECERDASAN PELBAGAI (TEORI HOWARD GARDNER) -->
             <h3 style="font-size:1.4rem; color:var(--accent-purple); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                🎁 (c) Peti Explorasi Kerjaya (RIASEC)
+                🧠 (c) Peti Explorasi Kecerdasan Pelbagai (Teori Howard Gardner)
             </h3>
             <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:18px;">
-                Tekan butang di bawah untuk melihat penerangan maksud & 5 pekerjaan yang sesuai, kemudian tandakan kategori minat pilihan anda!
+                Tekan mana-mana butang di bawah untuk membaca penerangan maksud & 5 pekerjaan yang sesuai, kemudian tandakan kategori kecerdasan pilihan anda!
             </p>
 
-            <div class="riasec-buttons-wrapper" style="margin-bottom:20px;">
-                <button type="button" class="riasec-btn riasec-btn-R" onclick="showRiasecDetail('R')">R (Realistik)</button>
-                <button type="button" class="riasec-btn riasec-btn-I" onclick="showRiasecDetail('I')">I (Investigatif)</button>
-                <button type="button" class="riasec-btn riasec-btn-S" onclick="showRiasecDetail('S')">S (Sosial)</button>
-                <button type="button" class="riasec-btn riasec-btn-E" onclick="showRiasecDetail('E')">E (Enterprising)</button>
-                <button type="button" class="riasec-btn riasec-btn-K" onclick="showRiasecDetail('K')">K (Konvensional)</button>
+            <div class="gardner-buttons-wrapper" style="margin-bottom:20px;">
+                <button type="button" class="gardner-btn gardner-btn-verbal" onclick="showGardnerDetail('verbal')">📚 Verbal-Linguistik</button>
+                <button type="button" class="gardner-btn gardner-btn-logik" onclick="showGardnerDetail('logik')">🔢 Logik-Matematik</button>
+                <button type="button" class="gardner-btn gardner-btn-visual" onclick="showGardnerDetail('visual')">🎨 Visual-Ruang</button>
+                <button type="button" class="gardner-btn gardner-btn-kinestetik" onclick="showGardnerDetail('kinestetik')">⚽ Kinestetik</button>
+                <button type="button" class="gardner-btn gardner-btn-muzik" onclick="showGardnerDetail('muzik')">🎵 Muzik</button>
+                <button type="button" class="gardner-btn gardner-btn-interpersonal" onclick="showGardnerDetail('interpersonal')">🤝 Interpersonal</button>
+                <button type="button" class="gardner-btn gardner-btn-intrapersonal" onclick="showGardnerDetail('intrapersonal')">🧘 Intrapersonal</button>
+                <button type="button" class="gardner-btn gardner-btn-naturalis" onclick="showGardnerDetail('naturalis')">🌿 Naturalis</button>
+                <button type="button" class="gardner-btn gardner-btn-eksistensial" onclick="showGardnerDetail('eksistensial')">🌌 Eksistensial</button>
             </div>
 
-            <!-- Display box apabila butang ditekan -->
-            <div id="riasecDisplay" class="riasec-detail-display" style="margin-bottom:24px;"></div>
+            <!-- Bekas Paparan Detail Teori Howard Gardner -->
+            <div id="gardnerDisplay" class="gardner-detail-display" style="margin-bottom:24px;"></div>
 
             <!-- Penandaan Pilihan Murid -->
             <div class="form-group">
-                <label class="form-label">Tandakan RIASEC Yang Paling Sesuai Dengan Anda (Boleh pilih lebih dari satu):</label>
-                <div class="option-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                <label class="form-label">Tandakan Teori Kecerdasan Yang Paling Sesuai Dengan Anda (Boleh pilih lebih dari satu):</label>
+                <div class="option-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));">
                     <?php 
-                    $riasec_list = [
-                        'R (Realistik)' => 'R - Realistik',
-                        'I (Investigatif)' => 'I - Investigatif',
-                        'S (Sosial)' => 'S - Sosial',
-                        'E (Enterprising)' => 'E - Enterprising',
-                        'K (Konvensional)' => 'K - Konvensional'
+                    $gardner_list = [
+                        'Verbal-Linguistik' => '📚 Verbal-Linguistik',
+                        'Logik-Matematik' => '🔢 Logik-Matematik',
+                        'Visual-Ruang' => '🎨 Visual-Ruang',
+                        'Kinestetik' => '⚽ Kinestetik',
+                        'Muzik' => '🎵 Muzik',
+                        'Interpersonal' => '🤝 Interpersonal',
+                        'Intrapersonal' => '🧘 Intrapersonal',
+                        'Naturalis' => '🌿 Naturalis',
+                        'Eksistensial' => '🌌 Eksistensial'
                     ];
-                    foreach ($riasec_list as $code => $label): 
+                    foreach ($gardner_list as $code => $label): 
                     ?>
                         <div class="option-box">
-                            <input type="checkbox" id="check_<?php echo substr($code, 0, 1); ?>" name="riasec_pilihan[]" value="<?php echo $code; ?>">
-                            <label class="option-label" for="check_<?php echo substr($code, 0, 1); ?>">
+                            <input type="checkbox" id="check_<?php echo md5($code); ?>" name="gardner_pilihan[]" value="<?php echo $code; ?>">
+                            <label class="option-label" for="check_<?php echo md5($code); ?>">
                                 ✅ <?php echo $label; ?>
                             </label>
                         </div>
@@ -204,9 +247,27 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN D: KOMEN SAYA (MCA) -->
+            <!-- BAHAGIAN D: SILA UPLOAD FILE KERJAYA ANDA -->
+            <h3 style="font-size:1.4rem; color:#0284c7; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+                📁 (d) Sila Upload File Kerjaya Anda
+            </h3>
+            <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:15px;">
+                Muat naik lukisan kerjaya, sijil, resume ringkas, atau dokumen cita-cita anda (Format PDF, DOC, DOCX, PNG, JPG, JPEG - Maksimum 10MB):
+            </p>
+            <div class="form-group">
+                <div class="file-upload-box">
+                    <input type="file" id="fail_kerjaya" name="fail_kerjaya" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="form-control" style="border:none; background:transparent;">
+                    <small style="color:var(--text-muted); display:block; margin-top:8px;">
+                        📌 Pilih fail dari peranti anda untuk dihantar kepada Guru Kaunseling.
+                    </small>
+                </div>
+            </div>
+
+            <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
+
+            <!-- BAHAGIAN E: KOMEN SAYA (MCA) -->
             <h3 style="font-size:1.4rem; color:var(--accent-green); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                ⭐ (d) Komen & Tindakan Selanjutnya
+                ⭐ (e) Komen & Tindakan Selanjutnya
             </h3>
             <div class="form-group">
                 <label class="form-label">Sila pilih satu komen maklum balas anda: <span style="color:#ef4444">*</span></label>
