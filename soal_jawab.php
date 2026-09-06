@@ -183,13 +183,13 @@ require_once 'includes/header.php';
 
             <!-- BAHAGIAN B: CERITALAH LUAHAN RASA -->
             <h3 style="font-size:1.4rem; color:var(--secondary); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                💬 (b) Ceritalah Luahan Rasa Anda
+                💬 (b) Ceritalah Luahan Rasa
             </h3>
             <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:15px;">
-                Tuliskan apa sahaja impian, hobi, masalah belajar, atau perasaan anda pada ruangan di bawah:
+                Tuliskan apa sahaja impian, hobi, atau masalah belajar pada ruangan di bawah:
             </p>
             <div class="form-group">
-                <textarea name="luahan_rasa" class="form-control" rows="4" placeholder="Ceritakan cita-cita anda, perkara yang anda suka buat waktu lapang, atau apa sahaja perasaan anda..."><?php echo htmlspecialchars($_POST['luahan_rasa'] ?? ''); ?></textarea>
+                <textarea name="luahan_rasa" class="form-control" rows="4" placeholder="Ceritakan cita-cita anda atau perkara yang anda suka buat waktu lapang..."><?php echo htmlspecialchars($_POST['luahan_rasa'] ?? ''); ?></textarea>
             </div>
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
