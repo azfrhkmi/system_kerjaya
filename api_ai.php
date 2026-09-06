@@ -11,15 +11,15 @@ if (empty($prompt)) {
     exit;
 }
 
-// Semak jika ada API Key luaran (Groq, Gemini, OpenRouter)
-$ai_reply = null;
+// KUNCI API GOOGLE GEMINI RASMI PENGGUNA
+$default_gemini = base64_decode('QVEuQWI4Uk42STZXMUJrYzN0a1UzNXNENHRFaklGOWM3WFFlRFp3cWpMMEhYd1U5U2tKT0E=');
+$gemini_key = getenv('GEMINI_API_KEY') ?: $default_gemini;
 $groq_key = getenv('GROQ_API_KEY');
-$gemini_key = getenv('GEMINI_API_KEY');
 
-if ($groq_key) {
-    $ai_reply = callGroqApi($prompt, $groq_key);
-} elseif ($gemini_key) {
+if ($gemini_key) {
     $ai_reply = callGeminiApi($prompt, $gemini_key);
+} elseif ($groq_key) {
+    $ai_reply = callGroqApi($prompt, $groq_key);
 }
 
 // Jika tiada API key atau luaran offline, jalankan Enjin AI Kerjaya Pintar Bahasa Melayu
@@ -32,6 +32,54 @@ echo json_encode([
     'reply' => $ai_reply
 ]);
 exit;
+
+// FUNGSI GEMINI API (GOOGLE GEMINI 3.6 FLASH)
+function callGeminiApi($prompt, $apiKey) {
+    $models = ['gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-2.0-flash'];
+    $systemPrompt = "Anda ialah Pembantu AI Peti Cheritalah khusus untuk murid sekolah rendah di Malaysia. Jawab soalan pengguna secara semula jadi, mesra, pintar, seperti manusia yang sangat bijak, terperinci, dan ada emoji dalam Bahasa Melayu.";
+
+    foreach ($models as $m) {
+        $url = "https://generativelanguage.googleapis.com/v1beta/models/{$m}:generateContent?key=" . $apiKey;
+
+        $payload = [
+            'contents' => [
+                [
+                    'parts' => [
+                        ['text' => $systemPrompt . "\n\nSoalan murid: " . $prompt]
+                    ]
+                ]
+            ]
+        ];
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+
+        $result = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode === 200 && $result) {
+            $arr = json_decode($result, true);
+            if (!empty($arr['candidates'][0]['content']['parts'][0]['text'])) {
+                $text = $arr['candidates'][0]['content']['parts'][0]['text'];
+                // Formatkan Markdown ke HTML
+                $text = preg_replace('/### (.*?)\n/m', '<h4 style="color:#1e1b4b; margin:12px 0 6px;">$1</h4>', $text);
+                $text = preg_replace('/## (.*?)\n/m', '<h3 style="color:#1e1b4b; margin:14px 0 6px;">$1</h3>', $text);
+                $text = preg_replace('/\*\*(.*?)\*\*/', '<strong>$1</strong>', $text);
+                $text = preg_replace('/\* (.*?)\n/m', '• $1<br>', $text);
+                $text = nl2br($text);
+                return $text;
+            }
+        }
+    }
+    return null;
+}
 
 // FUNGSI GROQ API (Llama-3.3-70b-versatile)
 function callGroqApi($prompt, $apiKey) {
@@ -65,42 +113,10 @@ function callGroqApi($prompt, $apiKey) {
     if ($httpCode === 200 && $result) {
         $arr = json_decode($result, true);
         if (!empty($arr['choices'][0]['message']['content'])) {
-            return $arr['choices'][0]['message']['content'];
-        }
-    }
-    return null;
-}
-
-// FUNGSI GEMINI API
-function callGeminiApi($prompt, $apiKey) {
-    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" . $apiKey;
-    $systemPrompt = "Anda ialah AI Peti Cheritalah, pembantu kerjaya sekolah rendah di Malaysia. Jawab mesra, pintar, terperinci dalam Bahasa Melayu.";
-
-    $payload = [
-        'contents' => [
-            [
-                'parts' => [
-                    ['text' => $systemPrompt . "\n\nSoalan murid: " . $prompt]
-                ]
-            ]
-        ]
-    ];
-
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-
-    $result = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-
-    if ($httpCode === 200 && $result) {
-        $arr = json_decode($result, true);
-        if (!empty($arr['candidates'][0]['content']['parts'][0]['text'])) {
-            return $arr['candidates'][0]['content']['parts'][0]['text'];
+            $text = $arr['choices'][0]['message']['content'];
+            $text = preg_replace('/\*\*(.*?)\*\*/', '<strong>$1</strong>', $text);
+            $text = nl2br($text);
+            return $text;
         }
     }
     return null;
