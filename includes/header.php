@@ -16,6 +16,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <meta name="author" content="Sistem Kerjaya Sekolah Rendah">
     <meta name="theme-color" content="#6366f1">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../assets/images/peticheritalah.png' : 'assets/images/peticheritalah.png'; ?>">
+    <link rel="apple-touch-icon" href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../assets/images/peticheritalah.png' : 'assets/images/peticheritalah.png'; ?>">
+
     <!-- CSS & Fonts -->
     <link rel="stylesheet" href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../assets/css/style.css' : 'assets/css/style.css'; ?>">
     
