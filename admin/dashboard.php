@@ -124,16 +124,36 @@ $total_prs = $pdo->query("SELECT COUNT(*) FROM responses WHERE komen_status = 'P
 $total_puas = $pdo->query("SELECT COUNT(*) FROM responses WHERE komen_status = 'Berpuas hati'")->fetchColumn();
 
 // DATA STATISTIK UNTUK CARTA CHART.JS
-// 1. Mengikut Kelas
-$kelas_stats_raw = $pdo->query("SELECT kelas, COUNT(*) as cnt FROM responses GROUP BY kelas")->fetchAll();
-$kelas_labels = [];
-$kelas_counts = [];
-foreach ($kelas_stats_raw as $r) {
-    $kelas_labels[] = $r['kelas'];
-    $kelas_counts[] = (int)$r['cnt'];
+// 1. Mengikut Tahun (Main Overview)
+$tahun_order = ['1', '2', '3', '4', '5', '6', 'PPKI'];
+$tahun_counts_map = array_fill_keys($tahun_order, 0);
+
+$tahun_stats_raw = $pdo->query("SELECT tahun, COUNT(*) as cnt FROM responses GROUP BY tahun")->fetchAll();
+foreach ($tahun_stats_raw as $r) {
+    $t_val = (string)$r['tahun'];
+    $tahun_counts_map[$t_val] = (int)$r['cnt'];
 }
 
-// 2. Mengikut Status Komen
+$tahun_labels = [];
+$tahun_counts = [];
+foreach ($tahun_counts_map as $t => $cnt) {
+    $tahun_labels[] = ($t === 'PPKI') ? 'PPKI' : 'Tahun ' . $t;
+    $tahun_counts[] = $cnt;
+}
+
+// 2. Breakdown Mengikut Kelas bagi Setiap Tahun (Drilldown Data)
+$tahun_kelas_raw = $pdo->query("SELECT tahun, kelas, COUNT(*) as cnt FROM responses GROUP BY tahun, kelas")->fetchAll();
+$tahun_kelas_data = [];
+foreach ($tahun_order as $t) {
+    $tahun_kelas_data[$t] = [];
+}
+foreach ($tahun_kelas_raw as $r) {
+    $t_val = (string)$r['tahun'];
+    $k_val = $r['kelas'];
+    $tahun_kelas_data[$t_val][$k_val] = (int)$r['cnt'];
+}
+
+// 3. Mengikut Status Komen
 $komen_stats_raw = $pdo->query("SELECT komen_status, COUNT(*) as cnt FROM responses GROUP BY komen_status")->fetchAll();
 $komen_labels = [];
 $komen_counts = [];
@@ -220,12 +240,35 @@ require_once '../includes/header.php';
     <!-- CARTA STATISTIK (CHART.JS) -->
     <div class="chart-grid">
         
-        <!-- Carta 1: Taburan Mengikut Kelas -->
+        <!-- Carta 1: Taburan Mengikut Tahun & Pecahan Kelas -->
         <div class="chart-card">
-            <h3 style="font-size:1.25rem; color:#1e1b4b; margin-bottom:15px; display:flex; align-items:center; gap:8px;">
-                📊 Statistik Penyertaan Mengikut Kelas
-            </h3>
-            <div style="position:relative; height:280px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+                <div>
+                    <h3 id="chartTitleText" style="font-size:1.2rem; color:#1e1b4b; margin:0; display:flex; align-items:center; gap:6px;">
+                        📊 Statistik Penyertaan Mengikut Tahun
+                    </h3>
+                    <p style="color:var(--text-muted); font-size:0.8rem; margin-top:2px; margin-bottom:0;">
+                        Klik mana-mana tahun / palang di bawah untuk melihat pecahan statistik kelas.
+                    </p>
+                </div>
+                <button id="resetTahunBtn" type="button" class="btn-outline nav-btn" style="display:none; padding:4px 10px; font-size:0.8rem; border-color:var(--primary); color:var(--primary);" onclick="renderTahunChart()">
+                    ◀ Semua Tahun
+                </button>
+            </div>
+
+            <!-- Butang Tapis Tahun Pantas -->
+            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:15px;">
+                <button type="button" class="tahun-filter-btn nav-btn" data-tahun="all" style="padding:4px 10px; font-size:0.78rem; border-radius:20px; font-weight:700; background:var(--primary); color:#fff;" onclick="renderTahunChart()">
+                    🌐 Semua Tahun
+                </button>
+                <?php foreach (['1','2','3','4','5','6','PPKI'] as $t_btn): ?>
+                    <button type="button" class="tahun-filter-btn nav-btn" data-tahun="<?php echo $t_btn; ?>" style="padding:4px 10px; font-size:0.78rem; border-radius:20px; font-weight:700; background:#f1f5f9; color:#475569;" onclick="showClassBreakdownForTahun('<?php echo $t_btn; ?>')">
+                        <?php echo ($t_btn === 'PPKI') ? 'PPKI' : 'Tahun ' . $t_btn; ?>
+                    </button>
+                <?php endforeach; ?>
+            </div>
+
+            <div style="position:relative; height:260px;">
                 <canvas id="chartKelas"></canvas>
             </div>
         </div>
@@ -402,18 +445,91 @@ require_once '../includes/header.php';
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. CARTA MENGIKUT KELAS
-    const ctxKelas = document.getElementById('chartKelas').getContext('2d');
-    new Chart(ctxKelas, {
+let chartInstanceTahun = null;
+const tahunLabels = <?php echo json_encode($tahun_labels); ?>;
+const tahunKeys = <?php echo json_encode($tahun_order); ?>;
+const tahunCounts = <?php echo json_encode($tahun_counts); ?>;
+const breakdownByTahun = <?php echo json_encode($tahun_kelas_data); ?>;
+
+function renderTahunChart() {
+    const ctx = document.getElementById('chartKelas').getContext('2d');
+    document.getElementById('chartTitleText').innerHTML = "📊 Statistik Penyertaan Mengikut Tahun";
+    document.getElementById('resetTahunBtn').style.display = 'none';
+    setActiveTahunBtn('all');
+
+    if (chartInstanceTahun) chartInstanceTahun.destroy();
+
+    chartInstanceTahun = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: <?php echo json_encode($kelas_labels); ?>,
+            labels: tahunLabels,
             datasets: [{
                 label: 'Jumlah Murid',
-                data: <?php echo json_encode($kelas_counts); ?>,
-                backgroundColor: 'rgba(99, 102, 241, 0.75)',
+                data: tahunCounts,
+                backgroundColor: [
+                    'rgba(99, 102, 241, 0.8)',
+                    'rgba(59, 130, 246, 0.8)',
+                    'rgba(16, 185, 129, 0.8)',
+                    'rgba(245, 158, 11, 0.8)',
+                    'rgba(236, 72, 153, 0.8)',
+                    'rgba(139, 92, 246, 0.8)',
+                    'rgba(14, 165, 233, 0.8)'
+                ],
                 borderColor: '#4f46e5',
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        afterBody: function() {
+                            return "👉 Klik palang ini untuk lihat pecahan kelas!";
+                        }
+                    }
+                }
+            },
+            scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
+            onClick: (e, activeElements) => {
+                if (activeElements && activeElements.length > 0) {
+                    const clickedIndex = activeElements[0].index;
+                    const clickedTahunKey = tahunKeys[clickedIndex];
+                    showClassBreakdownForTahun(clickedTahunKey);
+                }
+            }
+        }
+    });
+}
+
+function showClassBreakdownForTahun(tahunKey) {
+    const ctx = document.getElementById('chartKelas').getContext('2d');
+    const tahunName = (tahunKey === 'PPKI') ? 'PPKI' : 'Tahun ' + tahunKey;
+    document.getElementById('chartTitleText').innerHTML = `📊 Statistik Pecahan Kelas (${tahunName})`;
+    document.getElementById('resetTahunBtn').style.display = 'inline-flex';
+    setActiveTahunBtn(tahunKey);
+
+    const classDataForTahun = breakdownByTahun[tahunKey] || {};
+    const classLabels = Object.keys(classDataForTahun);
+    const classCounts = Object.values(classDataForTahun);
+
+    const finalLabels = classLabels.length > 0 ? classLabels : ['Tiada Data'];
+    const finalCounts = classCounts.length > 0 ? classCounts : [0];
+
+    if (chartInstanceTahun) chartInstanceTahun.destroy();
+
+    chartInstanceTahun = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: finalLabels,
+            datasets: [{
+                label: `Jumlah Murid (${tahunName})`,
+                data: finalCounts,
+                backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                borderColor: '#059669',
                 borderWidth: 2,
                 borderRadius: 8
             }]
@@ -425,6 +541,22 @@ document.addEventListener('DOMContentLoaded', () => {
             scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
         }
     });
+}
+
+function setActiveTahunBtn(key) {
+    document.querySelectorAll('.tahun-filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-tahun') === key) {
+            btn.style.background = 'var(--primary)';
+            btn.style.color = '#fff';
+        } else {
+            btn.style.background = '#f1f5f9';
+            btn.style.color = '#475569';
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderTahunChart();
 
     // 2. CARTA MENGIKUT STATUS KOMEN
     const ctxKomen = document.getElementById('chartKomen').getContext('2d');
