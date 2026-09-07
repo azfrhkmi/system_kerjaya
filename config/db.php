@@ -9,6 +9,18 @@ $db_user = getenv('MYSQLUSER') ?: (getenv('DB_USER') ?: 'root');
 $db_pass = getenv('MYSQLPASSWORD') ?: (getenv('DB_PASS') ?: '');
 $db_port = getenv('MYSQLPORT') ?: (getenv('DB_PORT') ?: '3306');
 
+// Menyokong DATABASE_URL / MYSQL_URL / MYSQLPRIVATEHOST dari Railway jika wujud
+if ($db_url = (getenv('MYSQL_URL') ?: (getenv('DATABASE_URL') ?: getenv('MYSQL_PRIVATE_URL')))) {
+    $parsed_url = parse_url($db_url);
+    if ($parsed_url) {
+        $db_host = $parsed_url['host'] ?? $db_host;
+        $db_port = $parsed_url['port'] ?? $db_port;
+        $db_user = $parsed_url['user'] ?? $db_user;
+        $db_pass = $parsed_url['pass'] ?? $db_pass;
+        $db_name = ltrim($parsed_url['path'] ?? '', '/') ?: $db_name;
+    }
+}
+
 $pdo = null;
 
 // CUBA SAMBUNGAN MYSQL DAHULU
