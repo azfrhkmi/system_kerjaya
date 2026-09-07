@@ -378,7 +378,7 @@ require_once '../includes/header.php';
                                 </td>
                                 <td>
                                     <?php if (!empty($r['fail_kerjaya'])): ?>
-                                        <a href="../<?php echo htmlspecialchars($r['fail_kerjaya']); ?>" target="_blank" class="badge badge-success" style="text-decoration:none;">
+                                        <a href="../download.php?id=<?php echo $r['id']; ?>" target="_blank" class="badge badge-success" style="text-decoration:none;">
                                             📁 Muat Turun
                                         </a>
                                     <?php else: ?>
@@ -584,7 +584,7 @@ function viewStudentDetail(data) {
     
     let failLink = '<span style="color:#94a3b8;">Tiada fail dimuat naik.</span>';
     if (data.fail_kerjaya) {
-        failLink = `<a href="../${data.fail_kerjaya}" target="_blank" style="background:#10b981; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-weight:700; display:inline-block; margin-top:4px;">📥 Buka / Muat Turun Fail Kerjaya</a>`;
+        failLink = `<a href="../download.php?id=${data.id}" target="_blank" style="background:#10b981; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-weight:700; display:inline-block; margin-top:4px;">📥 Buka / Muat Turun Fail Kerjaya</a>`;
     }
 
     const content = `
