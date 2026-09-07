@@ -4,7 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // DATA 9 TEORI KECERDASAN PELBAGAI HOWARD GARDNER
+    // DATA 9 TEORI KECERDASAN PELBAGAI HOWARD GARDNER (10 CONTOH PEKERJAAN SETIAP TEORI)
     const gardnerData = {
         'verbal': {
             title: 'Verbal-Linguistik (Bahasa & Penulisan)',
@@ -15,7 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 '✍️ Penulis Buku / Novelis',
                 '👩‍⚖️ Peguam / Pendakwa Raya',
                 '🎙️ Pengacara TV / Penyampai Berita',
-                '🗣️ Penterjemah Bahasa'
+                '🗣️ Penterjemah Bahasa',
+                '📻 Penyampai Radio (DJ)',
+                '📜 Ahli Puisi / Penyajak',
+                '🏫 Guru Bahasa & Sastera',
+                '📢 Pegawai Perhubungan Awam',
+                '📄 Penulis Skrip Drama / Filem'
             ],
             color: '#3b82f6',
             bg: '#dbeafe'
@@ -29,7 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 '📊 Akauntan / Juruaudit Kewangan',
                 '🔬 Ahli Sains / Penyelidik Akademik',
                 '🧮 Ahli Statistik / Data Scientist',
-                '⚙️ Jurutera Sistem / Robotik'
+                '⚙️ Jurutera Sistem / Robotik',
+                '📈 Penganalisis Pasaran / Pelaburan',
+                '🧑‍⚕️ Ahli Farmasi / Kimia',
+                '💻 Pakar Keselamatan Siber',
+                '🧮 Guru Matematik & Fizik',
+                '🔎 Penyiasat Forensik Data'
             ],
             color: '#6366f1',
             bg: '#e0e7ff'
@@ -43,7 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 '🎨 Pereka Grafik / Animator 3D',
                 '📸 Jurugambar / Videografi Profesional',
                 '🎬 Pengarah Filem / Sinematografi',
-                '🏡 Pereka Hiasan Dalaman (Interior Designer)'
+                '🏡 Pereka Hiasan Dalaman',
+                '✈️ Jurutera Rekabentuk Pesawat',
+                '🎮 Pereka Permainan Video (Game Designer)',
+                '🗺️ Ahli Kartografi / Pereka Peta',
+                '👗 Pereka Fesyen & Pakaian',
+                '🗿 Pengukir Seni & Pelukis Komik'
             ],
             color: '#ec4899',
             bg: '#fce7f3'
@@ -57,7 +72,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 '🩰 Penari Profesional / Koreografer',
                 '🚑 Pegawai Paramedik / Anggota Bomba',
                 '🛠️ Mekanikal & Jurutera Teknikal',
-                '🥋 Jurulatih Fizikal & Pertahanan Diri'
+                '🥋 Jurulatih Fizikal & Pertahanan Diri',
+                '👨‍⚕️ Pakar Bedah (Surgeon)',
+                '👨‍🍳 Chef / Tukang Masak Profesional',
+                '🧱 Tukang Bina / Pertukangan Kayu Seni',
+                '🎪 Pelakon Teater & Stuntman',
+                '💆 Terapi Fizikal / Fisioterapi'
             ],
             color: '#ef4444',
             bg: '#fee2e2'
@@ -71,7 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 '🎤 Penyanyi / Vokalis Profesional',
                 '🎷 Pemuzik / Jurutera Bunyi Audio',
                 '🎧 DJ / Penerbit Muzik Digital',
-                '👩‍🏫 Guru Muzik & Terapi Seni Bunyi'
+                '👩‍🏫 Guru Muzik & Terapi Seni Bunyi',
+                '🎻 Pengarah Orkestra / Konduktor',
+                '🎹 Penala Piano & Pembuat Alat Muzik',
+                '🎙️ Artis Alih Suara (Voice Actor)',
+                '📻 Penerbit Audio & Podcast',
+                '🎶 Jurutera Mastering Muzik'
             ],
             color: '#8b5cf6',
             bg: '#ede9fe'
@@ -85,7 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 '🗣️ Kaunselor / Pakar Psikologi',
                 '🤝 Pegawai Hubungan Awam (PR)',
                 '💼 Pengurus Pemasaran & Jualan',
-                '👮 Pegawai Polis / Pekerja Sosial'
+                '👮 Pegawai Polis / Pekerja Sosial',
+                '🧑‍💼 Pengurus Sumber Manusia (HR)',
+                '🏛️ Ahli Politik / Pemimpin Masyarakat',
+                '✈️ Pramugari / Pramugara',
+                '👨‍⚕️ Doktor Perubatan / Jururawat',
+                '🤝 Perunding Kerjaya / Organisasi'
             ],
             color: '#f59e0b',
             bg: '#fef3c7'
@@ -99,7 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 '✍️ Penulis Motivasi / Pengarang Buku Diri',
                 '🔬 Penyelidik Sains Sosial',
                 '🧘 Jurulatih Pembangunan Diri (Life Coach)',
-                '🏛️ Ahli Falsafah / Penasihat Strategik'
+                '🏛️ Ahli Falsafah / Penasihat Strategik',
+                '📊 Perancang Strategik Perniagaan',
+                '📈 Usahawan / Pengasas Syarikat',
+                '📖 Penulis Diari & Bio-Pengarang',
+                '🧘 Terapi Meditasi & Minda',
+                '🔍 Penganalisis Etika & Risiko'
             ],
             color: '#14b8a6',
             bg: '#ccfbf1'
@@ -113,7 +148,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 '🌿 Ahli Botani / Pertanian Moden',
                 '🌊 Ahli Biologi Marin / Ekologi',
                 '🌳 Pegawai Pemeliharaan Alam Sekitar',
-                '🏕️ Ranger Taman Negara'
+                '🏕️ Ranger Taman Negara',
+                '👨‍🌾 Pengusaha Agronomi & Landskap',
+                '🌋 Ahli Geologi / Kajian Bumi',
+                '🐝 Ahli Entamologi (Serangga)',
+                '🌤️ Ahli Meteorologi / Cuaca',
+                '🐟 Pakar Akuakultur & Perikanan'
             ],
             color: '#10b981',
             bg: '#d1fae5'
@@ -127,7 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 '🏛️ Ahli Falsafah & Penyelidik Sejarah',
                 '✍️ Penulis Eseos / Pemikir Sosial',
                 '🎓 Profesor & Penyelidik Akademik',
-                '📜 Penasihat Etika & Kemanusiaan'
+                '📜 Penasihat Etika & Kemanusiaan',
+                '🌌 Ahli Astronomi / Penjelajah Angkasa',
+                '⚖️ Penggubal Dasar Kemanusiaan',
+                '🕊️ Aktivis Hak Asasi & Keamanan',
+                '📚 Ahli Sejarah & Antropologi',
+                '🔍 Penyelidik Kosmologi & Sains Fizik'
             ],
             color: '#64748b',
             bg: '#f1f5f9'
@@ -163,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <p style="font-size:1.05rem; color:#475569; margin-bottom:20px; line-height:1.6;">${data.desc}</p>
                 <h4 style="font-size:1.15rem; color:#1e1b4b; margin-bottom:14px; display:flex; align-items:center; gap:8px;">
-                    🎯 5 Pekerjaan Yang Sangat Sesuai Bagi Kecerdasan Ini:
+                    🎯 10 Pekerjaan Yang Sangat Sesuai Bagi Kecerdasan Ini:
                 </h4>
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
                     ${data.jobs.map(j => `

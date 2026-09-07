@@ -46,8 +46,8 @@ Sistem ini mengandungi 3 tahap peranan pengguna dengan hak akses yang terperinci
   - Tahun / Peringkat Persekolahan (Pilihan Kad Radio: `Tahun 1` hingga `Tahun 6` dan `PPKI`).
   - Nama Kelas (Pilihan Kad Radio: `Amanah`, `Bestari`, `Cemerlang`, `Dedikasi`, `Efektif`, `Fasih`, `Gigih`, `Hebat`, `Viva`, `Persona`).
 - **Seksyen (b) Ceritalah Luahan Rasa Anda**: Ruangan luahan cerita impian, hobi, atau masalah pembelajaran murid.
-- **Seksyen (c) 🎁 Peti Explorasi Kecerdasan Pelbagai**:
-  - 9 Butang Interaktif: Tekan mana-mana butang untuk membaca maksud kecerdasan & 5 contoh pekerjaan yang sesuai.
+- **Seksyen (c) 🎁 e-Peti Explorasi Kecerdasan Pelbagai**:
+  - 9 Butang Interaktif: Tekan mana-mana butang untuk membaca maksud kecerdasan & 10 contoh pekerjaan yang sesuai.
   - Grid Susunan Kemas 3x3 untuk murid menanda kecerdasan pilihan mereka.
 - **Seksyen (d) 📁 Muat Naik Fail Kerjaya DELIMa**:
   - Arahan khas penerokaan AI di portal **DELIMa**.
