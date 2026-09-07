@@ -54,10 +54,9 @@ if (isset($_GET['delete_response'])) {
                 }
             }
 
-            // Padam rekod secara terus dan pasti mengikut ID dan E-mel
-            $target_email = trim($target_response['email']);
-            $stmt_del = $pdo->prepare("DELETE FROM responses WHERE id = ? OR email = ?");
-            $stmt_del->execute([$response_id_to_delete, $target_email]);
+            // Padam rekod secara pasti mengikut ID sahaja
+            $stmt_del = $pdo->prepare("DELETE FROM responses WHERE id = ?");
+            $stmt_del->execute([$response_id_to_delete]);
 
             $_SESSION['flash_success'] = "Rekod jawapan murid (" . htmlspecialchars($target_response['nama']) . ") telah berjaya dipadam!";
             log_threat($pdo, 'RESPONSE_DELETED', "Pengguna {$_SESSION['user_email']} ({$_SESSION['user_role']}) telah memadam rekod murid ID #{$response_id_to_delete} ({$target_response['nama']} - {$target_response['email']})");

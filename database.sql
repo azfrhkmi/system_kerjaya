@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- 2. Jadual Submisi Pelajar (Responses)
 CREATE TABLE IF NOT EXISTS `responses` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `email` VARCHAR(255) NOT NULL UNIQUE,
+    `email` VARCHAR(255) NOT NULL,
     `nama` VARCHAR(255) NOT NULL,
     `tahun` VARCHAR(20) NOT NULL,
     `kelas` VARCHAR(50) NOT NULL,

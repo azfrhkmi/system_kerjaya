@@ -83,24 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error_msg = "Sila lengkapkan semua maklumat yang bertanda wajib (*).";
     } else {
         try {
-            // Semak jika e-mel murid ini telah wujud dalam pangkalan data (case-insensitive & trimmed)
             $clean_email_input = strtolower(trim($email));
-            $stmt_check = $pdo->prepare("SELECT id, fail_kerjaya FROM responses WHERE LOWER(TRIM(email)) = ? ORDER BY id DESC LIMIT 1");
-            $stmt_check->execute([$clean_email_input]);
-            $existing = $stmt_check->fetch();
-
-            if ($existing) {
-                $final_fail = $fail_kerjaya_path ?: $existing['fail_kerjaya'];
-                $stmt_up = $pdo->prepare("UPDATE responses SET email = ?, nama = ?, tahun = ?, kelas = ?, luahan_rasa = ?, riasec_pilihan = ?, fail_kerjaya = ?, komen_status = ?, submitted_at = NOW() WHERE id = ?");
-                $stmt_up->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $final_fail, $komen_status, $existing['id']]);
-
-                // Padam sebarang duplikasi lama bagi e-mel ini jika wujud
-                $stmt_del_dup = $pdo->prepare("DELETE FROM responses WHERE LOWER(TRIM(email)) = ? AND id != ?");
-                $stmt_del_dup->execute([$clean_email_input, $existing['id']]);
-            } else {
-                $stmt_in = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt_in->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $komen_status]);
-            }
+            // Sentiasa tambah rekod baru untuk setiap penyerahan borang murid
+            $stmt_in = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt_in->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $komen_status]);
 
             // Guna Post-Redirect-Get (PRG) untuk mengelakkan penyerahan semula borang pada Refresh
             $_SESSION['last_submitted_nama'] = $nama;
