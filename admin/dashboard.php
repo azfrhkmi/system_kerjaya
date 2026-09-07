@@ -15,17 +15,38 @@ $search = sanitize_input($_GET['search'] ?? '');
 $filter_kelas = sanitize_input($_GET['kelas'] ?? '');
 $filter_tahun = sanitize_input($_GET['tahun'] ?? '');
 
-// PROSES PADAM REKOD SOAL JAWAB MURID (OLEH ADMIN / SUPERADMIN)
+// PROSES PADAM SEMUA REKOD (BULK CLEAR OLEH ADMIN / SUPERADMIN)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete_all_responses') {
+    try {
+        // Padam fail dimuat naik jika wujud
+        $files = glob(__DIR__ . '/../uploads/*');
+        if ($files) {
+            foreach ($files as $file) {
+                if (is_file($file)) @unlink($file);
+            }
+        }
+
+        $pdo->exec("DELETE FROM responses");
+        $_SESSION['flash_success'] = "Kesemua rekod jawapan murid telah berjaya dipadamkan dari sistem! 🗑️";
+        log_threat($pdo, 'ALL_RESPONSES_DELETED', "Pengguna {$_SESSION['user_email']} ({$_SESSION['user_role']}) telah memadam KESEMUA rekod murid.");
+    } catch (PDOException $e) {
+        $_SESSION['flash_error'] = "Ralat pangkalan data semasa memadam kesemua rekod.";
+        log_threat($pdo, 'DB_ERROR', "Ralat SQL padam semua: " . $e->getMessage());
+    }
+
+    header('Location: dashboard.php');
+    exit;
+}
+
+// PROSES PADAM SATU REKOD SOAL JAWAB MURID
 if (isset($_GET['delete_response'])) {
     $response_id_to_delete = (int)$_GET['delete_response'];
     try {
-        // Ambil maklumat murid untuk pemadaman fail & logging
         $stmt_fetch = $pdo->prepare("SELECT * FROM responses WHERE id = ?");
         $stmt_fetch->execute([$response_id_to_delete]);
         $target_response = $stmt_fetch->fetch();
 
         if ($target_response) {
-            // Padam fail dimuat naik jika wujud
             if (!empty($target_response['fail_kerjaya'])) {
                 $file_to_delete = __DIR__ . '/../' . $target_response['fail_kerjaya'];
                 if (file_exists($file_to_delete)) {
@@ -33,10 +54,10 @@ if (isset($_GET['delete_response'])) {
                 }
             }
 
-            // Padam rekod dari database mengikut email dan ID
-            $target_email = strtolower(trim($target_response['email']));
-            $stmt_del = $pdo->prepare("DELETE FROM responses WHERE LOWER(TRIM(email)) = ? OR id = ?");
-            $stmt_del->execute([$target_email, $response_id_to_delete]);
+            // Padam rekod secara terus dan pasti mengikut ID dan E-mel
+            $target_email = trim($target_response['email']);
+            $stmt_del = $pdo->prepare("DELETE FROM responses WHERE id = ? OR email = ?");
+            $stmt_del->execute([$response_id_to_delete, $target_email]);
 
             $_SESSION['flash_success'] = "Rekod jawapan murid (" . htmlspecialchars($target_response['nama']) . ") telah berjaya dipadam!";
             log_threat($pdo, 'RESPONSE_DELETED', "Pengguna {$_SESSION['user_email']} ({$_SESSION['user_role']}) telah memadam rekod murid ID #{$response_id_to_delete} ({$target_response['nama']} - {$target_response['email']})");
@@ -48,7 +69,6 @@ if (isset($_GET['delete_response'])) {
         log_threat($pdo, 'DB_ERROR', "Ralat SQL padam rekod: " . $e->getMessage());
     }
 
-    // Bina URL redirect untuk mengekalkan tapisan carian (tanpa delete_response)
     $redirect_params = [];
     if (!empty($search)) $redirect_params['search'] = $search;
     if (!empty($filter_kelas)) $redirect_params['kelas'] = $filter_kelas;
@@ -68,45 +88,45 @@ $msg_success = $_SESSION['flash_success'] ?? null;
 $msg_error = $_SESSION['flash_error'] ?? null;
 unset($_SESSION['flash_success'], $_SESSION['flash_error']);
 
-// KEUPIAN QUERY DENGAN TAPISAN (HANYA AMBIL REKOD UNIK TERKINI SETIAP E-MEL)
+// KEUPIAN QUERY DENGAN TAPISAN
 $where_clauses = [];
 $params = [];
 
 if (!empty($search)) {
-    $where_clauses[] = "(r.nama LIKE ? OR r.email LIKE ?)";
+    $where_clauses[] = "(nama LIKE ? OR email LIKE ?)";
     $params[] = "%$search%";
     $params[] = "%$search%";
 }
 
 if (!empty($filter_kelas)) {
-    $where_clauses[] = "r.kelas = ?";
+    $where_clauses[] = "kelas = ?";
     $params[] = $filter_kelas;
 }
 
 if (!empty($filter_tahun)) {
-    $where_clauses[] = "r.tahun = ?";
+    $where_clauses[] = "tahun = ?";
     $params[] = $filter_tahun;
 }
 
-$sql = "SELECT r.* FROM responses r INNER JOIN (SELECT MAX(id) as max_id FROM responses GROUP BY LOWER(TRIM(email))) m ON r.id = m.max_id";
+$sql = "SELECT * FROM responses";
 if (count($where_clauses) > 0) {
     $sql .= " WHERE " . implode(" AND ", $where_clauses);
 }
-$sql .= " ORDER BY r.submitted_at DESC";
+$sql .= " ORDER BY submitted_at DESC";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $responses = $stmt->fetchAll();
 
-// METRIK STATISTIK PANTAS (HANYA KIRA REKOD UNIK E-MEL)
-$total_responses = $pdo->query("SELECT COUNT(DISTINCT LOWER(TRIM(email))) FROM responses")->fetchColumn();
-$total_kaunseling = $pdo->query("SELECT COUNT(DISTINCT LOWER(TRIM(email))) FROM responses WHERE komen_status = 'Ingin berjumpa guru bimbingan dan kaunseling'")->fetchColumn();
-$total_prs = $pdo->query("SELECT COUNT(DISTINCT LOWER(TRIM(email))) FROM responses WHERE komen_status = 'Perlu bantuan PRS'")->fetchColumn();
-$total_puas = $pdo->query("SELECT COUNT(DISTINCT LOWER(TRIM(email))) FROM responses WHERE komen_status = 'Berpuas hati'")->fetchColumn();
+// METRIK STATISTIK PANTAS
+$total_responses = $pdo->query("SELECT COUNT(*) FROM responses")->fetchColumn();
+$total_kaunseling = $pdo->query("SELECT COUNT(*) FROM responses WHERE komen_status = 'Ingin berjumpa guru bimbingan dan kaunseling'")->fetchColumn();
+$total_prs = $pdo->query("SELECT COUNT(*) FROM responses WHERE komen_status = 'Perlu bantuan PRS'")->fetchColumn();
+$total_puas = $pdo->query("SELECT COUNT(*) FROM responses WHERE komen_status = 'Berpuas hati'")->fetchColumn();
 
-// DATA STATISTIK UNTUK CARTA CHART.JS (BERDASARKAN REKOD UNIK TERKINI)
+// DATA STATISTIK UNTUK CARTA CHART.JS
 // 1. Mengikut Kelas
-$kelas_stats_raw = $pdo->query("SELECT r.kelas, COUNT(*) as cnt FROM responses r INNER JOIN (SELECT MAX(id) as max_id FROM responses GROUP BY LOWER(TRIM(email))) m ON r.id = m.max_id GROUP BY r.kelas")->fetchAll();
+$kelas_stats_raw = $pdo->query("SELECT kelas, COUNT(*) as cnt FROM responses GROUP BY kelas")->fetchAll();
 $kelas_labels = [];
 $kelas_counts = [];
 foreach ($kelas_stats_raw as $r) {
@@ -115,7 +135,7 @@ foreach ($kelas_stats_raw as $r) {
 }
 
 // 2. Mengikut Status Komen
-$komen_stats_raw = $pdo->query("SELECT r.komen_status, COUNT(*) as cnt FROM responses r INNER JOIN (SELECT MAX(id) as max_id FROM responses GROUP BY LOWER(TRIM(email))) m ON r.id = m.max_id GROUP BY r.komen_status")->fetchAll();
+$komen_stats_raw = $pdo->query("SELECT komen_status, COUNT(*) as cnt FROM responses GROUP BY komen_status")->fetchAll();
 $komen_labels = [];
 $komen_counts = [];
 foreach ($komen_stats_raw as $r) {
@@ -255,6 +275,15 @@ require_once '../includes/header.php';
                 
                 <?php if (!empty($search) || !empty($filter_kelas) || !empty($filter_tahun)): ?>
                     <a href="dashboard.php" class="btn-outline nav-btn" style="padding:8px 14px;">🔄 Set Semula</a>
+                <?php endif; ?>
+
+                <?php if ($total_responses > 0): ?>
+                    <form method="POST" action="dashboard.php" style="display:inline; margin-left:auto;" onsubmit="return confirm('⚠️ Adakah anda PASTI mahu memadam KESEMUA rekod jawapan murid dalam sistem? Tindakan ini kekal dan tidak boleh diundurkan!');">
+                        <input type="hidden" name="action" value="delete_all_responses">
+                        <button type="submit" class="btn-outline nav-btn" style="border-color:#ef4444; color:#ef4444; padding:8px 14px; font-weight:700;">
+                            🗑️ Padam Semua Rekod
+                        </button>
+                    </form>
                 <?php endif; ?>
 
             </form>
