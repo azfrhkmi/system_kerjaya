@@ -16,7 +16,14 @@ $filter_kelas = sanitize_input($_GET['kelas'] ?? '');
 $filter_tahun = sanitize_input($_GET['tahun'] ?? '');
 
 $msg_success = null;
-$msg_error = null;
+$error_msg = null;
+
+// PEMBERSIHAN DUPLIKASI REKOD AUTOMATIK JIKA WUJUD
+try {
+    $pdo->exec("DELETE FROM responses WHERE id NOT IN (SELECT max_id FROM (SELECT MAX(id) as max_id FROM responses GROUP BY email) as t)");
+} catch (Exception $e_clean) {
+    // Abaikan ralat jika pangkalan data bersih
+}
 
 // PROSES PADAM REKOD SOAL JAWAB MURID (OLEH ADMIN / SUPERADMIN)
 if (isset($_GET['delete_response'])) {

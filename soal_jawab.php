@@ -3,8 +3,11 @@ $page_title = "Soal Jawab Kerjaya Saya";
 require_once 'config/db.php';
 require_once 'includes/logger.php';
 
-$success_msg = null;
-$error_msg = null;
+if (isset($_GET['submitted'])) {
+    $submitted_nama = htmlspecialchars($_SESSION['last_submitted_nama'] ?? 'Murid');
+    $success_msg = "Tahniah {$submitted_nama}! Soal jawab kerjaya anda telah berjaya dihantar kepada Guru Bimbingan & Kaunseling. 🎉";
+    unset($_SESSION['last_submitted_nama']);
+}
 
 // PROSES BORANG PENYERAHAN
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -69,10 +72,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error_msg = "Sila masukkan format e-mel yang sah (contoh: murid@sekolah.edu.my).";
         } else {
             try {
-                $stmt = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->execute([$email, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $komen_status]);
-                
-                $success_msg = "Tahniah $nama! Soal jawab kerjaya anda telah berjaya dihantar kepada Guru Bimbingan & Kaunseling. 🎉";
+                // Semak jika e-mel murid ini telah wujud dalam pangkalan data
+                $stmt_check = $pdo->prepare("SELECT id, fail_kerjaya FROM responses WHERE email = ? LIMIT 1");
+                $stmt_check->execute([$email]);
+                $existing = $stmt_check->fetch();
+
+                if ($existing) {
+                    $final_fail = $fail_kerjaya_path ?: $existing['fail_kerjaya'];
+                    $stmt_up = $pdo->prepare("UPDATE responses SET nama = ?, tahun = ?, kelas = ?, luahan_rasa = ?, riasec_pilihan = ?, fail_kerjaya = ?, komen_status = ?, submitted_at = NOW() WHERE id = ?");
+                    $stmt_up->execute([$nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $final_fail, $komen_status, $existing['id']]);
+                } else {
+                    $stmt_in = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                    $stmt_in->execute([$email, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $komen_status]);
+                }
+
+                // Guna Post-Redirect-Get (PRG) untuk mengelakkan penyerahan semula borang pada Refresh
+                $_SESSION['last_submitted_nama'] = $nama;
+                header('Location: soal_jawab.php?submitted=1');
+                exit;
             } catch (PDOException $e) {
                 $error_msg = "Ralat semasa menyimpan jawapan. Sila cuba semula.";
                 log_threat($pdo, 'DB_ERROR', "Ralat SQL penyerahan borang: " . $e->getMessage());
