@@ -33,9 +33,10 @@ if (isset($_GET['delete_response'])) {
                 }
             }
 
-            // Padam rekod dari database
-            $stmt_del = $pdo->prepare("DELETE FROM responses WHERE id = ?");
-            $stmt_del->execute([$response_id_to_delete]);
+            // Padam rekod dari database mengikut email dan ID
+            $target_email = strtolower(trim($target_response['email']));
+            $stmt_del = $pdo->prepare("DELETE FROM responses WHERE LOWER(TRIM(email)) = ? OR id = ?");
+            $stmt_del->execute([$target_email, $response_id_to_delete]);
 
             $_SESSION['flash_success'] = "Rekod jawapan murid (" . htmlspecialchars($target_response['nama']) . ") telah berjaya dipadam!";
             log_threat($pdo, 'RESPONSE_DELETED', "Pengguna {$_SESSION['user_email']} ({$_SESSION['user_role']}) telah memadam rekod murid ID #{$response_id_to_delete} ({$target_response['nama']} - {$target_response['email']})");
@@ -67,45 +68,45 @@ $msg_success = $_SESSION['flash_success'] ?? null;
 $msg_error = $_SESSION['flash_error'] ?? null;
 unset($_SESSION['flash_success'], $_SESSION['flash_error']);
 
-// KEUPIAN QUERY DENGAN TAPISAN
+// KEUPIAN QUERY DENGAN TAPISAN (HANYA AMBIL REKOD UNIK TERKINI SETIAP E-MEL)
 $where_clauses = [];
 $params = [];
 
 if (!empty($search)) {
-    $where_clauses[] = "(nama LIKE ? OR email LIKE ?)";
+    $where_clauses[] = "(r.nama LIKE ? OR r.email LIKE ?)";
     $params[] = "%$search%";
     $params[] = "%$search%";
 }
 
 if (!empty($filter_kelas)) {
-    $where_clauses[] = "kelas = ?";
+    $where_clauses[] = "r.kelas = ?";
     $params[] = $filter_kelas;
 }
 
 if (!empty($filter_tahun)) {
-    $where_clauses[] = "tahun = ?";
+    $where_clauses[] = "r.tahun = ?";
     $params[] = $filter_tahun;
 }
 
-$sql = "SELECT * FROM responses";
+$sql = "SELECT r.* FROM responses r INNER JOIN (SELECT MAX(id) as max_id FROM responses GROUP BY LOWER(TRIM(email))) m ON r.id = m.max_id";
 if (count($where_clauses) > 0) {
     $sql .= " WHERE " . implode(" AND ", $where_clauses);
 }
-$sql .= " ORDER BY submitted_at DESC";
+$sql .= " ORDER BY r.submitted_at DESC";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $responses = $stmt->fetchAll();
 
-// METRIK STATISTIK PANTAS
-$total_responses = $pdo->query("SELECT COUNT(*) FROM responses")->fetchColumn();
-$total_kaunseling = $pdo->query("SELECT COUNT(*) FROM responses WHERE komen_status = 'Ingin berjumpa guru bimbingan dan kaunseling'")->fetchColumn();
-$total_prs = $pdo->query("SELECT COUNT(*) FROM responses WHERE komen_status = 'Perlu bantuan PRS'")->fetchColumn();
-$total_puas = $pdo->query("SELECT COUNT(*) FROM responses WHERE komen_status = 'Berpuas hati'")->fetchColumn();
+// METRIK STATISTIK PANTAS (HANYA KIRA REKOD UNIK E-MEL)
+$total_responses = $pdo->query("SELECT COUNT(DISTINCT LOWER(TRIM(email))) FROM responses")->fetchColumn();
+$total_kaunseling = $pdo->query("SELECT COUNT(DISTINCT LOWER(TRIM(email))) FROM responses WHERE komen_status = 'Ingin berjumpa guru bimbingan dan kaunseling'")->fetchColumn();
+$total_prs = $pdo->query("SELECT COUNT(DISTINCT LOWER(TRIM(email))) FROM responses WHERE komen_status = 'Perlu bantuan PRS'")->fetchColumn();
+$total_puas = $pdo->query("SELECT COUNT(DISTINCT LOWER(TRIM(email))) FROM responses WHERE komen_status = 'Berpuas hati'")->fetchColumn();
 
-// DATA STATISTIK UNTUK CARTA CHART.JS
+// DATA STATISTIK UNTUK CARTA CHART.JS (BERDASARKAN REKOD UNIK TERKINI)
 // 1. Mengikut Kelas
-$kelas_stats_raw = $pdo->query("SELECT kelas, COUNT(*) as cnt FROM responses GROUP BY kelas")->fetchAll();
+$kelas_stats_raw = $pdo->query("SELECT r.kelas, COUNT(*) as cnt FROM responses r INNER JOIN (SELECT MAX(id) as max_id FROM responses GROUP BY LOWER(TRIM(email))) m ON r.id = m.max_id GROUP BY r.kelas")->fetchAll();
 $kelas_labels = [];
 $kelas_counts = [];
 foreach ($kelas_stats_raw as $r) {
@@ -114,7 +115,7 @@ foreach ($kelas_stats_raw as $r) {
 }
 
 // 2. Mengikut Status Komen
-$komen_stats_raw = $pdo->query("SELECT komen_status, COUNT(*) as cnt FROM responses GROUP BY komen_status")->fetchAll();
+$komen_stats_raw = $pdo->query("SELECT r.komen_status, COUNT(*) as cnt FROM responses r INNER JOIN (SELECT MAX(id) as max_id FROM responses GROUP BY LOWER(TRIM(email))) m ON r.id = m.max_id GROUP BY r.komen_status")->fetchAll();
 $komen_labels = [];
 $komen_counts = [];
 foreach ($komen_stats_raw as $r) {
