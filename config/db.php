@@ -108,12 +108,6 @@ try {
             $stmt_u = $pdo->prepare("INSERT INTO users (nama, email, password, role) VALUES (?, ?, ?, ?)");
             $stmt_u->execute(['Guru Besar (Superadmin)', 'superadmin@kerjaya.edu.my', $pass_super, 'superadmin']);
             $stmt_u->execute(['Cikgu Aishah (Kaunselor)', 'admin@kerjaya.edu.my', $pass_admin, 'admin']);
-
-            // Sample responses
-            $stmt_r = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt_r->execute(['adam.haris@student.edu.my', 'Adam Haris bin Azman', '6', 'Bestari', 'Saya suka membaiki mainan dan basikal. Cita-cita nak jadi Jurutera!', 'Logik-Matematik, Kinestetik', 'Berpuas hati']);
-            $stmt_r->execute(['nur.sara@student.edu.my', 'Nur Sara Damia', '5', 'Amanah', 'Saya suka membantu kawan-kawan yang sedih. Ingin jadi Guru!', 'Interpersonal, Verbal-Linguistik', 'Berpuas hati']);
-            $stmt_r->execute(['daniel.hakim@student.edu.my', 'Daniel Hakim', '3', 'Efektif', 'Saya rasa kurang berkeyakinan di kelas.', 'Kinestetik, Naturalis', 'Ingin berjumpa guru bimbingan dan kaunseling']);
         }
 
     } catch (Exception $e_sqlite) {
