@@ -32,7 +32,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <nav class="navbar">
         <a href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../index.php' : 'index.php'; ?>" class="navbar-brand">
             <span class="logo-icon">🎁</span>
-            <span>PETI<span style="color:var(--secondary)">CHERITALAH</span></span>
+            <span>e-PETI<span style="color:var(--secondary)">CHERITALAH</span></span>
         </a>
 
         <div class="nav-links">
