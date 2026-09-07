@@ -113,28 +113,6 @@ try {
     }
 }
 
-// PEMULIHAN AUTOMATIK REKOD MURID (AKIF ASYKAAF) JIKA TERPADAM
-try {
-    $stmt_akif = $pdo->prepare("SELECT COUNT(*) FROM responses WHERE LOWER(TRIM(email)) = 'chickenchopspicy@gmail.com'");
-    $stmt_akif->execute();
-    if ($stmt_akif->fetchColumn() == 0) {
-        $stmt_ins_akif = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, komen_status, submitted_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt_ins_akif->execute([
-            'chickenchopspicy@gmail.com',
-            'akif asykaaf',
-            '5',
-            'Bestari',
-            null,
-            null,
-            null,
-            'Berpuas hati',
-            '2026-09-07 17:03:00'
-        ]);
-    }
-} catch (Exception $e_akif) {
-    // Abaikan jika pangkalan data belum sedia
-}
-
 // Mulakan sesi jika belum dimulakan
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
