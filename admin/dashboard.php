@@ -15,16 +15,6 @@ $search = sanitize_input($_GET['search'] ?? '');
 $filter_kelas = sanitize_input($_GET['kelas'] ?? '');
 $filter_tahun = sanitize_input($_GET['tahun'] ?? '');
 
-$msg_success = null;
-$msg_error = null;
-
-// PEMBERSIHAN DUPLIKASI REKOD AUTOMATIK JIKA WUJUD
-try {
-    $pdo->exec("DELETE FROM responses WHERE id NOT IN (SELECT max_id FROM (SELECT MAX(id) as max_id FROM responses GROUP BY email) as t)");
-} catch (Exception $e_clean) {
-    // Abaikan ralat jika pangkalan data bersih
-}
-
 // PROSES PADAM REKOD SOAL JAWAB MURID (OLEH ADMIN / SUPERADMIN)
 if (isset($_GET['delete_response'])) {
     $response_id_to_delete = (int)$_GET['delete_response'];
@@ -47,16 +37,35 @@ if (isset($_GET['delete_response'])) {
             $stmt_del = $pdo->prepare("DELETE FROM responses WHERE id = ?");
             $stmt_del->execute([$response_id_to_delete]);
 
-            $msg_success = "Rekod jawapan murid (" . htmlspecialchars($target_response['nama']) . ") telah berjaya dipadam!";
+            $_SESSION['flash_success'] = "Rekod jawapan murid (" . htmlspecialchars($target_response['nama']) . ") telah berjaya dipadam!";
             log_threat($pdo, 'RESPONSE_DELETED', "Pengguna {$_SESSION['user_email']} ({$_SESSION['user_role']}) telah memadam rekod murid ID #{$response_id_to_delete} ({$target_response['nama']} - {$target_response['email']})");
         } else {
-            $msg_error = "Rekod murid tidak ditemui.";
+            $_SESSION['flash_error'] = "Rekod murid tidak ditemui.";
         }
     } catch (PDOException $e) {
-        $msg_error = "Ralat pangkalan data semasa memadam rekod murid.";
+        $_SESSION['flash_error'] = "Ralat pangkalan data semasa memadam rekod murid.";
         log_threat($pdo, 'DB_ERROR', "Ralat SQL padam rekod: " . $e->getMessage());
     }
+
+    // Bina URL redirect untuk mengekalkan tapisan carian (tanpa delete_response)
+    $redirect_params = [];
+    if (!empty($search)) $redirect_params['search'] = $search;
+    if (!empty($filter_kelas)) $redirect_params['kelas'] = $filter_kelas;
+    if (!empty($filter_tahun)) $redirect_params['tahun'] = $filter_tahun;
+
+    $redirect_url = 'dashboard.php';
+    if (!empty($redirect_params)) {
+        $redirect_url .= '?' . http_build_query($redirect_params);
+    }
+
+    header('Location: ' . $redirect_url);
+    exit;
 }
+
+// AMBIL MESEJ FLASH DARIPADA SESI JIKA ADA
+$msg_success = $_SESSION['flash_success'] ?? null;
+$msg_error = $_SESSION['flash_error'] ?? null;
+unset($_SESSION['flash_success'], $_SESSION['flash_error']);
 
 // KEUPIAN QUERY DENGAN TAPISAN
 $where_clauses = [];
@@ -250,6 +259,14 @@ require_once '../includes/header.php';
             </form>
         </div>
 
+        <?php
+        $current_filter_params = [];
+        if (!empty($search)) $current_filter_params['search'] = $search;
+        if (!empty($filter_kelas)) $current_filter_params['kelas'] = $filter_kelas;
+        if (!empty($filter_tahun)) $current_filter_params['tahun'] = $filter_tahun;
+        $filter_qs = !empty($current_filter_params) ? '&' . http_build_query($current_filter_params) : '';
+        ?>
+
         <div class="table-responsive">
             <table class="custom-table">
                 <thead>
@@ -312,7 +329,7 @@ require_once '../includes/header.php';
                                         <button type="button" class="btn-outline nav-btn" style="padding:5px 10px; font-size:0.8rem;" onclick="viewStudentDetail(<?php echo htmlspecialchars(json_encode($r)); ?>)">
                                             👁️ Lihat
                                         </button>
-                                        <a href="dashboard.php?delete_response=<?php echo $r['id']; ?>" class="btn-outline nav-btn" style="padding:5px 10px; font-size:0.8rem; border-color:#ef4444; color:#ef4444; text-decoration:none;" onclick="return confirm('Adakah anda pasti untuk memadam rekod jawapan murid <?php echo htmlspecialchars(addslashes($r['nama'])); ?>?')">
+                                        <a href="dashboard.php?delete_response=<?php echo $r['id'] . $filter_qs; ?>" class="btn-outline nav-btn" style="padding:5px 10px; font-size:0.8rem; border-color:#ef4444; color:#ef4444; text-decoration:none;" onclick="return confirm('Adakah anda pasti untuk memadam rekod jawapan murid <?php echo htmlspecialchars(addslashes($r['nama'])); ?>?')">
                                             🗑️ Padam
                                         </a>
                                     </div>
@@ -440,7 +457,7 @@ function viewStudentDetail(data) {
     `;
 
     document.getElementById('modalStudentContent').innerHTML = content;
-    document.getElementById('modalDeleteBtn').href = "dashboard.php?delete_response=" + data.id;
+    document.getElementById('modalDeleteBtn').href = "dashboard.php?delete_response=" + data.id + "<?php echo addslashes($filter_qs); ?>";
     openModal('studentDetailModal');
 }
 </script>

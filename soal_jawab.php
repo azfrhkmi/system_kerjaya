@@ -72,9 +72,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error_msg = "Sila masukkan format e-mel yang sah (contoh: murid@sekolah.edu.my).";
         } else {
             try {
-                // Semak jika e-mel murid ini telah wujud dalam pangkalan data
-                $stmt_check = $pdo->prepare("SELECT id, fail_kerjaya FROM responses WHERE email = ? LIMIT 1");
-                $stmt_check->execute([$email]);
+                // Semak jika e-mel murid ini telah wujud dalam pangkalan data (case-insensitive & trimmed)
+                $clean_email_input = strtolower(trim($email));
+                $stmt_check = $pdo->prepare("SELECT id, fail_kerjaya FROM responses WHERE LOWER(email) = ? LIMIT 1");
+                $stmt_check->execute([$clean_email_input]);
                 $existing = $stmt_check->fetch();
 
                 if ($existing) {
