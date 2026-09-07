@@ -211,9 +211,9 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN C: E-PETI EXPLORASI KECERDASAN PELBAGAI (TEORI HOWARD GARDNER) -->
+            <!-- BAHAGIAN C: E-PETICHERITALAH EXPLORASI KECERDASAN PELBAGAI (TEORI HOWARD GARDNER) -->
             <h3 style="font-size:1.4rem; color:var(--accent-purple); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                🎁 (c) e-Peti Explorasi Kecerdasan Pelbagai (Teori Howard Gardner)
+                🎁 (c) e-PETICHERITALAH Explorasi Kecerdasan Pelbagai (Teori Howard Gardner)
             </h3>
             <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:18px;">
                 Tekan mana-mana butang di bawah untuk membaca penerangan maksud & 10 pekerjaan yang sesuai, kemudian tandakan kategori kecerdasan pilihan anda!

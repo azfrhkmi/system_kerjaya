@@ -64,7 +64,7 @@ Document ini menyediakan skrip pembentangan lengkap (berserta nota visual, cues,
 > 
 > 1. **Maklumat Diri**: Murid memasukkan e-mel, nama, serta memilih Tahun (Tahun 1-6 / PPKI) dan Kelas (seperti Amanah, Bestari, Cemerlang).
 > 2. **Ruangan Luahan Rasa**: Tempat murid secara bebas menceritakan tentang cita-cita, hobi, atau isu pembelajaran mereka.
-> 3. **e-Peti Explorasi Kecerdasan**: Murid boleh menekan butang kecerdasan untuk membaca penerangan ringkas dan contoh 10 pekerjaan yang padan sebelum memilih kecerdasan mereka.
+> 3. **e-PETICHERITALAH Explorasi Kecerdasan**: Murid boleh menekan butang kecerdasan untuk membaca penerangan ringkas dan contoh 10 pekerjaan yang padan sebelum memilih kecerdasan mereka.
 > 4. **Muat Naik Fail DELIMa**: Murid boleh memuat naik hasil tugasan kerjaya dari portal DELIMa (menyokong format PDF, DOCX, PNG, JPG).
 > 5. **Status Tindakan Kaunseling**: Murid menanda penjelas status seperti *'Berpuas hati'*, *'Perlu bantuan PRS'*, atau *'Ingin berjumpa guru kaunseling'*."
 
