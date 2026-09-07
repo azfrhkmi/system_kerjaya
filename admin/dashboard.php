@@ -16,7 +16,7 @@ $filter_kelas = sanitize_input($_GET['kelas'] ?? '');
 $filter_tahun = sanitize_input($_GET['tahun'] ?? '');
 
 $msg_success = null;
-$error_msg = null;
+$msg_error = null;
 
 // PEMBERSIHAN DUPLIKASI REKOD AUTOMATIK JIKA WUJUD
 try {
