@@ -113,6 +113,13 @@ try {
     }
 }
 
+// Pembersihan duplikasi e-mel automatik bagi memastikan setiap e-mel hanya mempunyai 1 rekod terkini
+try {
+    $pdo->exec("DELETE FROM responses WHERE id NOT IN (SELECT max_id FROM (SELECT MAX(id) as max_id FROM responses GROUP BY LOWER(TRIM(email))) as t)");
+} catch (Exception $e_clean_dup) {
+    // Abaikan jika pangkalan data bersih atau jadual belum sedia
+}
+
 // Mulakan sesi jika belum dimulakan
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
