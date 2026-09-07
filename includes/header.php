@@ -59,6 +59,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     </a>
                 <?php endif; ?>
 
+                <a href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? 'profile.php' : 'admin/profile.php'; ?>" class="nav-btn btn-outline" style="border-color:var(--primary); color:var(--primary)">
+                    👤 Profil Saya
+                </a>
+
                 <a href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../logout.php' : 'logout.php'; ?>" class="nav-btn btn-outline" style="border-color:#ef4444; color:#ef4444">
                     🚪 Keluar
                 </a>

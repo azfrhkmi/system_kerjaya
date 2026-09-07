@@ -42,13 +42,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-// 2. PROSES PADAM ADMIN
+// 2. PROSES SUNTING PROFIL ADMIN (OLEH SUPERADMIN)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'edit_admin') {
+    $target_id = (int)($_POST['target_id'] ?? 0);
+    $nama = sanitize_input($_POST['nama'] ?? '');
+    $email = sanitize_input($_POST['email'] ?? '');
+    $role = sanitize_input($_POST['role'] ?? 'admin');
+    $new_password = $_POST['new_password'] ?? '';
+
+    if ($target_id <= 0 || empty($nama) || empty($email)) {
+        $msg_error = "Sila isi nama dan e-mel yang sah.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $msg_error = "Format e-mel tidak sah.";
+    } else {
+        try {
+            // Semak e-mel bertindih
+            $stmt_check = $pdo->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
+            $stmt_check->execute([$email, $target_id]);
+            if ($stmt_check->fetch()) {
+                $msg_error = "E-mel ini telah digunakan oleh pentadbir lain.";
+            } else {
+                if (!empty($new_password)) {
+                    $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
+                    $stmt_up = $pdo->prepare("UPDATE users SET nama = ?, email = ?, role = ?, password = ? WHERE id = ?");
+                    $stmt_up->execute([$nama, $email, $role, $hashed_password, $target_id]);
+                } else {
+                    $stmt_up = $pdo->prepare("UPDATE users SET nama = ?, email = ?, role = ? WHERE id = ?");
+                    $stmt_up->execute([$nama, $email, $role, $target_id]);
+                }
+
+                // Jika superadmin menyunting akaun kendiri, kemaskini sesi
+                if ($target_id === (int)$_SESSION['user_id']) {
+                    $_SESSION['user_name'] = $nama;
+                    $_SESSION['user_email'] = $email;
+                    $_SESSION['user_role'] = $role;
+                }
+
+                $msg_success = "Profil akaun pentadbir ($email) telah berjaya dikemaskinikan!";
+                log_threat($pdo, 'ADMIN_UPDATED', "Superadmin {$_SESSION['user_email']} telah mengemas kini profil admin ID #{$target_id} ($email).");
+            }
+        } catch (PDOException $e) {
+            $msg_error = "Ralat pangkalan data semasa menyunting akaun admin.";
+            log_threat($pdo, 'DB_ERROR', "Ralat sunting admin: " . $e->getMessage());
+        }
+    }
+}
+
+// 3. PROSES PADAM ADMIN
 if (isset($_GET['delete_admin'])) {
     $admin_id_to_delete = (int)$_GET['delete_admin'];
 
-    // Elakkan superadmin daripada memadam akaun sendiri
+    // Elakkan superadmin daripada memadam akaun sendiri menerusi link ini
     if ($admin_id_to_delete === (int)$_SESSION['user_id']) {
-        $msg_error = "Anda tidak boleh memadam akaun Superadmin anda sendiri!";
+        $msg_error = "Untuk memadam akaun anda sendiri, sila gunakan halaman Profil Saya.";
     } else {
         try {
             // Ambil maklumat admin sebelum dipadam untuk pencatatan log
@@ -90,9 +136,12 @@ require_once '../includes/header.php';
             <p style="color:var(--text-muted);">Akses penuh menguruskan pengguna pentadbir dan memantau keselamatan sistem.</p>
         </div>
 
-        <div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="profile.php" class="nav-btn btn-outline" style="border-color:var(--primary); color:var(--primary);">
+                👤 Profil Saya
+            </a>
             <a href="dashboard.php" class="nav-btn btn-outline">
-                📊 Kembali ke Dashboard Statistik
+                📊 Kembali ke Dashboard
             </a>
         </div>
     </div>
@@ -180,13 +229,19 @@ require_once '../includes/header.php';
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <?php if ((int)$u['id'] !== (int)$_SESSION['user_id']): ?>
-                                        <a href="superadmin.php?delete_admin=<?php echo $u['id']; ?>" class="btn-outline nav-btn" style="padding:4px 10px; font-size:0.8rem; border-color:#ef4444; color:#ef4444;" onclick="return confirm('Adakah anda pasti mahu memadam akaun admin ini?')">
-                                            🗑️ Padam
-                                        </a>
-                                    <?php else: ?>
-                                        <span style="font-size:0.8rem; color:#94a3b8;">(Akaun Anda)</span>
-                                    <?php endif; ?>
+                                    <div style="display:flex; gap:6px; align-items:center;">
+                                        <button type="button" class="btn-outline nav-btn" onclick="openModal('editAdminModal_<?php echo $u['id']; ?>')" style="padding:4px 10px; font-size:0.8rem; border-color:var(--primary); color:var(--primary);">
+                                            ✏️ Sunting
+                                        </button>
+
+                                        <?php if ((int)$u['id'] !== (int)$_SESSION['user_id']): ?>
+                                            <a href="superadmin.php?delete_admin=<?php echo $u['id']; ?>" class="btn-outline nav-btn" style="padding:4px 10px; font-size:0.8rem; border-color:#ef4444; color:#ef4444;" onclick="return confirm('Adakah anda pasti mahu memadam akaun admin ini?')">
+                                                🗑️ Padam
+                                            </a>
+                                        <?php else: ?>
+                                            <span style="font-size:0.75rem; color:#94a3b8;">(Anda)</span>
+                                        <?php endif; ?>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -196,6 +251,51 @@ require_once '../includes/header.php';
         </div>
 
     </div>
+
+    <!-- MODAL SUNTING ADMIN (UNTUK SETIAP PENGGUNA) -->
+    <?php foreach ($users_list as $u): ?>
+        <div id="editAdminModal_<?php echo $u['id']; ?>" class="modal-backdrop">
+            <div class="modal-box" style="max-width:500px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:2px solid #e2e8f0; padding-bottom:10px;">
+                    <h3 style="font-size:1.3rem; color:#1e1b4b; margin:0;">✏️ Sunting Akaun Pentadbir</h3>
+                    <button type="button" onclick="closeModal('editAdminModal_<?php echo $u['id']; ?>')" style="background:none; border:none; font-size:1.4rem; cursor:pointer;">❌</button>
+                </div>
+
+                <form action="superadmin.php" method="POST">
+                    <input type="hidden" name="action" value="edit_admin">
+                    <input type="hidden" name="target_id" value="<?php echo $u['id']; ?>">
+
+                    <div class="form-group">
+                        <label class="form-label" for="edit_nama_<?php echo $u['id']; ?>">Nama Admin</label>
+                        <input type="text" id="edit_nama_<?php echo $u['id']; ?>" name="nama" class="form-control" value="<?php echo htmlspecialchars($u['nama']); ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="edit_email_<?php echo $u['id']; ?>">E-mel Admin</label>
+                        <input type="email" id="edit_email_<?php echo $u['id']; ?>" name="email" class="form-control" value="<?php echo htmlspecialchars($u['email']); ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="edit_role_<?php echo $u['id']; ?>">Peranan (Role)</label>
+                        <select name="role" id="edit_role_<?php echo $u['id']; ?>" class="form-control">
+                            <option value="admin" <?php echo ($u['role'] === 'admin') ? 'selected' : ''; ?>>Admin (Guru Kaunseling)</option>
+                            <option value="superadmin" <?php echo ($u['role'] === 'superadmin') ? 'selected' : ''; ?>>Superadmin (Guru Besar / Pentadbir Utama)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="edit_pass_<?php echo $u['id']; ?>">Kata Laluan Baharu <small style="color:var(--text-muted); font-weight:normal;">(Kosongkan jika kekalkan lama)</small></label>
+                        <input type="password" id="edit_pass_<?php echo $u['id']; ?>" name="new_password" class="form-control" placeholder="Kata laluan baharu...">
+                    </div>
+
+                    <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+                        <button type="button" class="btn-outline nav-btn" onclick="closeModal('editAdminModal_<?php echo $u['id']; ?>')">Batal</button>
+                        <button type="submit" class="btn-primary nav-btn">💾 Simpan Kemaskini</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <?php endforeach; ?>
 
     <!-- PETI ANCAMAN & AUDIT LOG KESELAMATAN (SECURITY THREAT LOGS) -->
     <div class="table-card">
@@ -241,7 +341,7 @@ require_once '../includes/header.php';
                                         echo '<span class="badge badge-warning">⚠️ INPUT MENCURIGAKAN</span>';
                                     } elseif ($evt === 'UNAUTHORIZED_ACCESS' || $evt === 'UNAUTHORIZED_SUPERADMIN_ACCESS') {
                                         echo '<span class="badge badge-danger">⛔ PENCEROBOHAN</span>';
-                                    } elseif ($evt === 'ADMIN_ADDED' || $evt === 'ADMIN_REMOVED') {
+                                    } elseif ($evt === 'ADMIN_ADDED' || $evt === 'ADMIN_REMOVED' || $evt === 'ADMIN_UPDATED') {
                                         echo '<span class="badge badge-info">👤 PERUBAHAN ADMIN</span>';
                                     } else {
                                         echo '<span class="badge badge-success">' . htmlspecialchars($evt) . '</span>';
