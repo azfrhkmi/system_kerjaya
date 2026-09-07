@@ -9,12 +9,22 @@ $error_msg = null;
 if (isset($_GET['submitted'])) {
     $submitted_nama = htmlspecialchars($_SESSION['last_submitted_nama'] ?? 'Murid');
     $success_msg = "Tahniah {$submitted_nama}! Soal jawab kerjaya anda telah berjaya dihantar kepada Guru Bimbingan & Kaunseling. 🎉";
+    if (isset($_SESSION['upload_warning'])) {
+        $success_msg .= "<br><small style='color:#b45309; font-weight:normal; display:block; margin-top:8px;'>⚠️ Nota: " . htmlspecialchars($_SESSION['upload_warning']) . "</small>";
+        unset($_SESSION['upload_warning']);
+    }
     unset($_SESSION['last_submitted_nama']);
 }
 
 // PROSES BORANG PENYERAHAN
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = sanitize_input($_POST['email'] ?? '');
+    $raw_email = trim($_POST['email'] ?? '');
+    // Jika murid memasukkan username/nama tanpa '@', tambah domain lalai automatik
+    if (!empty($raw_email) && strpos($raw_email, '@') === false) {
+        $raw_email .= '@sekolah.edu.my';
+    }
+    $email = filter_var($raw_email, FILTER_SANITIZE_EMAIL);
+
     $nama = sanitize_input($_POST['nama'] ?? '');
     $tahun = sanitize_input($_POST['tahun'] ?? '');
     $kelas = sanitize_input($_POST['kelas'] ?? '');
@@ -22,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gardner_array = $_POST['gardner_pilihan'] ?? [];
     $komen_status = sanitize_input($_POST['komen_status'] ?? '');
     $fail_kerjaya_path = null;
+    $upload_warning = null;
 
     // Sanitasi array Teori Howard Gardner
     if (is_array($gardner_array)) {
@@ -30,19 +41,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $riasec_pilihan = sanitize_input($gardner_array);
     }
 
-    // PROSES MUAT NAIK FAIL KERJAYA (SECTION D)
+    // PROSES MUAT NAIK FAIL KERJAYA (SECTION D - TIDAK MEMBLOK PENYIMPANAN DATA REKOD)
     if (isset($_FILES['fail_kerjaya']) && $_FILES['fail_kerjaya']['error'] === UPLOAD_ERR_OK) {
         $file_tmp = $_FILES['fail_kerjaya']['tmp_name'];
         $file_name = $_FILES['fail_kerjaya']['name'];
         $file_size = $_FILES['fail_kerjaya']['size'];
         $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
-        $allowed_exts = ['pdf', 'doc', 'docx', 'png', 'jpg', 'jpeg'];
+        $allowed_exts = ['pdf', 'doc', 'docx', 'png', 'jpg', 'jpeg', 'heic', 'heif'];
         
         if (!in_array($file_ext, $allowed_exts)) {
-            $error_msg = "Fail yang dimuat naik tidak dibenarkan. Sila guna format (PDF, DOC, DOCX, PNG, JPG, JPEG).";
-        } elseif ($file_size > 10 * 1024 * 1024) { // Max 10MB
-            $error_msg = "Saiz fail terlalu besar (Maksimum 10MB).";
+            $upload_warning = "Fail tidak disimpan kerana format tidak disokong (PDF, DOC, DOCX, PNG, JPG, JPEG). Jawapan murid tetap berjaya direkodkan!";
+        } elseif ($file_size > 15 * 1024 * 1024) { // Max 15MB
+            $upload_warning = "Fail terlalu besar (>15MB). Jawapan murid tetap berjaya direkodkan!";
         } else {
             // Cipta nama fail selamat
             $clean_email = preg_replace('/[^a-zA-Z0-9]/', '_', $email);
@@ -50,14 +61,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $target_dir = __DIR__ . "/uploads/";
             
             if (!is_dir($target_dir)) {
-                mkdir($target_dir, 0755, true);
+                @mkdir($target_dir, 0755, true);
             }
             
             $target_file = $target_dir . $new_filename;
-            if (move_uploaded_file($file_tmp, $target_file)) {
+            if (@move_uploaded_file($file_tmp, $target_file)) {
                 $fail_kerjaya_path = "uploads/" . $new_filename;
             } else {
-                $error_msg = "Gagal memuat naik fail. Sila cuba lagi.";
+                $upload_warning = "Fail tidak dapat dimuat naik ke pelayan. Jawapan murid tetap berjaya direkodkan!";
             }
         }
     }
@@ -67,41 +78,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         log_threat($pdo, 'SUSPICIOUS_INPUT', "Percubaan input berbahaya dikesan dari e-mel: $email");
     }
 
-    // Validasi Medan Wajib
-    if (empty($error_msg)) {
-        if (empty($email) || empty($nama) || empty($tahun) || empty($kelas) || empty($komen_status)) {
-            $error_msg = "Sila lengkapkan semua maklumat yang bertanda wajib (*).";
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $error_msg = "Sila masukkan format e-mel yang sah (contoh: murid@sekolah.edu.my).";
-        } else {
-            try {
-                // Semak jika e-mel murid ini telah wujud dalam pangkalan data (case-insensitive & trimmed)
-                $clean_email_input = strtolower(trim($email));
-                $stmt_check = $pdo->prepare("SELECT id, fail_kerjaya FROM responses WHERE LOWER(TRIM(email)) = ? ORDER BY id DESC LIMIT 1");
-                $stmt_check->execute([$clean_email_input]);
-                $existing = $stmt_check->fetch();
+    // Validasi Medan Wajib & Simpan Ke Pangkalan Data
+    if (empty($email) || empty($nama) || empty($tahun) || empty($kelas) || empty($komen_status)) {
+        $error_msg = "Sila lengkapkan semua maklumat yang bertanda wajib (*).";
+    } else {
+        try {
+            // Semak jika e-mel murid ini telah wujud dalam pangkalan data (case-insensitive & trimmed)
+            $clean_email_input = strtolower(trim($email));
+            $stmt_check = $pdo->prepare("SELECT id, fail_kerjaya FROM responses WHERE LOWER(TRIM(email)) = ? ORDER BY id DESC LIMIT 1");
+            $stmt_check->execute([$clean_email_input]);
+            $existing = $stmt_check->fetch();
 
-                if ($existing) {
-                    $final_fail = $fail_kerjaya_path ?: $existing['fail_kerjaya'];
-                    $stmt_up = $pdo->prepare("UPDATE responses SET email = ?, nama = ?, tahun = ?, kelas = ?, luahan_rasa = ?, riasec_pilihan = ?, fail_kerjaya = ?, komen_status = ?, submitted_at = NOW() WHERE id = ?");
-                    $stmt_up->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $final_fail, $komen_status, $existing['id']]);
+            if ($existing) {
+                $final_fail = $fail_kerjaya_path ?: $existing['fail_kerjaya'];
+                $stmt_up = $pdo->prepare("UPDATE responses SET email = ?, nama = ?, tahun = ?, kelas = ?, luahan_rasa = ?, riasec_pilihan = ?, fail_kerjaya = ?, komen_status = ?, submitted_at = NOW() WHERE id = ?");
+                $stmt_up->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $final_fail, $komen_status, $existing['id']]);
 
-                    // Padam sebarang duplikasi lama bagi e-mel ini jika wujud
-                    $stmt_del_dup = $pdo->prepare("DELETE FROM responses WHERE LOWER(TRIM(email)) = ? AND id != ?");
-                    $stmt_del_dup->execute([$clean_email_input, $existing['id']]);
-                } else {
-                    $stmt_in = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmt_in->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $komen_status]);
-                }
-
-                // Guna Post-Redirect-Get (PRG) untuk mengelakkan penyerahan semula borang pada Refresh
-                $_SESSION['last_submitted_nama'] = $nama;
-                header('Location: soal_jawab.php?submitted=1');
-                exit;
-            } catch (PDOException $e) {
-                $error_msg = "Ralat semasa menyimpan jawapan. Sila cuba semula.";
-                log_threat($pdo, 'DB_ERROR', "Ralat SQL penyerahan borang: " . $e->getMessage());
+                // Padam sebarang duplikasi lama bagi e-mel ini jika wujud
+                $stmt_del_dup = $pdo->prepare("DELETE FROM responses WHERE LOWER(TRIM(email)) = ? AND id != ?");
+                $stmt_del_dup->execute([$clean_email_input, $existing['id']]);
+            } else {
+                $stmt_in = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt_in->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $komen_status]);
             }
+
+            // Guna Post-Redirect-Get (PRG) untuk mengelakkan penyerahan semula borang pada Refresh
+            $_SESSION['last_submitted_nama'] = $nama;
+            if (!empty($upload_warning)) {
+                $_SESSION['upload_warning'] = $upload_warning;
+            }
+            header('Location: soal_jawab.php?submitted=1');
+            exit;
+        } catch (PDOException $e) {
+            $error_msg = "Ralat pangkalan data semasa menyimpan jawapan: " . htmlspecialchars($e->getMessage());
+            log_threat($pdo, 'DB_ERROR', "Ralat SQL penyerahan borang: " . $e->getMessage());
         }
     }
 }
