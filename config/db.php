@@ -113,6 +113,23 @@ try {
     }
 }
 
+// PERKEMAAN PANGKALAN DATA: BERSIHKAN DUPLIKASI LAMA & TAMBAH UNIQUE INDEX PADA EMAIL
+try {
+    // 1. Padam sebarang rekod duplikasi lama mengikut e-mel, simpan ID tertinggi
+    $pdo->exec("DELETE r1 FROM responses r1 INNER JOIN responses r2 ON LOWER(TRIM(r1.email)) = LOWER(TRIM(r2.email)) AND r1.id < r2.id");
+} catch (Exception $e_clean1) {
+    try {
+        $pdo->exec("DELETE FROM responses WHERE id NOT IN (SELECT max_id FROM (SELECT MAX(id) as max_id FROM responses GROUP BY LOWER(TRIM(email))) as t)");
+    } catch (Exception $e_clean2) {}
+}
+
+try {
+    // 2. Wujudkan Kunci Unik (UNIQUE KEY) pada lajur email supaya pangkalan data MENOLAK sebarang duplikasi
+    $pdo->exec("ALTER TABLE responses ADD UNIQUE KEY idx_unique_email (email)");
+} catch (Exception $e_uniq) {
+    // Abaikan jika indeks kunci unik sudah wujud
+}
+
 // Mulakan sesi jika belum dimulakan
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
