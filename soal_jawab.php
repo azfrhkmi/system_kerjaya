@@ -3,6 +3,9 @@ $page_title = "Soal Jawab Kerjaya Saya";
 require_once 'config/db.php';
 require_once 'includes/logger.php';
 
+$success_msg = null;
+$error_msg = null;
+
 if (isset($_GET['submitted'])) {
     $submitted_nama = htmlspecialchars($_SESSION['last_submitted_nama'] ?? 'Murid');
     $success_msg = "Tahniah {$submitted_nama}! Soal jawab kerjaya anda telah berjaya dihantar kepada Guru Bimbingan & Kaunseling. 🎉";
@@ -122,7 +125,7 @@ require_once 'includes/header.php';
     </div>
 
     <!-- NOTIFIKASI BOLEH DILIHAT -->
-    <?php if ($success_msg): ?>
+    <?php if (!empty($success_msg)): ?>
         <div style="background:#dcfce7; border:2px solid #86efac; color:#166534; border-radius:var(--radius-md); padding:20px; text-align:center; max-width:900px; margin:0 auto 30px; font-size:1.1rem; font-weight:700;">
             <?php echo $success_msg; ?>
             <div style="margin-top:15px;">
@@ -131,7 +134,7 @@ require_once 'includes/header.php';
         </div>
     <?php endif; ?>
 
-    <?php if ($error_msg): ?>
+    <?php if (!empty($error_msg)): ?>
         <div style="background:#fee2e2; border:2px solid #fca5a5; color:#991b1b; border-radius:var(--radius-md); padding:20px; text-align:center; max-width:900px; margin:0 auto 30px; font-size:1.05rem; font-weight:700;">
             ⚠️ <?php echo $error_msg; ?>
         </div>
