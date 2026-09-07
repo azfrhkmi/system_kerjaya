@@ -138,4 +138,4 @@ Sistem ini dibina dengan **Dual-Engine Database Configuration** (`config/db.php`
 
 ---
 
-© 2026 **Sistem Penerokaan Peti Cheritalah Sekolah Rendah** • Kementerian Pendidikan Malaysia (Bimbingan & Kaunseling).
+© 2026 **Sistem Penerokaan Peti Cheritalah Sekolah Rendah** • Unit Bimbingan dan Kaunseling SKPP 8 (2).

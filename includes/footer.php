@@ -8,7 +8,7 @@
                 Direka khas dengan penuh kasih sayang untuk membantu murid membina impian & masa depan yang cemerlang.
             </p>
             <p style="margin-top: 15px; font-size: 0.85rem;">
-                © <?php echo date('Y'); ?> Hak Cipta Terpelihara • KPM Bimbingan & Kaunseling
+                © <?php echo date('Y'); ?> Hak Cipta Terpelihara • Unit Bimbingan dan Kaunseling SKPP 8 (2)
             </p>
         </div>
     </footer>
