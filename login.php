@@ -78,12 +78,12 @@ require_once 'includes/header.php';
                 
                 <div class="form-group">
                     <label class="form-label" for="email">E-mel Pentadbir</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="admin@kerjaya.edu.my" required value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
+                    <input type="email" id="email" name="email" class="form-control" required value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="password">Kata Laluan</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+                    <input type="password" id="password" name="password" class="form-control" required>
                 </div>
 
                 <button type="submit" class="btn-primary nav-btn" style="width:100%; justify-content:center; padding:14px; font-size:1.1rem; margin-top:10px;">
