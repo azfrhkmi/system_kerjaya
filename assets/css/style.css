@@ -1255,3 +1255,17 @@ h1, h2, h3, h4, h5, .font-heading {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* STEM BUTTONS LARGER SIZE */
+.stem-buttons-big {
+    gap: 14px;
+}
+
+.stem-buttons-big .gardner-btn {
+    padding: 16px 26px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    min-height: 56px;
+    border-radius: 18px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}

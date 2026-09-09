@@ -179,21 +179,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // FUNGSI PAPARAN INTERAKTIF TEORI HOWARD GARDNER
+    // FUNGSI PAPARAN INTERAKTIF TEORI HOWARD GARDNER (WITH TOGGLE)
     window.showGardnerDetail = function(code) {
         const data = gardnerData[code];
         if (!data) return;
 
-        // Toggle active states pada butang
-        document.querySelectorAll('.gardner-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
+        const displayBox = document.getElementById('gardnerDisplay');
         const targetBtn = document.querySelector(`.gardner-btn-${code}`);
+
+        // Jika butang yang sama ditekan lagi, tutup paparan (Toggle Hide)
+        if (targetBtn && targetBtn.classList.contains('active') && displayBox && displayBox.classList.contains('active')) {
+            targetBtn.classList.remove('active');
+            displayBox.classList.remove('active');
+            displayBox.style.display = 'none';
+            return;
+        }
+
+        // Semak & buka paparan baharu (Toggle Show)
+        document.querySelectorAll('.gardner-btn').forEach(btn => {
+            if (!btn.classList.contains('stem-btn-s') && !btn.classList.contains('stem-btn-t') && !btn.classList.contains('stem-btn-e') && !btn.classList.contains('stem-btn-m')) {
+                btn.classList.remove('active');
+            }
+        });
         if (targetBtn) targetBtn.classList.add('active');
 
-        // Kemaskini bekas paparan detail
-        const displayBox = document.getElementById('gardnerDisplay');
         if (displayBox) {
+            displayBox.style.display = 'block';
             displayBox.style.borderColor = data.color;
             displayBox.style.backgroundColor = 'white';
             displayBox.innerHTML = `
@@ -387,18 +398,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // FUNGSI PAPARAN INTERAKTIF STEM (S, T, E, M)
+    // FUNGSI PAPARAN INTERAKTIF STEM (S, T, E, M) - WITH TOGGLE
     window.showStemDetail = function(letter) {
         const data = stemData[letter];
         if (!data) return;
 
-        document.querySelectorAll('.stem-btn-s, .stem-btn-t, .stem-btn-e, .stem-btn-m').forEach(btn => btn.classList.remove('active'));
+        const displayBox = document.getElementById('stemDisplay');
         const activeBtn = document.querySelector(`.stem-btn-${letter.toLowerCase()}`);
+
+        // Jika butang yang sama ditekan lagi, tutup paparan (Toggle Hide)
+        if (activeBtn && activeBtn.classList.contains('active') && displayBox && displayBox.classList.contains('active')) {
+            activeBtn.classList.remove('active');
+            displayBox.classList.remove('active');
+            displayBox.style.display = 'none';
+            return;
+        }
+
+        document.querySelectorAll('.stem-btn-s, .stem-btn-t, .stem-btn-e, .stem-btn-m').forEach(btn => btn.classList.remove('active'));
         if (activeBtn) activeBtn.classList.add('active');
 
-        const displayBox = document.getElementById('stemDisplay');
         if (displayBox) {
+            displayBox.style.display = 'block';
             displayBox.style.borderColor = data.color;
+            displayBox.style.backgroundColor = 'white';
             displayBox.innerHTML = `
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:15px; border-bottom:2px solid ${data.bg}; padding-bottom:12px; flex-wrap:wrap; gap:10px;">
                     <div>
@@ -422,20 +444,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             displayBox.classList.add('active');
+            displayBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     };
 
-    // FUNGSI PAPARAN INTERAKTIF APLIKASI AI
+    // FUNGSI PAPARAN INTERAKTIF APLIKASI AI (WITH TOGGLE)
     window.showAiDetail = function(code) {
         const data = aiData[code];
         if (!data) return;
 
-        document.querySelectorAll('.ai-btn').forEach(btn => btn.classList.remove('active'));
+        const displayBox = document.getElementById('aiDisplay');
         const eventBtn = event ? event.target.closest('.ai-btn') : null;
+
+        // Jika butang yang sama ditekan lagi, tutup paparan (Toggle Hide)
+        if (eventBtn && eventBtn.classList.contains('active') && displayBox && displayBox.classList.contains('active')) {
+            eventBtn.classList.remove('active');
+            displayBox.classList.remove('active');
+            displayBox.style.display = 'none';
+            return;
+        }
+
+        document.querySelectorAll('.ai-btn').forEach(btn => btn.classList.remove('active'));
         if (eventBtn) eventBtn.classList.add('active');
 
-        const displayBox = document.getElementById('aiDisplay');
         if (displayBox) {
+            displayBox.style.display = 'block';
             displayBox.style.borderColor = data.color;
             displayBox.style.backgroundColor = 'white';
             displayBox.innerHTML = `
@@ -453,6 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p style="font-size:1rem; color:#475569; line-height:1.6;">${data.desc}</p>
             `;
             displayBox.classList.add('active');
+            displayBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     };
 
