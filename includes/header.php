@@ -41,7 +41,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </a>
             
             <a href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../soal_jawab.php' : 'soal_jawab.php'; ?>" class="nav-btn btn-primary">
-                📝 KImS
+                📝 Vision Board
             </a>
 
             <button type="button" class="nav-btn btn-outline" style="border-color:#f59e0b; color:#b45309;" onclick="openModal('qrCodeModal')">
