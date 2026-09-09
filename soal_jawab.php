@@ -200,9 +200,11 @@ require_once 'includes/header.php';
                 </div>
             </div>
 
-            <hr style="border:0; border-top:2px dashed #e2e            <!-- BAHAGIAN B: PENGGUNAAN APLIKASI AI KERJAYA & TEORI KECERDASAN -->
+            <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
+
+            <!-- BAHAGIAN B: PENGGUNAAN APLIKASI AI KERJAYA -->
             <h3 style="font-size:1.4rem; color:var(--accent-purple); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                🤖 (b) Penggunaan Aplikasi AI Kerjaya & Teori Kecerdasan
+                🤖 (b) Penggunaan Aplikasi AI Kerjaya
             </h3>
             <p style="color:var(--text-dark); font-size:1.05rem; font-weight:700; margin-bottom:4px;">
                 Dengan menggunakan teknologi AI, anda boleh menghasilkan hasil kerjaya yang kreatif
@@ -228,9 +230,14 @@ require_once 'includes/header.php';
             <!-- Bekas Paparan Detail Aplikasi AI -->
             <div id="aiDisplay" class="ai-detail-display" style="margin-bottom:24px;"></div>
 
-            <!-- Penandaan Pilihan Murid (Susunan Kemas 3x3 Grid) -->
-            <div class="form-group" style="margin-top:28px;">
-                <label class="form-label" style="margin-bottom:14px; font-size:1.1rem; color:#1e1b4b;">
+            <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
+
+            <!-- BAHAGIAN C: TEORI KECERDASAN PELBAGAI HOWARD GARDNER -->
+            <h3 style="font-size:1.4rem; color:#ec4899; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+                🎁 (c) Explorasi Teori Kecerdasan Pelbagai
+            </h3>
+            <div class="form-group" style="margin-top:14px;">
+                <label class="form-label" style="margin-bottom:14px; font-size:1.05rem; color:#1e1b4b;">
                     Tandakan Teori Kecerdasan Yang Paling Sesuai Dengan Anda (Boleh pilih lebih dari satu):
                 </label>
                 <div class="gardner-select-grid">
@@ -260,9 +267,9 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN C: SILA UPLOAD BAHAN FILE INSPIRASI KERJAYA ANDA -->
+            <!-- BAHAGIAN D: SILA UPLOAD BAHAN FILE INSPIRASI KERJAYA ANDA -->
             <h3 style="font-size:1.4rem; color:#0284c7; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                📁 (c) Sila Upload Bahan File Inspirasi Kerjaya Anda
+                📁 (d) Sila Upload Bahan File Inspirasi Kerjaya Anda
             </h3>
             <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:16px; padding:18px; margin-bottom:18px;">
                 <p style="color:#0369a1; font-size:0.98rem; margin-bottom:10px; line-height:1.6;">
@@ -287,9 +294,9 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN D: KOMEN SAYA (MCA) -->
+            <!-- BAHAGIAN E: KOMEN SAYA (MCA) -->
             <h3 style="font-size:1.4rem; color:var(--accent-green); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                ⭐ (d) Komen & Tindakan Selanjutnya
+                ⭐ (e) Komen & Tindakan Selanjutnya
             </h3>
             <div class="form-group">
                 <label class="form-label">Sila pilih satu komen maklum balas anda: <span style="color:#ef4444">*</span></label>
