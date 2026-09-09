@@ -12,26 +12,44 @@ $file_blob_data = null;
 $student_nama = "Murid";
 
 if ($id > 0) {
-    $stmt = $pdo->prepare("SELECT nama, fail_kerjaya, fail_kerjaya_blob FROM responses WHERE id = ?");
-    $stmt->execute([$id]);
-    $res = $stmt->fetch();
-    if ($res) {
-        $student_nama = $res['nama'];
-        $file_relative_path = $res['fail_kerjaya'];
-        $file_blob_data = $res['fail_kerjaya_blob'] ?? null;
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM responses WHERE id = ?");
+        $stmt->execute([$id]);
+        $res = $stmt->fetch();
+        if ($res) {
+            $student_nama = $res['nama'] ?? 'Murid';
+            $file_relative_path = $res['fail_kerjaya'] ?? null;
+            $file_blob_data = $res['fail_kerjaya_blob'] ?? null;
+        }
+    } catch (Exception $e_q) {
+        $stmt = $pdo->prepare("SELECT nama, fail_kerjaya FROM responses WHERE id = ?");
+        $stmt->execute([$id]);
+        $res = $stmt->fetch();
+        if ($res) {
+            $student_nama = $res['nama'] ?? 'Murid';
+            $file_relative_path = $res['fail_kerjaya'] ?? null;
+        }
     }
 } elseif (!empty($file_param)) {
     // Sanitasi laluan fail daripada traversal serangan
     $file_param = str_replace(['..', '\\'], ['', '/'], $file_param);
     $file_relative_path = $file_param;
     
-    // Cari blob berasaskan fail_kerjaya path
-    $stmt = $pdo->prepare("SELECT nama, fail_kerjaya_blob FROM responses WHERE fail_kerjaya LIKE ? LIMIT 1");
-    $stmt->execute(['%' . basename($file_param)]);
-    $res = $stmt->fetch();
-    if ($res) {
-        $student_nama = $res['nama'];
-        $file_blob_data = $res['fail_kerjaya_blob'] ?? null;
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM responses WHERE fail_kerjaya LIKE ? LIMIT 1");
+        $stmt->execute(['%' . basename($file_param)]);
+        $res = $stmt->fetch();
+        if ($res) {
+            $student_nama = $res['nama'] ?? 'Murid';
+            $file_blob_data = $res['fail_kerjaya_blob'] ?? null;
+        }
+    } catch (Exception $e_q2) {
+        $stmt = $pdo->prepare("SELECT nama, fail_kerjaya FROM responses WHERE fail_kerjaya LIKE ? LIMIT 1");
+        $stmt->execute(['%' . basename($file_param)]);
+        $res = $stmt->fetch();
+        if ($res) {
+            $student_nama = $res['nama'] ?? 'Murid';
+        }
     }
 }
 

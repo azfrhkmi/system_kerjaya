@@ -40,12 +40,12 @@ try {
         $sql_schema = file_get_contents(__DIR__ . '/../database.sql');
         $pdo->exec($sql_schema);
     } else {
-        // Pastikan lajur fail_kerjaya & fail_kerjaya_blob wujud
+        // Pastikan lajur fail_kerjaya & fail_kerjaya_blob wujud pada MySQL
         try {
-            $pdo->exec("ALTER TABLE `responses` ADD COLUMN `fail_kerjaya` VARCHAR(255) NULL AFTER `riasec_pilihan`");
+            $pdo->exec("ALTER TABLE `responses` ADD COLUMN `fail_kerjaya` VARCHAR(255) NULL");
         } catch (Exception $e_col) {}
         try {
-            $pdo->exec("ALTER TABLE `responses` ADD COLUMN `fail_kerjaya_blob` LONGTEXT NULL AFTER `fail_kerjaya`");
+            $pdo->exec("ALTER TABLE `responses` ADD COLUMN `fail_kerjaya_blob` LONGTEXT NULL");
         } catch (Exception $e_col2) {}
     }
 
