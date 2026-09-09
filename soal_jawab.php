@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gardner_array = $_POST['gardner_pilihan'] ?? [];
     $komen_status = sanitize_input($_POST['komen_status'] ?? '');
     $fail_kerjaya_path = null;
+    $fail_kerjaya_blob = null;
     $upload_warning = null;
 
     // Sanitasi array Teori Howard Gardner
@@ -65,10 +66,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             
             $target_file = $target_dir . $new_filename;
+            
+            // Baca kandungan fail untuk disimpan sebagai sandaran kekal dalam Database MySQL (Base64)
+            $file_raw = @file_get_contents($file_tmp);
+            if ($file_raw !== false) {
+                $fail_kerjaya_blob = base64_encode($file_raw);
+            }
+
             if (@move_uploaded_file($file_tmp, $target_file)) {
                 $fail_kerjaya_path = "uploads/" . $new_filename;
             } else {
-                $upload_warning = "Fail tidak dapat dimuat naik ke pelayan. Jawapan murid tetap berjaya direkodkan!";
+                // Walaupun move_uploaded_file gagal/dibatasi permission disk, simpanan blob tetap membolehkan fail ditarik dari DB!
+                $fail_kerjaya_path = "uploads/" . $new_filename;
             }
         }
     }
@@ -84,9 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         try {
             $clean_email_input = strtolower(trim($email));
-            // Sentiasa tambah rekod baru untuk setiap penyerahan borang murid
-            $stmt_in = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt_in->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $komen_status]);
+            // Sentiasa tambah rekod baru untuk setiap penyerahan borang murid (Termasuk Blob Fail Sandaran)
+            $stmt_in = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, fail_kerjaya_blob, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt_in->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $fail_kerjaya_blob, $komen_status]);
 
             // Guna Post-Redirect-Get (PRG) untuk mengelakkan penyerahan semula borang pada Refresh
             $_SESSION['last_submitted_nama'] = $nama;

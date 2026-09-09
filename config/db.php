@@ -40,12 +40,13 @@ try {
         $sql_schema = file_get_contents(__DIR__ . '/../database.sql');
         $pdo->exec($sql_schema);
     } else {
-        // Pastikan lajur fail_kerjaya wujud
+        // Pastikan lajur fail_kerjaya & fail_kerjaya_blob wujud
         try {
             $pdo->exec("ALTER TABLE `responses` ADD COLUMN `fail_kerjaya` VARCHAR(255) NULL AFTER `riasec_pilihan`");
-        } catch (Exception $e_col) {
-            // Abaikan jika lajur sudah wujud
-        }
+        } catch (Exception $e_col) {}
+        try {
+            $pdo->exec("ALTER TABLE `responses` ADD COLUMN `fail_kerjaya_blob` LONGTEXT NULL AFTER `fail_kerjaya`");
+        } catch (Exception $e_col2) {}
     }
 
 } catch (Exception $e_mysql) {
@@ -78,6 +79,7 @@ try {
                 luahan_rasa TEXT NULL,
                 riasec_pilihan TEXT NULL,
                 fail_kerjaya TEXT NULL,
+                fail_kerjaya_blob TEXT NULL,
                 komen_status TEXT NOT NULL,
                 submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP
             );
@@ -92,12 +94,13 @@ try {
             );
         ");
 
-        // Semak lajur fail_kerjaya dalam SQLite
+        // Semak lajur fail_kerjaya & fail_kerjaya_blob dalam SQLite
         try {
             $pdo->exec("ALTER TABLE responses ADD COLUMN fail_kerjaya TEXT NULL");
-        } catch (Exception $e_sqcol) {
-            // Abaikan jika lajur wujud
-        }
+        } catch (Exception $e_sqcol) {}
+        try {
+            $pdo->exec("ALTER TABLE responses ADD COLUMN fail_kerjaya_blob TEXT NULL");
+        } catch (Exception $e_sqcol2) {}
 
         // Seed data akaun asas jika SQLite masih kosong
         $count_user = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();

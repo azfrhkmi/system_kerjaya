@@ -8,25 +8,36 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $file_param = isset($_GET['file']) ? trim($_GET['file']) : '';
 
 $file_relative_path = null;
+$file_blob_data = null;
 $student_nama = "Murid";
 
 if ($id > 0) {
-    $stmt = $pdo->prepare("SELECT nama, fail_kerjaya FROM responses WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT nama, fail_kerjaya, fail_kerjaya_blob FROM responses WHERE id = ?");
     $stmt->execute([$id]);
     $res = $stmt->fetch();
     if ($res) {
         $student_nama = $res['nama'];
         $file_relative_path = $res['fail_kerjaya'];
+        $file_blob_data = $res['fail_kerjaya_blob'] ?? null;
     }
 } elseif (!empty($file_param)) {
     // Sanitasi laluan fail daripada traversal serangan
     $file_param = str_replace(['..', '\\'], ['', '/'], $file_param);
     $file_relative_path = $file_param;
+    
+    // Cari blob berasaskan fail_kerjaya path
+    $stmt = $pdo->prepare("SELECT nama, fail_kerjaya_blob FROM responses WHERE fail_kerjaya LIKE ? LIMIT 1");
+    $stmt->execute(['%' . basename($file_param)]);
+    $res = $stmt->fetch();
+    if ($res) {
+        $student_nama = $res['nama'];
+        $file_blob_data = $res['fail_kerjaya_blob'] ?? null;
+    }
 }
 
 $full_file_path = $file_relative_path ? __DIR__ . '/' . ltrim($file_relative_path, '/') : null;
 
-// Semak jika fail wujud secara fizikal pada pelayan
+// 1. Semak jika fail wujud secara fizikal pada pelayan disk
 if ($full_file_path && file_exists($full_file_path) && is_file($full_file_path)) {
     $mime_type = mime_content_type($full_file_path) ?: 'application/octet-stream';
     $file_name = basename($full_file_path);
@@ -41,6 +52,35 @@ if ($full_file_path && file_exists($full_file_path) && is_file($full_file_path))
     header('Content-Length: ' . filesize($full_file_path));
     readfile($full_file_path);
     exit;
+}
+
+// 2. JIKA FAIL TIADA DI DISK (KONTENA RAILWAY REDEPLOY), PAPARKAN SANDARAN DARIPADA DATABASE MYSQL (BASE64 BLOB)
+if (!empty($file_blob_data)) {
+    $raw_bytes = base64_decode($file_blob_data);
+    if ($raw_bytes !== false && strlen($raw_bytes) > 0) {
+        $file_name = basename($file_relative_path ?: 'fail_kerjaya.png');
+        $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+        $mime_map = [
+            'pdf' => 'application/pdf',
+            'png' => 'image/png',
+            'jpg' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'doc' => 'application/msword',
+            'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ];
+        $mime_type = $mime_map[$ext] ?? 'application/octet-stream';
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: ' . $mime_type);
+        header('Content-Disposition: inline; filename="' . $file_name . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . strlen($raw_bytes));
+        echo $raw_bytes;
+        exit;
+    }
 }
 
 // JIKA FAIL TIDAK DITEMUI (Terpadam semasa Railway Container Redeploy)
