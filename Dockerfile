@@ -11,5 +11,5 @@ COPY . /app
 # Expose default port
 EXPOSE 8000
 
-# Start PHP server listening on Railway dynamic PORT
-CMD ["sh", "-c", "php -S 0.0.0.0:${PORT:-8000}"]
+# Start PHP server listening on Railway dynamic PORT with 30MB file upload support
+CMD ["sh", "-c", "php -d upload_max_filesize=30M -d post_max_size=35M -d memory_limit=256M -S 0.0.0.0:${PORT:-8000}"]

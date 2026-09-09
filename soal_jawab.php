@@ -1,4 +1,8 @@
 <?php
+@ini_set('upload_max_filesize', '30M');
+@ini_set('post_max_size', '35M');
+@ini_set('memory_limit', '256M');
+
 $page_title = "Soal Jawab Kerjaya Saya";
 require_once 'config/db.php';
 require_once 'includes/logger.php';
@@ -43,42 +47,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // PROSES MUAT NAIK FAIL KERJAYA (SECTION D - TIDAK MEMBLOK PENYIMPANAN DATA REKOD)
-    if (isset($_FILES['fail_kerjaya']) && $_FILES['fail_kerjaya']['error'] === UPLOAD_ERR_OK) {
-        $file_tmp = $_FILES['fail_kerjaya']['tmp_name'];
-        $file_name = $_FILES['fail_kerjaya']['name'];
-        $file_size = $_FILES['fail_kerjaya']['size'];
-        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-
-        $allowed_exts = ['pdf', 'doc', 'docx', 'png', 'jpg', 'jpeg', 'heic', 'heif'];
+    if (isset($_FILES['fail_kerjaya']) && $_FILES['fail_kerjaya']['error'] !== UPLOAD_ERR_NO_FILE) {
+        $upload_err_code = $_FILES['fail_kerjaya']['error'];
         
-        if (!in_array($file_ext, $allowed_exts)) {
-            $upload_warning = "Fail tidak disimpan kerana format tidak disokong (PDF, DOC, DOCX, PNG, JPG, JPEG). Jawapan murid tetap berjaya direkodkan!";
-        } elseif ($file_size > 15 * 1024 * 1024) { // Max 15MB
-            $upload_warning = "Fail terlalu besar (>15MB). Jawapan murid tetap berjaya direkodkan!";
-        } else {
-            // Cipta nama fail selamat
-            $clean_email = preg_replace('/[^a-zA-Z0-9]/', '_', $email);
-            $new_filename = "kerjaya_" . $clean_email . "_" . time() . "." . $file_ext;
-            $target_dir = __DIR__ . "/uploads/";
-            
-            if (!is_dir($target_dir)) {
-                @mkdir($target_dir, 0755, true);
-            }
-            
-            $target_file = $target_dir . $new_filename;
-            
-            // Baca kandungan fail untuk disimpan sebagai sandaran kekal dalam Database MySQL (Base64)
-            $file_raw = @file_get_contents($file_tmp);
-            if ($file_raw !== false) {
-                $fail_kerjaya_blob = base64_encode($file_raw);
-            }
+        if ($upload_err_code === UPLOAD_ERR_OK) {
+            $file_tmp = $_FILES['fail_kerjaya']['tmp_name'];
+            $file_name = $_FILES['fail_kerjaya']['name'];
+            $file_size = $_FILES['fail_kerjaya']['size'];
+            $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
-            if (@move_uploaded_file($file_tmp, $target_file)) {
-                $fail_kerjaya_path = "uploads/" . $new_filename;
+            $allowed_exts = ['pdf', 'doc', 'docx', 'png', 'jpg', 'jpeg', 'heic', 'heif'];
+            
+            if (!in_array($file_ext, $allowed_exts)) {
+                $upload_warning = "Fail tidak disimpan kerana format tidak disokong (PDF, DOC, DOCX, PNG, JPG, JPEG). Jawapan murid tetap berjaya direkodkan!";
+            } elseif ($file_size > 25 * 1024 * 1024) { // Max 25MB
+                $upload_warning = "Fail terlalu besar (>25MB). Jawapan murid tetap berjaya direkodkan!";
             } else {
-                // Walaupun move_uploaded_file gagal/dibatasi permission disk, simpanan blob tetap membolehkan fail ditarik dari DB!
-                $fail_kerjaya_path = "uploads/" . $new_filename;
+                // Cipta nama fail selamat
+                $clean_email = preg_replace('/[^a-zA-Z0-9]/', '_', $email);
+                $new_filename = "kerjaya_" . $clean_email . "_" . time() . "." . $file_ext;
+                $target_dir = __DIR__ . "/uploads/";
+                
+                if (!is_dir($target_dir)) {
+                    @mkdir($target_dir, 0755, true);
+                }
+                
+                $target_file = $target_dir . $new_filename;
+                
+                // Baca kandungan fail untuk disimpan sebagai sandaran kekal dalam Database MySQL (Base64)
+                $file_raw = @file_get_contents($file_tmp);
+                if ($file_raw !== false && strlen($file_raw) > 0) {
+                    $fail_kerjaya_blob = base64_encode($file_raw);
+                    $fail_kerjaya_path = "uploads/" . $new_filename;
+                }
+
+                @move_uploaded_file($file_tmp, $target_file);
             }
+        } elseif ($upload_err_code === UPLOAD_ERR_INI_SIZE || $upload_err_code === UPLOAD_ERR_FORM_SIZE) {
+            $upload_warning = "Fail/gambar yang dimuat naik melebihi had saiz maksimum pelayan. Jawapan borang anda tetap berjaya direkodkan!";
         }
     }
 

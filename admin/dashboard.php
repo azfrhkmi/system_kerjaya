@@ -400,7 +400,7 @@ require_once '../includes/header.php';
                                     </small>
                                 </td>
                                 <td>
-                                    <?php if (!empty($r['fail_kerjaya'])): ?>
+                                    <?php if (!empty($r['fail_kerjaya']) || !empty($r['fail_kerjaya_blob'])): ?>
                                         <a href="../download.php?id=<?php echo $r['id']; ?>" target="_blank" class="badge badge-success" style="text-decoration:none;">
                                             📁 Muat Turun
                                         </a>
@@ -606,7 +606,7 @@ function viewStudentDetail(data) {
     document.getElementById('modalStudentTitle').innerText = "📋 Jawapan: " + data.nama;
     
     let failLink = '<span style="color:#94a3b8;">Tiada fail dimuat naik.</span>';
-    if (data.fail_kerjaya) {
+    if (data.fail_kerjaya || data.fail_kerjaya_blob) {
         failLink = `<a href="../download.php?id=${data.id}" target="_blank" style="background:#10b981; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-weight:700; display:inline-block; margin-top:4px;">📥 Buka / Muat Turun Fail Kerjaya</a>`;
     }
 
