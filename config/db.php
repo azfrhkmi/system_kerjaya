@@ -39,15 +39,15 @@ try {
     if ($table_check === 0 && file_exists(__DIR__ . '/../database.sql')) {
         $sql_schema = file_get_contents(__DIR__ . '/../database.sql');
         $pdo->exec($sql_schema);
-    } else {
-        // Pastikan lajur fail_kerjaya & fail_kerjaya_blob wujud pada MySQL
-        try {
-            $pdo->exec("ALTER TABLE `responses` ADD COLUMN `fail_kerjaya` VARCHAR(255) NULL");
-        } catch (Exception $e_col) {}
-        try {
-            $pdo->exec("ALTER TABLE `responses` ADD COLUMN `fail_kerjaya_blob` LONGTEXT NULL");
-        } catch (Exception $e_col2) {}
     }
+    
+    // Pastikan lajur fail_kerjaya & fail_kerjaya_blob wujud pada MySQL
+    try {
+        $pdo->exec("ALTER TABLE `responses` ADD COLUMN `fail_kerjaya` VARCHAR(255) NULL");
+    } catch (Exception $e_col) {}
+    try {
+        $pdo->exec("ALTER TABLE `responses` ADD COLUMN `fail_kerjaya_blob` LONGTEXT NULL");
+    } catch (Exception $e_col2) {}
 
 } catch (Exception $e_mysql) {
     

@@ -93,9 +93,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         try {
             $clean_email_input = strtolower(trim($email));
-            // Sentiasa tambah rekod baru untuk setiap penyerahan borang murid (Termasuk Blob Fail Sandaran)
-            $stmt_in = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, fail_kerjaya_blob, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt_in->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $fail_kerjaya_blob, $komen_status]);
+            
+            // Cuba simpan rekod dengan lajur fail_kerjaya_blob (Auto-Healing jika lajur belum wujud)
+            try {
+                $stmt_in = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, fail_kerjaya_blob, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt_in->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $fail_kerjaya_blob, $komen_status]);
+            } catch (PDOException $e_blob) {
+                // Jika lajur fail_kerjaya_blob lum wujud pada live DB, tambah lajur tersebut secara dinamik & cuba semula
+                if (strpos($e_blob->getMessage(), 'fail_kerjaya_blob') !== false || $e_blob->getCode() == '42S22') {
+                    try {
+                        $pdo->exec("ALTER TABLE responses ADD COLUMN fail_kerjaya_blob LONGTEXT NULL");
+                        $stmt_in = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, fail_kerjaya_blob, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        $stmt_in->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $fail_kerjaya_blob, $komen_status]);
+                    } catch (Exception $e_alter) {
+                        // Fallback ke simpanan asas tanpa fail_kerjaya_blob jika ALTER gagal
+                        $stmt_in = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, komen_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                        $stmt_in->execute([$clean_email_input, $nama, $tahun, $kelas, $luahan_rasa, $riasec_pilihan, $fail_kerjaya_path, $komen_status]);
+                    }
+                } else {
+                    throw $e_blob;
+                }
+            }
 
             // Guna Post-Redirect-Get (PRG) untuk mengelakkan penyerahan semula borang pada Refresh
             $_SESSION['last_submitted_nama'] = $nama;

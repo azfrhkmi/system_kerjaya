@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `responses` (
     `luahan_rasa` TEXT NULL,
     `riasec_pilihan` VARCHAR(255) NULL,
     `fail_kerjaya` VARCHAR(255) NULL,
+    `fail_kerjaya_blob` LONGTEXT NULL,
     `komen_status` VARCHAR(255) NOT NULL,
     `submitted_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
