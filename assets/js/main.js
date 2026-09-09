@@ -392,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = stemData[letter];
         if (!data) return;
 
-        document.querySelectorAll('.stem-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.stem-btn-s, .stem-btn-t, .stem-btn-e, .stem-btn-m').forEach(btn => btn.classList.remove('active'));
         const activeBtn = document.querySelector(`.stem-btn-${letter.toLowerCase()}`);
         if (activeBtn) activeBtn.classList.add('active');
 

@@ -6,10 +6,6 @@ require_once 'includes/header.php';
 
 <!-- HERO BANNER SECTION -->
 <section class="hero-section">
-    <div class="hero-badge">
-        <span>🌟 Ujian Minat & Kecerdasan Pelbagai Murid</span>
-    </div>
-    
     <h1 class="hero-title">
         Terokai Minat & <span class="highlight">Bina Kerjaya STEM!</span> 🎁
     </h1>
@@ -17,12 +13,6 @@ require_once 'includes/header.php';
     <p class="hero-subtitle">
         Selamat datang ke Sistem Penerokaan Kerjaya Sekolah Rendah. Mari kenali potensi diri, kecerdasan pelbagai, dan kerjaya pilihan yang paling sesuai dengan impian anda!
     </p>
-
-    <div style="display:flex; justify-content:center; gap:16px; margin-top:25px; flex-wrap:wrap;">
-        <a href="soal_jawab.php" class="btn-cta-big">
-            ✨ Tekan Untuk Sertai Soal Jawab Kerjaya!
-        </a>
-    </div>
 </section>
 
 <div class="container">
@@ -34,7 +24,7 @@ require_once 'includes/header.php';
             <p>Memahami dunia STEM (Sains, Teknologi, Kejuruteraan & Matematik) dan persediaan kerjaya masa depan murid</p>
         </div>
 
-        <div style="background: white; border-radius: var(--radius-lg); padding: 30px 24px; box-shadow: var(--shadow-soft); border: 2px solid #e0e7ff; margin-bottom: 24px;">
+        <div class="gardner-interactive-container">
             <div style="text-align: center; margin-bottom: 20px;">
                 <h3 style="font-size: 1.4rem; color: var(--primary); margin-bottom: 8px;">
                     🎯 Pilih Huruf STEM Di Bawah Untuk Menerokai Maksud & 10 Pekerjaan Berkaitan:
@@ -44,16 +34,16 @@ require_once 'includes/header.php';
                 </p>
             </div>
 
-            <!-- BUTANG MELINTANG S, T, E, M -->
-            <div class="stem-buttons-wrapper">
-                <button type="button" class="stem-btn stem-btn-s active" onclick="showStemDetail('S')">🧬 S - Sains</button>
-                <button type="button" class="stem-btn stem-btn-t" onclick="showStemDetail('T')">💻 T - Teknologi</button>
-                <button type="button" class="stem-btn stem-btn-e" onclick="showStemDetail('E')">⚙️ E - Kejuruteraan</button>
-                <button type="button" class="stem-btn stem-btn-m" onclick="showStemDetail('M')">🧮 M - Matematik</button>
+            <!-- BUTANG MELINTANG S, T, E, M (BERSEJALAN DENGAN STYLES GARDNER) -->
+            <div class="gardner-buttons-wrapper">
+                <button type="button" class="gardner-btn gardner-btn-verbal stem-btn-s active" onclick="showStemDetail('S')">🧬 S - Sains</button>
+                <button type="button" class="gardner-btn gardner-btn-logik stem-btn-t" onclick="showStemDetail('T')">💻 T - Teknologi</button>
+                <button type="button" class="gardner-btn gardner-btn-kinestetik stem-btn-e" onclick="showStemDetail('E')">⚙️ E - Kejuruteraan</button>
+                <button type="button" class="gardner-btn gardner-btn-muzik stem-btn-m" onclick="showStemDetail('M')">🧮 M - Matematik</button>
             </div>
 
             <!-- BEKAS PAPARAN DETAIL STEM -->
-            <div id="stemDisplay" class="stem-detail-display active" style="margin-top: 24px;"></div>
+            <div id="stemDisplay" class="gardner-detail-display active" style="margin-top: 24px;"></div>
         </div>
     </section>
 
@@ -243,7 +233,7 @@ require_once 'includes/header.php';
         <h2>Adakah Anda Bersedia Terokai Cita-Cita Anda? 🌟</h2>
         <p>Isi borang soal jawab kerjaya sekarang untuk berkongsi minat bersama Guru Bimbingan & Kaunseling sekolah anda!</p>
         <a href="soal_jawab.php" class="btn-cta-big">
-            🎁 Tekan Untuk Sertai Soal Jawab Kerjaya
+            Mari meneroka.
         </a>
     </section>
 

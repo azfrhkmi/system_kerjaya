@@ -3,9 +3,9 @@
    ========================================================= -->
 
 <!-- BUTANG TERAPUNG AI (FLOATING FAB) -->
-<button id="aiFabBtn" class="ai-fab-btn" onclick="toggleAiChat()" title="Tanya AI Kerjaya & Penerangan Cita-Cita!">
+<button id="aiFabBtn" class="ai-fab-btn" onclick="toggleAiChat()" title="Tanya Cik petiK & Penerangan Cita-Cita!">
     <span class="ai-fab-icon">🤖</span>
-    <span class="ai-fab-text">Tanya AI Kerjaya</span>
+    <span class="ai-fab-text">Tanya Cik petiK</span>
 </button>
 
 <!-- TETINGKAP CHAT AI -->
@@ -16,7 +16,7 @@
         <div style="display:flex; align-items:center; gap:10px;">
             <div style="font-size:2rem; background:rgba(255,255,255,0.2); padding:6px; border-radius:12px;">🤖</div>
             <div>
-                <h4 style="font-family:var(--font-heading); font-size:1.2rem; margin:0;">Pembantu AI Peti Cheritalah</h4>
+                <h4 style="font-family:var(--font-heading); font-size:1.2rem; margin:0;">Cik petiK</h4>
                 <small style="opacity:0.9; font-size:0.8rem;">✨ Bersedia Menjawab Sebarang Soalan Cita-Cita Anda!</small>
             </div>
         </div>
@@ -28,7 +28,7 @@
         
         <!-- Mesej Aluan AI -->
         <div class="chat-bubble ai-bubble">
-            <div class="bubble-sender">🤖 AI Peti Cheritalah:</div>
+            <div class="bubble-sender">🤖 Cik petiK:</div>
             Hai adik! 👋 Saya Pembantu AI Kerjaya anda.
             <br><br>
             Saya boleh **menerangkan pelbagai cita-cita di dunia**, subjek STEM, petua belajar, dan **penjelasan sebarang jenis pekerjaan** untuk anda! 💡

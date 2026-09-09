@@ -110,7 +110,7 @@ require_once 'includes/header.php';
     <!-- HEADER BORANG -->
     <div style="text-align: center; margin-bottom: 40px;">
         <span style="background:#e0e7ff; color:var(--primary); font-weight:800; padding:6px 18px; border-radius:50px; font-size:0.95rem;">
-            📝 Sesi Soal Jawab Kerjaya
+            Lihat Potensi Impian Anda
         </span>
         <h1 style="font-size:2.8rem; color:#1e1b4b; margin-top:10px; margin-bottom:10px;">
             Mari Isi <span class="highlight">Maklumat Kerjaya Anda</span>

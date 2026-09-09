@@ -32,16 +32,16 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <nav class="navbar">
         <a href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../index.php' : 'index.php'; ?>" class="navbar-brand">
             <span class="logo-icon">🎁</span>
-            <span>e-PETI<span style="color:var(--secondary)">K</span></span>
+            <span>e-peti<span style="color:var(--secondary)">K</span></span>
         </a>
 
         <div class="nav-links">
             <a href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../index.php' : 'index.php'; ?>" class="nav-btn btn-outline">
-                🏠 Utama
+                🏠 Teroka
             </a>
             
             <a href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../soal_jawab.php' : 'soal_jawab.php'; ?>" class="nav-btn btn-primary">
-                📝 Soal Jawab
+                📝 KImS
             </a>
 
             <button type="button" class="nav-btn btn-outline" style="border-color:#f59e0b; color:#b45309;" onclick="openModal('qrCodeModal')">
