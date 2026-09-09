@@ -72,181 +72,181 @@ require_once 'includes/header.php';
         </div>
     </section>
 
-    <!-- SEKSYEN 3: SENARAI PILIHAN SEKOLAH MENENGAH TERUNGGUL (TOP MALAYSIA) -->
+    <!-- SEKSYEN 3: SENARAI SEKOLAH MENENGAH DI MALAYSIA -->
     <section class="section-block">
         <div class="section-header">
-            <h2>🏫 Senarai Pilihan Sekolah Menengah Terunggul di Malaysia</h2>
-            <p>Antara Sekolah Berasrama Penuh (SBP) & MRSM Terbaik (Keputusan SPM / GPS 2025) yang menjadi inspirasi murid!</p>
+            <h2>🏫 Senarai Sekolah Menengah di Malaysia</h2>
+            <p>Pelbagai pilihan jenis sekolah menengah sebagai panduan hala tuju murid tahun 6 selepas tamat sekolah rendah!</p>
         </div>
 
         <div class="school-card-grid">
             
-            <!-- 1. MRSM Tun Ghafar Baba -->
-            <div class="school-card school-card-gold">
-                <div class="school-rank-badge">🥇 Kedudukan #1</div>
-                <div class="school-icon-box" style="border-color:#fde68a;">
-                    <img src="logo-sekolah/01-mrsm-tun-ghafar-baba.png" alt="Logo MRSM Tun Ghafar Baba">
+            <!-- 1. Sekolah Berasrama Penuh (SBP) - FLIP CARD -->
+            <div class="school-flip-container" id="card-sbp">
+                <div class="school-flip-inner">
+                    <!-- Front -->
+                    <div class="school-card school-flip-front" onclick="toggleSchoolFlip('card-sbp')" style="cursor:pointer;">
+                        <div class="school-icon-box" style="border-color:#bfdbfe;">
+                            <img src="logo-sekolah/sbp.png" alt="Logo Sekolah Berasrama Penuh (SBP)">
+                        </div>
+                        <h3 class="school-title">Sekolah Berasrama Penuh (SBP)</h3>
+                        <div class="school-meta">
+                            <span class="school-tag tag-state">📍 Seluruh Malaysia</span>
+                            <span class="school-tag tag-category">SBP</span>
+                        </div>
+                        <div style="margin-top:auto; padding-top:10px;">
+                            <span class="badge badge-info flip-badge-clickable" style="background:#e0e7ff; color:#3730a3; width:100%; display:block; text-align:center; padding:8px;">
+                                🗺️ Tekan Untuk Lihat Peta SBP 🔄
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Back -->
+                    <div class="school-flip-back">
+                        <div style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                            <span style="font-size:0.82rem; font-weight:700; color:#1e1b4b;">🗺️ Peta Lokasi SBP</span>
+                            <button type="button" onclick="toggleSchoolFlip('card-sbp')" style="background:#fee2e2; color:#ef4444; border:none; padding:3px 8px; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;">❌ Tutup</button>
+                        </div>
+                        <div class="map-zoom-viewport" onwheel="handleMapZoom(event, this)">
+                            <img src="logo-sekolah/peta-sbp.jpg" alt="Peta Lokasi SBP" class="map-zoom-img" data-scale="1.0">
+                        </div>
+                        <div style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-top:6px; font-size:0.72rem; color:#64748b;">
+                            <span>🔍 Skrol tetikus untuk zoom in/out</span>
+                            <button type="button" onclick="resetMapZoom(this)" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:2px 6px; border-radius:4px; font-size:0.7rem; cursor:pointer;">↺ Reset Zoom</button>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="school-title">MRSM Tun Ghafar Baba</h3>
-                <div class="school-meta">
-                    <span class="school-tag tag-state">📍 Melaka</span>
-                    <span class="school-tag tag-category">MRSM</span>
-                </div>
-                <div class="school-gps">📊 GPS 2025: <strong>1.139</strong></div>
             </div>
 
-            <!-- 2. MRSM Gemencheh -->
-            <div class="school-card school-card-silver">
-                <div class="school-rank-badge">🥈 Kedudukan #2</div>
-                <div class="school-icon-box" style="border-color:#cbd5e1;">
-                    <img src="logo-sekolah/02-mrsm-gemencheh.png" alt="Logo MRSM Gemencheh">
+            <!-- 2. Maktab Rendah Sains Mara (MRSM) - FLIP CARD -->
+            <div class="school-flip-container" id="card-mrsm">
+                <div class="school-flip-inner">
+                    <!-- Front -->
+                    <div class="school-card school-flip-front" onclick="toggleSchoolFlip('card-mrsm')" style="cursor:pointer;">
+                        <div class="school-icon-box" style="border-color:#fde68a;">
+                            <img src="logo-sekolah/mrsm.png" alt="Logo Maktab Rendah Sains Mara (MRSM)">
+                        </div>
+                        <h3 class="school-title">Maktab Rendah Sains Mara (MRSM)</h3>
+                        <div class="school-meta">
+                            <span class="school-tag tag-state">📍 Seluruh Malaysia</span>
+                            <span class="school-tag tag-category">MRSM</span>
+                        </div>
+                        <div style="margin-top:auto; padding-top:10px;">
+                            <span class="badge badge-info flip-badge-clickable" style="background:#fef3c7; color:#92400e; width:100%; display:block; text-align:center; padding:8px;">
+                                🗺️ Tekan Untuk Lihat Peta MRSM 🔄
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Back -->
+                    <div class="school-flip-back">
+                        <div style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                            <span style="font-size:0.82rem; font-weight:700; color:#1e1b4b;">🗺️ Peta Lokasi MRSM</span>
+                            <button type="button" onclick="toggleSchoolFlip('card-mrsm')" style="background:#fee2e2; color:#ef4444; border:none; padding:3px 8px; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;">❌ Tutup</button>
+                        </div>
+                        <div class="map-zoom-viewport" onwheel="handleMapZoom(event, this)">
+                            <img src="logo-sekolah/peta-mrsm.jpg" alt="Peta Lokasi MRSM" class="map-zoom-img" data-scale="1.0">
+                        </div>
+                        <div style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-top:6px; font-size:0.72rem; color:#64748b;">
+                            <span>🔍 Skrol tetikus untuk zoom in/out</span>
+                            <button type="button" onclick="resetMapZoom(this)" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:2px 6px; border-radius:4px; font-size:0.7rem; cursor:pointer;">↺ Reset Zoom</button>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="school-title">MRSM Gemencheh</h3>
-                <div class="school-meta">
-                    <span class="school-tag tag-state">📍 Negeri Sembilan</span>
-                    <span class="school-tag tag-category">MRSM</span>
-                </div>
-                <div class="school-gps">📊 GPS 2025: <strong>1.195</strong></div>
             </div>
 
-            <!-- 3. MRSM Taiping -->
-            <div class="school-card school-card-bronze">
-                <div class="school-rank-badge">🥉 Kedudukan #3</div>
+            <!-- 3. Sekolah Harian Biasa -->
+            <div class="school-card">
+                <div class="school-icon-box" style="border-color:#e2e8f0;">
+                    <img src="logo-sekolah/jata-malaysia.png" alt="Logo Jata Malaysia - Sekolah Harian Biasa">
+                </div>
+                <h3 class="school-title">Sekolah Harian Biasa</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Setiap Daerah</span>
+                    <span class="school-tag tag-category">KPM</span>
+                </div>
+            </div>
+
+            <!-- 4. Sekolah Sukan Malaysia (SSM) -->
+            <div class="school-card">
                 <div class="school-icon-box" style="border-color:#fed7aa;">
-                    <img src="logo-sekolah/03-mrsm-taiping.png" alt="Logo MRSM Taiping">
+                    <img src="logo-sekolah/jata-malaysia.png" alt="Logo Jata Malaysia - Sekolah Sukan Malaysia">
                 </div>
-                <h3 class="school-title">MRSM Taiping</h3>
+                <h3 class="school-title">Sekolah Sukan Malaysia (SSM)</h3>
                 <div class="school-meta">
-                    <span class="school-tag tag-state">📍 Perak</span>
-                    <span class="school-tag tag-category">MRSM</span>
+                    <span class="school-tag tag-state">📍 Khas Atlet</span>
+                    <span class="school-tag tag-category">SSM</span>
                 </div>
-                <div class="school-gps">📊 GPS 2025: <strong>1.224</strong></div>
             </div>
 
-            <!-- 4. MRSM Pengkalan Chepa -->
+            <!-- 5. Sekolah Seni Malaysia (SSeM) -->
             <div class="school-card">
-                <div class="school-rank-badge rank-normal">⭐ Kedudukan #4</div>
-                <div class="school-icon-box" style="border-color:#bfdbfe;">
-                    <img src="logo-sekolah/04-mrsm-pengkalan-chepa.png" alt="Logo MRSM Pengkalan Chepa">
-                </div>
-                <h3 class="school-title">MRSM Pengkalan Chepa</h3>
-                <div class="school-meta">
-                    <span class="school-tag tag-state">📍 Kelantan</span>
-                    <span class="school-tag tag-category">MRSM</span>
-                </div>
-                <div class="school-gps">📊 GPS 2025: <strong>1.254</strong></div>
-            </div>
-
-            <!-- 5. MRSM Kuala Kubu Bharu -->
-            <div class="school-card">
-                <div class="school-rank-badge rank-normal">⭐ Kedudukan #5</div>
-                <div class="school-icon-box" style="border-color:#ddd6fe;">
-                    <img src="logo-sekolah/05-mrsm-kuala-kubu-bharu.png" alt="Logo MRSM Kuala Kubu Bharu">
-                </div>
-                <h3 class="school-title">MRSM Kuala Kubu Bharu</h3>
-                <div class="school-meta">
-                    <span class="school-tag tag-state">📍 Selangor</span>
-                    <span class="school-tag tag-category">MRSM</span>
-                </div>
-                <div class="school-gps">📊 GPS 2025: <strong>1.284</strong></div>
-            </div>
-
-            <!-- 6. Sekolah Tun Fatimah (STF) -->
-            <div class="school-card">
-                <div class="school-rank-badge rank-normal">⭐ Kedudukan #6</div>
                 <div class="school-icon-box" style="border-color:#fbcfe8;">
-                    <img src="logo-sekolah/06-stf.png" alt="Logo Sekolah Tun Fatimah (STF)">
+                    <img src="logo-sekolah/jata-malaysia.png" alt="Logo Jata Malaysia - Sekolah Seni Malaysia">
                 </div>
-                <h3 class="school-title">Sekolah Tun Fatimah (STF)</h3>
+                <h3 class="school-title">Sekolah Seni Malaysia (SSeM)</h3>
                 <div class="school-meta">
-                    <span class="school-tag tag-state">📍 Johor</span>
-                    <span class="school-tag tag-category">SBP Elite</span>
+                    <span class="school-tag tag-state">📍 Khas Bakat Seni</span>
+                    <span class="school-tag tag-category">SSeM</span>
                 </div>
-                <div class="school-gps">📊 GPS 2025: <strong>1.380</strong></div>
             </div>
 
-            <!-- 7=. SMS Sultan Mahmud (SESMA) -->
+            <!-- 6. Kolej Permata Pintar (UKM) -->
             <div class="school-card">
-                <div class="school-rank-badge rank-normal">⭐ Kedudukan #7=</div>
-                <div class="school-icon-box" style="border-color:#99f6e4;">
-                    <img src="logo-sekolah/07-sesma.png" alt="Logo SMS Sultan Mahmud (SESMA)">
+                <div class="school-icon-box" style="border-color:#ddd6fe;">
+                    <img src="logo-sekolah/permata-pintar-ukm.png" alt="Logo Kolej Permata Pintar (UKM)">
                 </div>
-                <h3 class="school-title">SMS Sultan Mahmud (SESMA)</h3>
+                <h3 class="school-title">Kolej Permata Pintar (UKM)</h3>
                 <div class="school-meta">
-                    <span class="school-tag tag-state">📍 Terengganu</span>
-                    <span class="school-tag tag-category">SMS / SBP</span>
+                    <span class="school-tag tag-state">📍 Bangi, Selangor</span>
+                    <span class="school-tag tag-category">Pintar UKM</span>
                 </div>
-                <div class="school-gps">📊 GPS 2025: <strong>1.470</strong></div>
             </div>
 
-            <!-- 8=. Sekolah Sultan Alam Shah (SAS) -->
+            <!-- 7. Kolej Permata Insan (USiM) -->
             <div class="school-card">
-                <div class="school-rank-badge rank-normal">⭐ Kedudukan #8=</div>
-                <div class="school-icon-box" style="border-color:#fde68a;">
-                    <img src="logo-sekolah/08-sas.png" alt="Logo Sekolah Sultan Alam Shah (SAS)">
+                <div class="school-icon-box" style="border-color:#ccfbf1;">
+                    <img src="logo-sekolah/permata-insan-usim.png" alt="Logo Kolej Permata Insan (USiM)">
                 </div>
-                <h3 class="school-title">Sekolah Sultan Alam Shah (SAS)</h3>
+                <h3 class="school-title">Kolej Permata Insan (USiM)</h3>
                 <div class="school-meta">
-                    <span class="school-tag tag-state">📍 Putrajaya</span>
-                    <span class="school-tag tag-category">SBP Elite</span>
+                    <span class="school-tag tag-state">📍 Nilai, N.Sembilan</span>
+                    <span class="school-tag tag-category">Insan USiM</span>
                 </div>
-                <div class="school-gps">📊 GPS 2025: <strong>1.470</strong></div>
             </div>
 
-            <!-- 9=. SMS Tuanku Munawir (SASER) -->
+            <!-- 8. Sekolah Pendidikan Khas -->
             <div class="school-card">
-                <div class="school-rank-badge rank-normal">⭐ Kedudukan #9=</div>
                 <div class="school-icon-box" style="border-color:#a7f3d0;">
-                    <img src="logo-sekolah/09-saser.png" alt="Logo SMS Tuanku Munawir (SASER)">
+                    <img src="logo-sekolah/jata-malaysia.png" alt="Logo Jata Malaysia - Sekolah Pendidikan Khas">
                 </div>
-                <h3 class="school-title">SMS Tuanku Munawir (SASER)</h3>
+                <h3 class="school-title">Sekolah Pendidikan Khas</h3>
                 <div class="school-meta">
-                    <span class="school-tag tag-state">📍 Negeri Sembilan</span>
-                    <span class="school-tag tag-category">SMS / SBP</span>
+                    <span class="school-tag tag-state">📍 Khas OKU / MBPK</span>
+                    <span class="school-tag tag-category">KPM</span>
                 </div>
-                <div class="school-gps">📊 GPS 2025: <strong>1.530</strong></div>
             </div>
 
-            <!-- 10=. Kolej Islam Sultan Alam Shah (KISAS) -->
+            <!-- 9. Akademik Sains Pendang (ASP) -->
             <div class="school-card">
-                <div class="school-rank-badge rank-normal">⭐ Kedudukan #10=</div>
-                <div class="school-icon-box" style="border-color:#fecaca;">
-                    <img src="logo-sekolah/10-kisas.png" alt="Logo Kolej Islam Sultan Alam Shah (KISAS)">
-                </div>
-                <h3 class="school-title">Kolej Islam Sultan Alam Shah (KISAS)</h3>
-                <div class="school-meta">
-                    <span class="school-tag tag-state">📍 Selangor</span>
-                    <span class="school-tag tag-category">KISAS / SMKA</span>
-                </div>
-                <div class="school-gps">📊 GPS 2025: <strong>1.530</strong></div>
-            </div>
-
-            <!-- 11. SMS Kuala Terengganu (SESTER) -->
-            <div class="school-card">
-                <div class="school-rank-badge rank-normal">⭐ Kedudukan #11</div>
                 <div class="school-icon-box" style="border-color:#bae6fd;">
-                    <img src="logo-sekolah/11-sester.png" alt="Logo SMS Kuala Terengganu (SESTER)">
+                    <img src="logo-sekolah/akademi-sains-pendang.png" alt="Logo Akademik Sains Pendang (ASP)">
                 </div>
-                <h3 class="school-title">SMS Kuala Terengganu (SESTER)</h3>
+                <h3 class="school-title">Akademik Sains Pendang (ASP)</h3>
                 <div class="school-meta">
-                    <span class="school-tag tag-state">📍 Terengganu</span>
-                    <span class="school-tag tag-category">SMS / SBP</span>
+                    <span class="school-tag tag-state">📍 Pendang, Kedah</span>
+                    <span class="school-tag tag-category">KPM / Sains</span>
                 </div>
-                <div class="school-gps">📊 GPS 2025: <strong>1.590</strong></div>
             </div>
 
-            <!-- 12. SBP Integrasi Rawang (SEPINTAR) -->
+            <!-- 10. Sekolah Kawalan -->
             <div class="school-card">
-                <div class="school-rank-badge rank-normal">⭐ Kedudukan #12</div>
-                <div class="school-icon-box" style="border-color:#fef3c7;">
-                    <img src="logo-sekolah/12-sepintar.png" alt="Logo SBP Integrasi Rawang (SEPINTAR)">
+                <div class="school-icon-box" style="border-color:#fecaca;">
+                    <img src="logo-sekolah/jata-malaysia.png" alt="Logo Jata Malaysia - Sekolah Kawalan">
                 </div>
-                <h3 class="school-title">SBP Integrasi Rawang (SEPINTAR)</h3>
+                <h3 class="school-title">Sekolah Kawalan</h3>
                 <div class="school-meta">
-                    <span class="school-tag tag-state">📍 Selangor</span>
-                    <span class="school-tag tag-category">SBPI / SBP</span>
+                    <span class="school-tag tag-state">📍 Setiap Negeri</span>
+                    <span class="school-tag tag-category">JPN / KPM</span>
                 </div>
-                <div class="school-gps">📊 GPS 2025: <strong>1.610</strong></div>
             </div>
 
         </div>
@@ -254,13 +254,48 @@ require_once 'includes/header.php';
 
     <!-- SEKSYEN 4: SERTAI SOAL JAWAB (BOTTOM CTA) -->
     <section class="cta-banner">
-        <h2>Adakah Anda Bersedia Terokai Cita-Cita Anda? 🌟</h2>
-        <p>Isi borang soal jawab kerjaya sekarang untuk berkongsi minat bersama Guru Bimbingan & Kaunseling sekolah anda!</p>
+        <h2>Adakah Anda Bersedia Terokai Kerjaya Anda? 🌟</h2>
         <a href="soal_jawab.php" class="btn-cta-big">
             🚀 Jom bina kerjaya STEM anda!
         </a>
     </section>
 
 </div>
+
+<script>
+function toggleSchoolFlip(cardId) {
+    const card = document.getElementById(cardId);
+    if (card) {
+        card.classList.toggle('flipped');
+    }
+}
+
+function handleMapZoom(e, viewport) {
+    e.preventDefault();
+    e.stopPropagation();
+    const img = viewport.querySelector('.map-zoom-img');
+    if (!img) return;
+    
+    let scale = parseFloat(img.getAttribute('data-scale') || '1.0');
+    if (e.deltaY < 0) {
+        scale = Math.min(3.5, scale + 0.25);
+    } else {
+        scale = Math.max(1.0, scale - 0.25);
+    }
+    img.setAttribute('data-scale', scale);
+    img.style.transform = 'scale(' + scale + ')';
+}
+
+function resetMapZoom(btn) {
+    const cardBack = btn.closest('.school-flip-back');
+    if (cardBack) {
+        const img = cardBack.querySelector('.map-zoom-img');
+        if (img) {
+            img.setAttribute('data-scale', '1.0');
+            img.style.transform = 'scale(1.0)';
+        }
+    }
+}
+</script>
 
 <?php require_once 'includes/footer.php'; ?>
