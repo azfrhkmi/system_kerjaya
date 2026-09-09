@@ -225,12 +225,12 @@ require_once 'includes/header.php';
                 </div>
             </div>
 
-            <!-- 9. Akademik Sains Pendang (ASP) -->
+            <!-- 9. Akademi Sains Pendang (ASP) -->
             <div class="school-card">
                 <div class="school-icon-box" style="border-color:#bae6fd;">
-                    <img src="logo-sekolah/akademi-sains-pendang.png" alt="Logo Akademik Sains Pendang (ASP)">
+                    <img src="logo-sekolah/akademi-sains-pendang.png" alt="Logo Akademi Sains Pendang (ASP)">
                 </div>
-                <h3 class="school-title">Akademik Sains Pendang (ASP)</h3>
+                <h3 class="school-title">Akademi Sains Pendang (ASP)</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Pendang, Kedah</span>
                     <span class="school-tag tag-category">KPM / Sains</span>
