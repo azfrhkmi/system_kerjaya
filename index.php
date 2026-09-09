@@ -110,7 +110,7 @@ require_once 'includes/header.php';
                             <img src="logo-sekolah/peta-sbp.jpg" alt="Peta Lokasi SBP" class="map-zoom-img" data-scale="1.0">
                         </div>
                         <div style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-top:6px; font-size:0.72rem; color:#64748b;">
-                            <span>🔍 Skrol tetikus untuk zoom in/out</span>
+                            <span>🔍 Skrol zoom & seret (drag) gambar</span>
                             <button type="button" onclick="resetMapZoom(this)" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:2px 6px; border-radius:4px; font-size:0.7rem; cursor:pointer;">↺ Reset Zoom</button>
                         </div>
                     </div>
@@ -146,7 +146,7 @@ require_once 'includes/header.php';
                             <img src="logo-sekolah/peta-mrsm.jpg" alt="Peta Lokasi MRSM" class="map-zoom-img" data-scale="1.0">
                         </div>
                         <div style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-top:6px; font-size:0.72rem; color:#64748b;">
-                            <span>🔍 Skrol tetikus untuk zoom in/out</span>
+                            <span>🔍 Skrol zoom & seret (drag) gambar</span>
                             <button type="button" onclick="resetMapZoom(this)" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:2px 6px; border-radius:4px; font-size:0.7rem; cursor:pointer;">↺ Reset Zoom</button>
                         </div>
                     </div>
@@ -270,32 +270,121 @@ function toggleSchoolFlip(cardId) {
     }
 }
 
+// MANAGEMENT KEADAAN ZOOM & PAN (DRAG) GAMBAR PETA
+const mapStates = new WeakMap();
+
+function getMapState(viewport) {
+    if (!mapStates.has(viewport)) {
+        mapStates.set(viewport, { scale: 1.0, x: 0, y: 0, isDragging: false, startX: 0, startY: 0 });
+    }
+    return mapStates.get(viewport);
+}
+
+function updateMapTransform(viewport) {
+    const state = getMapState(viewport);
+    const img = viewport.querySelector('.map-zoom-img');
+    if (img) {
+        img.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.scale})`;
+    }
+}
+
 function handleMapZoom(e, viewport) {
     e.preventDefault();
     e.stopPropagation();
-    const img = viewport.querySelector('.map-zoom-img');
-    if (!img) return;
     
-    let scale = parseFloat(img.getAttribute('data-scale') || '1.0');
+    const state = getMapState(viewport);
     if (e.deltaY < 0) {
-        scale = Math.min(3.5, scale + 0.25);
+        state.scale = Math.min(4.5, state.scale + 0.3);
     } else {
-        scale = Math.max(1.0, scale - 0.25);
+        state.scale = Math.max(1.0, state.scale - 0.3);
+        if (state.scale === 1.0) {
+            state.x = 0;
+            state.y = 0;
+        }
     }
-    img.setAttribute('data-scale', scale);
-    img.style.transform = 'scale(' + scale + ')';
+    updateMapTransform(viewport);
 }
 
 function resetMapZoom(btn) {
     const cardBack = btn.closest('.school-flip-back');
     if (cardBack) {
-        const img = cardBack.querySelector('.map-zoom-img');
-        if (img) {
-            img.setAttribute('data-scale', '1.0');
-            img.style.transform = 'scale(1.0)';
+        const viewport = cardBack.querySelector('.map-zoom-viewport');
+        if (viewport) {
+            const state = getMapState(viewport);
+            state.scale = 1.0;
+            state.x = 0;
+            state.y = 0;
+            updateMapTransform(viewport);
         }
     }
 }
+
+// INIALISASI DRAG / PAN DENGAN MOUSE & TOUCH SCREEN
+document.addEventListener('DOMContentLoaded', function() {
+    const viewports = document.querySelectorAll('.map-zoom-viewport');
+    
+    viewports.forEach(viewport => {
+        // MOUSE DOWN
+        viewport.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            const state = getMapState(viewport);
+            state.isDragging = true;
+            state.startX = e.clientX - state.x;
+            state.startY = e.clientY - state.y;
+            viewport.style.cursor = 'grabbing';
+        });
+
+        // TOUCH START (MOBILE)
+        viewport.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 1) {
+                const state = getMapState(viewport);
+                state.isDragging = true;
+                state.startX = e.touches[0].clientX - state.x;
+                state.startY = e.touches[0].clientY - state.y;
+            }
+        }, { passive: true });
+
+        // TOUCH MOVE (MOBILE)
+        viewport.addEventListener('touchmove', function(e) {
+            if (e.touches.length === 1) {
+                const state = getMapState(viewport);
+                if (state.isDragging) {
+                    state.x = e.touches[0].clientX - state.startX;
+                    state.y = e.touches[0].clientY - state.startY;
+                    updateMapTransform(viewport);
+                }
+            }
+        }, { passive: true });
+
+        // TOUCH END (MOBILE)
+        viewport.addEventListener('touchend', function() {
+            const state = getMapState(viewport);
+            state.isDragging = false;
+        });
+    });
+
+    // GLOBAL MOUSE MOVE & UP
+    window.addEventListener('mousemove', function(e) {
+        viewports.forEach(vp => {
+            const state = getMapState(vp);
+            if (state.isDragging) {
+                state.x = e.clientX - state.startX;
+                state.y = e.clientY - state.startY;
+                updateMapTransform(vp);
+            }
+        });
+    });
+
+    window.addEventListener('mouseup', function() {
+        viewports.forEach(vp => {
+            const state = getMapState(vp);
+            if (state.isDragging) {
+                state.isDragging = false;
+                vp.style.cursor = 'grab';
+            }
+        });
+    });
+});
 </script>
 
 <?php require_once 'includes/footer.php'; ?>
