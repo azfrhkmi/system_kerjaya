@@ -10,6 +10,7 @@ $file_param = isset($_GET['file']) ? trim($_GET['file']) : '';
 $file_relative_path = null;
 $file_blob_data = null;
 $student_nama = "Murid";
+$student_info = null;
 
 if ($id > 0) {
     try {
@@ -17,6 +18,7 @@ if ($id > 0) {
         $stmt->execute([$id]);
         $res = $stmt->fetch();
         if ($res) {
+            $student_info = $res;
             $student_nama = $res['nama'] ?? 'Murid';
             $file_relative_path = $res['fail_kerjaya'] ?? null;
             $file_blob_data = $res['fail_kerjaya_blob'] ?? null;
@@ -26,6 +28,7 @@ if ($id > 0) {
         $stmt->execute([$id]);
         $res = $stmt->fetch();
         if ($res) {
+            $student_info = $res;
             $student_nama = $res['nama'] ?? 'Murid';
             $file_relative_path = $res['fail_kerjaya'] ?? null;
         }
@@ -40,6 +43,7 @@ if ($id > 0) {
         $stmt->execute(['%' . basename($file_param)]);
         $res = $stmt->fetch();
         if ($res) {
+            $student_info = $res;
             $student_nama = $res['nama'] ?? 'Murid';
             $file_blob_data = $res['fail_kerjaya_blob'] ?? null;
         }
@@ -48,6 +52,7 @@ if ($id > 0) {
         $stmt->execute(['%' . basename($file_param)]);
         $res = $stmt->fetch();
         if ($res) {
+            $student_info = $res;
             $student_nama = $res['nama'] ?? 'Murid';
         }
     }
@@ -108,16 +113,36 @@ require_once 'includes/header.php';
 <div class="container" style="padding-top: 60px; padding-bottom: 80px; max-width: 680px;">
     <div style="background:#fff; border-radius:16px; padding:35px; border:2px solid #fecdd3; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,0.05);">
         <div style="font-size:3.5rem; margin-bottom:15px;">📁⚠️</div>
-        <h2 style="color:#9f1239; font-size:1.8rem; margin-bottom:10px;">Fail Tidak Ditemui Pada Pelayan</h2>
+        <h2 style="color:#9f1239; font-size:1.8rem; margin-bottom:10px;">Fail Lampiran Tidak Ditemui pada Disk Pelayan</h2>
         <p style="color:#475569; font-size:1.05rem; line-height:1.6; margin-bottom:20px;">
-            Maaf, fail kerjaya bagi murid <strong><?php echo htmlspecialchars($student_nama); ?></strong> tidak lagi ditemui pada simpanan pelayan.
+            Fail kerjaya fizikal bagi murid <strong><?php echo htmlspecialchars($student_nama); ?></strong> telah terpadam daripada disk kontena sementara Railway apabila pelayan dibina semula (*redeploy*).
         </p>
 
+        <?php if ($student_info): ?>
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:20px; text-align:left; font-size:0.95rem; margin-bottom:20px;">
+            <h4 style="margin-top:0; color:#1e1b4b; border-bottom:1px solid #e2e8f0; padding-bottom:8px;">📋 Maklumat Rekod Jawapan Murid (Masih Selamat)</h4>
+            <div style="display:grid; grid-template-columns:120px 1fr; gap:8px; line-height:1.6; margin-top:10px;">
+                <strong>Nama:</strong> <span><?php echo htmlspecialchars($student_info['nama'] ?? '-'); ?></span>
+                <strong>E-mel:</strong> <span><?php echo htmlspecialchars($student_info['email'] ?? '-'); ?></span>
+                <strong>Tahun/Kelas:</strong> <span>Tahun <?php echo htmlspecialchars($student_info['tahun'] ?? '-'); ?> - <?php echo htmlspecialchars($student_info['kelas'] ?? '-'); ?></span>
+                <strong>RIASEC/Gardner:</strong> <span><?php echo htmlspecialchars($student_info['riasec_pilihan'] ?? '-'); ?></span>
+                <strong>Status Sesi:</strong> <span><?php echo htmlspecialchars($student_info['komen_status'] ?? '-'); ?></span>
+                <strong>Tarikh Hantar:</strong> <span><?php echo htmlspecialchars($student_info['submitted_at'] ?? '-'); ?></span>
+            </div>
+            <?php if (!empty($student_info['luahan_rasa'])): ?>
+            <div style="margin-top:12px; background:#fff; padding:10px 14px; border-radius:8px; border:1px solid #e2e8f0;">
+                <strong>Luahan Rasa Murid:</strong>
+                <p style="margin:4px 0 0 0; color:#334155; white-space:pre-wrap;"><?php echo htmlspecialchars($student_info['luahan_rasa']); ?></p>
+            </div>
+            <?php endif; ?>
+        </div>
+        <?php endif; ?>
+
         <div style="background:#fff1f2; border:1px solid #fda4af; border-radius:12px; padding:18px; text-align:left; font-size:0.92rem; color:#881337; margin-bottom:25px; line-height:1.5;">
-            <strong>💡 Mengapa perkara ini berlaku?</strong>
+            <strong>💡 Mengapa fail fizikal ini terpadam dan bagaimana dengan penyerahan baharu?</strong>
             <ul style="margin-top:8px; margin-bottom:0; padding-left:20px;">
-                <li>Pelayan awan (Railway container) telah melakukan <em>redeploy</em> (peluncuran semula) selepas fail ini dimuat naik.</li>
-                <li>Penyimpanan fail pada kontena percuma adalah sementara apabila pelayan dibina semula dari GitHub.</li>
+                <li><strong>Kontena Ephemeral Railway:</strong> Kontena pelayan awan memadamkan folder <code>uploads/</code> setiap kali pautan GitHub di-deploy semula.</li>
+                <li><strong>Penyelesaian Kekal Aktif:</strong> Pangkalan data kini telah dinaik taraf dengan lajur BLOB pangkalan data. Penyerahan fail murid bermula sekarang akan disimpan <strong>100% kekal di MySQL</strong> dan tidak akan hilang lagi walaupun Railway di-redeploy!</li>
             </ul>
         </div>
 
@@ -130,3 +155,4 @@ require_once 'includes/header.php';
 </div>
 
 <?php require_once 'includes/footer.php'; ?>
+
