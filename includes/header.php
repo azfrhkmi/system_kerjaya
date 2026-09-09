@@ -30,8 +30,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     <!-- NAVBAR RESPONSIF -->
     <nav class="navbar">
+        <?php $gif_path = (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../logo-sekolah/jari-petik.gif' : 'logo-sekolah/jari-petik.gif'; ?>
         <a href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../index.php' : 'index.php'; ?>" class="navbar-brand">
-            <span class="logo-icon">🎁</span>
+            <img src="<?php echo $gif_path; ?>" alt="e-petiK Logo" style="height:38px; width:auto; vertical-align:middle; object-fit:contain; border-radius:6px;">
             <span>e-peti<span style="color:var(--secondary)">K</span></span>
         </a>
 

@@ -85,7 +85,7 @@ require_once 'includes/header.php';
             <div class="school-flip-container" id="card-sbp">
                 <div class="school-flip-inner">
                     <!-- Front -->
-                    <div class="school-card school-flip-front" onclick="toggleSchoolFlip('card-sbp')" style="cursor:pointer;">
+                    <div class="school-card school-flip-front">
                         <div class="school-icon-box" style="border-color:#bfdbfe;">
                             <img src="logo-sekolah/sbp.png" alt="Logo Sekolah Berasrama Penuh (SBP)">
                         </div>
@@ -94,24 +94,30 @@ require_once 'includes/header.php';
                             <span class="school-tag tag-state">📍 Seluruh Malaysia</span>
                             <span class="school-tag tag-category">SBP</span>
                         </div>
-                        <div style="margin-top:auto; padding-top:10px;">
-                            <span class="badge badge-info flip-badge-clickable" style="background:#e0e7ff; color:#3730a3; width:100%; display:block; text-align:center; padding:8px;">
-                                🗺️ Tekan Untuk Lihat Peta SBP 🔄
-                            </span>
+                        <div style="margin-top:auto; padding-top:10px; display:flex; flex-direction:column; gap:6px;">
+                            <button type="button" class="btn-primary nav-btn flip-badge-clickable" style="background:#e0e7ff; color:#3730a3; width:100%; border:none; padding:7px 10px; font-size:0.78rem; font-weight:700; text-align:center;" onclick="showSchoolCardBack('card-sbp', 'peta')">
+                                🗺️ Tekan untuk lihat peta SBP 🔄
+                            </button>
+                            <button type="button" class="btn-primary nav-btn flip-badge-clickable" style="background:#dbeafe; color:#1e40af; width:100%; border:none; padding:7px 10px; font-size:0.78rem; font-weight:700; text-align:center;" onclick="showSchoolCardBack('card-sbp', 'maklumat')">
+                                📚 Tekan untuk lihat maklumat SBP 🔄
+                            </button>
                         </div>
                     </div>
                     <!-- Back -->
                     <div class="school-flip-back">
                         <div style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                            <span style="font-size:0.82rem; font-weight:700; color:#1e1b4b;">🗺️ Peta Lokasi SBP</span>
-                            <button type="button" onclick="toggleSchoolFlip('card-sbp')" style="background:#fee2e2; color:#ef4444; border:none; padding:3px 8px; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;">❌ Tutup</button>
+                            <div style="display:flex; gap:4px;">
+                                <button type="button" onclick="switchCardView('card-sbp', 'peta')" class="btn-sbp-peta" style="background:#e0e7ff; color:#3730a3; border:none; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; cursor:pointer;">🗺️ Peta</button>
+                                <button type="button" onclick="switchCardView('card-sbp', 'maklumat')" class="btn-sbp-maklumat" style="background:#f1f5f9; color:#475569; border:none; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; cursor:pointer;">📚 Maklumat</button>
+                            </div>
+                            <button type="button" onclick="toggleSchoolFlip('card-sbp')" style="background:#fee2e2; color:#ef4444; border:none; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; cursor:pointer;">❌ Tutup</button>
                         </div>
                         <div class="map-zoom-viewport" onwheel="handleMapZoom(event, this)">
                             <img src="logo-sekolah/peta-sbp.jpg" alt="Peta Lokasi SBP" class="map-zoom-img" data-scale="1.0">
                         </div>
-                        <div style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-top:6px; font-size:0.72rem; color:#64748b;">
+                        <div style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-top:6px; font-size:0.7rem; color:#64748b;">
                             <span>🔍 Skrol zoom & seret (drag) gambar</span>
-                            <button type="button" onclick="resetMapZoom(this)" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:2px 6px; border-radius:4px; font-size:0.7rem; cursor:pointer;">↺ Reset Zoom</button>
+                            <button type="button" onclick="resetMapZoom(this)" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:2px 6px; border-radius:4px; font-size:0.7rem; cursor:pointer;">↺ Reset</button>
                         </div>
                     </div>
                 </div>
@@ -121,7 +127,7 @@ require_once 'includes/header.php';
             <div class="school-flip-container" id="card-mrsm">
                 <div class="school-flip-inner">
                     <!-- Front -->
-                    <div class="school-card school-flip-front" onclick="toggleSchoolFlip('card-mrsm')" style="cursor:pointer;">
+                    <div class="school-card school-flip-front">
                         <div class="school-icon-box" style="border-color:#fde68a;">
                             <img src="logo-sekolah/mrsm.png" alt="Logo Maktab Rendah Sains Mara (MRSM)">
                         </div>
@@ -130,24 +136,30 @@ require_once 'includes/header.php';
                             <span class="school-tag tag-state">📍 Seluruh Malaysia</span>
                             <span class="school-tag tag-category">MRSM</span>
                         </div>
-                        <div style="margin-top:auto; padding-top:10px;">
-                            <span class="badge badge-info flip-badge-clickable" style="background:#fef3c7; color:#92400e; width:100%; display:block; text-align:center; padding:8px;">
-                                🗺️ Tekan Untuk Lihat Peta MRSM 🔄
-                            </span>
+                        <div style="margin-top:auto; padding-top:10px; display:flex; flex-direction:column; gap:6px;">
+                            <button type="button" class="btn-primary nav-btn flip-badge-clickable" style="background:#fef3c7; color:#92400e; width:100%; border:none; padding:7px 10px; font-size:0.78rem; font-weight:700; text-align:center;" onclick="showSchoolCardBack('card-mrsm', 'peta')">
+                                🗺️ Tekan untuk lihat peta MRSM 🔄
+                            </button>
+                            <button type="button" class="btn-primary nav-btn flip-badge-clickable" style="background:#ffedd5; color:#c2410c; width:100%; border:none; padding:7px 10px; font-size:0.78rem; font-weight:700; text-align:center;" onclick="showSchoolCardBack('card-mrsm', 'maklumat')">
+                                📚 Tekan untuk lihat maklumat MRSM 🔄
+                            </button>
                         </div>
                     </div>
                     <!-- Back -->
                     <div class="school-flip-back">
                         <div style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                            <span style="font-size:0.82rem; font-weight:700; color:#1e1b4b;">🗺️ Peta Lokasi MRSM</span>
-                            <button type="button" onclick="toggleSchoolFlip('card-mrsm')" style="background:#fee2e2; color:#ef4444; border:none; padding:3px 8px; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;">❌ Tutup</button>
+                            <div style="display:flex; gap:4px;">
+                                <button type="button" onclick="switchCardView('card-mrsm', 'peta')" class="btn-mrsm-peta" style="background:#fef3c7; color:#92400e; border:none; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; cursor:pointer;">🗺️ Peta</button>
+                                <button type="button" onclick="switchCardView('card-mrsm', 'maklumat')" class="btn-mrsm-maklumat" style="background:#f1f5f9; color:#475569; border:none; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; cursor:pointer;">📚 Maklumat</button>
+                            </div>
+                            <button type="button" onclick="toggleSchoolFlip('card-mrsm')" style="background:#fee2e2; color:#ef4444; border:none; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; cursor:pointer;">❌ Tutup</button>
                         </div>
                         <div class="map-zoom-viewport" onwheel="handleMapZoom(event, this)">
                             <img src="logo-sekolah/peta-mrsm.jpg" alt="Peta Lokasi MRSM" class="map-zoom-img" data-scale="1.0">
                         </div>
-                        <div style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-top:6px; font-size:0.72rem; color:#64748b;">
+                        <div style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-top:6px; font-size:0.7rem; color:#64748b;">
                             <span>🔍 Skrol zoom & seret (drag) gambar</span>
-                            <button type="button" onclick="resetMapZoom(this)" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:2px 6px; border-radius:4px; font-size:0.7rem; cursor:pointer;">↺ Reset Zoom</button>
+                            <button type="button" onclick="resetMapZoom(this)" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:2px 6px; border-radius:4px; font-size:0.7rem; cursor:pointer;">↺ Reset</button>
                         </div>
                     </div>
                 </div>
@@ -267,6 +279,57 @@ function toggleSchoolFlip(cardId) {
     const card = document.getElementById(cardId);
     if (card) {
         card.classList.toggle('flipped');
+    }
+}
+
+function showSchoolCardBack(cardId, viewType) {
+    switchCardView(cardId, viewType);
+    const card = document.getElementById(cardId);
+    if (card) {
+        card.classList.add('flipped');
+    }
+}
+
+function switchCardView(cardId, viewType) {
+    const card = document.getElementById(cardId);
+    if (!card) return;
+
+    const imgPeta = (cardId === 'card-sbp') ? 'logo-sekolah/peta-sbp.jpg' : 'logo-sekolah/peta-mrsm.jpg';
+    const imgMaklumat = (cardId === 'card-sbp') ? 'logo-sekolah/senarai-belajar-sbp.jpg' : 'logo-sekolah/senarai-belajar-mrsm.jpg';
+    
+    const imgElem = card.querySelector('.map-zoom-img');
+    if (imgElem) {
+        imgElem.src = (viewType === 'peta') ? imgPeta : imgMaklumat;
+        imgElem.alt = (viewType === 'peta') ? 'Peta Lokasi' : 'Maklumat Pembelajaran';
+    }
+
+    // Kemaskini warna butang tab aktif
+    const isSbp = (cardId === 'card-sbp');
+    const btnPeta = card.querySelector(isSbp ? '.btn-sbp-peta' : '.btn-mrsm-peta');
+    const btnMaklumat = card.querySelector(isSbp ? '.btn-sbp-maklumat' : '.btn-mrsm-maklumat');
+    
+    if (btnPeta && btnMaklumat) {
+        if (viewType === 'peta') {
+            btnPeta.style.background = isSbp ? '#e0e7ff' : '#fef3c7';
+            btnPeta.style.color = isSbp ? '#3730a3' : '#92400e';
+            btnMaklumat.style.background = '#f1f5f9';
+            btnMaklumat.style.color = '#475569';
+        } else {
+            btnMaklumat.style.background = isSbp ? '#dbeafe' : '#ffedd5';
+            btnMaklumat.style.color = isSbp ? '#1e40af' : '#c2410c';
+            btnPeta.style.background = '#f1f5f9';
+            btnPeta.style.color = '#475569';
+        }
+    }
+
+    // Reset zoom & drag apabila menukar paparan
+    const viewport = card.querySelector('.map-zoom-viewport');
+    if (viewport) {
+        const state = getMapState(viewport);
+        state.scale = 1.0;
+        state.x = 0;
+        state.y = 0;
+        updateMapTransform(viewport);
     }
 }
 
