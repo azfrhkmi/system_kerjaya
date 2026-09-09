@@ -315,29 +315,52 @@ require_once '../includes/header.php';
 
                 <button type="submit" class="btn-primary nav-btn" style="padding:8px 16px;">🔍 Tapis</button>
                 
-                <?php if (!empty($search) || !empty($filter_kelas) || !empty($filter_tahun)): ?>
-                    <a href="dashboard.php" class="btn-outline nav-btn" style="padding:8px 14px;">🔄 Set Semula</a>
-                <?php endif; ?>
+                <?php
+                $current_filter_params = [];
+                if (!empty($search)) $current_filter_params['search'] = $search;
+                if (!empty($filter_kelas)) $current_filter_params['kelas'] = $filter_kelas;
+                if (!empty($filter_tahun)) $current_filter_params['tahun'] = $filter_tahun;
+                $filter_qs = !empty($current_filter_params) ? '&' . http_build_query($current_filter_params) : '';
+                ?>
 
                 <?php if ($total_responses > 0): ?>
-                    <form method="POST" action="dashboard.php" style="display:inline; margin-left:auto;" onsubmit="return confirm('⚠️ Adakah anda PASTI mahu memadam KESEMUA rekod jawapan murid dalam sistem? Tindakan ini kekal dan tidak boleh diundurkan!');">
-                        <input type="hidden" name="action" value="delete_all_responses">
-                        <button type="submit" class="btn-outline nav-btn" style="border-color:#ef4444; color:#ef4444; padding:8px 14px; font-weight:700;">
-                            🗑️ Padam Semua Rekod
-                        </button>
-                    </form>
+                    <div style="display:flex; gap:10px; align-items:center; margin-left:auto; flex-wrap:wrap;">
+                        <!-- BUTANG SIMPAN SEMUA REKOD (DROPDOWN CSV & ZIP) -->
+                        <div class="dropdown-export-container" style="position:relative; display:inline-block;">
+                            <button type="button" class="btn-primary nav-btn" style="background:linear-gradient(135deg, #10b981, #059669); color:#fff; padding:8px 16px; font-weight:700; border:none; display:flex; align-items:center; gap:6px; cursor:pointer;" onclick="toggleExportMenu(event)">
+                                💾 Simpan Semua Rekod <span style="font-size:0.75rem;">▼</span>
+                            </button>
+                            <div id="exportDropdownMenu" style="display:none; position:absolute; right:0; top:115%; background:#ffffff; border:1px solid #cbd5e1; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.15); z-index:100; min-width:240px; overflow:hidden;">
+                                <a href="export.php?type=csv<?php echo $filter_qs; ?>" style="display:flex; align-items:center; gap:12px; padding:12px 16px; color:#0f172a; text-decoration:none; font-weight:600; font-size:0.9rem; transition:background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">
+                                    <span style="font-size:1.3rem;">📄</span>
+                                    <div>
+                                        <div style="color:#065f46; font-weight:700;">Simpan Format .CSV</div>
+                                        <small style="color:#64748b; font-weight:normal; font-size:0.78rem;">Data Rekod & Luahan Rasa</small>
+                                    </div>
+                                </a>
+                                <div style="border-top:1px solid #e2e8f0;"></div>
+                                <a href="export.php?type=zip<?php echo $filter_qs; ?>" style="display:flex; align-items:center; gap:12px; padding:12px 16px; color:#0f172a; text-decoration:none; font-weight:600; font-size:0.9rem; transition:background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">
+                                    <span style="font-size:1.3rem;">📦</span>
+                                    <div>
+                                        <div style="color:#1e40af; font-weight:700;">Simpan Fail .ZIP</div>
+                                        <small style="color:#64748b; font-weight:normal; font-size:0.78rem;">Gambar Murid mengikut Nama</small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- BUTANG PADAM SEMUA REKOD -->
+                        <form method="POST" action="dashboard.php" style="display:inline; margin:0;" onsubmit="return confirm('⚠️ Adakah anda PASTI mahu memadam KESEMUA rekod jawapan murid dalam sistem? Tindakan ini kekal dan tidak boleh diundurkan!');">
+                            <input type="hidden" name="action" value="delete_all_responses">
+                            <button type="submit" class="btn-outline nav-btn" style="border-color:#ef4444; color:#ef4444; padding:8px 14px; font-weight:700;">
+                                🗑️ Padam Semua Rekod
+                            </button>
+                        </form>
+                    </div>
                 <?php endif; ?>
 
             </form>
         </div>
-
-        <?php
-        $current_filter_params = [];
-        if (!empty($search)) $current_filter_params['search'] = $search;
-        if (!empty($filter_kelas)) $current_filter_params['kelas'] = $filter_kelas;
-        if (!empty($filter_tahun)) $current_filter_params['tahun'] = $filter_tahun;
-        $filter_qs = !empty($current_filter_params) ? '&' . http_build_query($current_filter_params) : '';
-        ?>
 
         <div class="table-responsive">
             <table class="custom-table">
@@ -621,6 +644,22 @@ function viewStudentDetail(data) {
     document.getElementById('modalDeleteBtn').href = "dashboard.php?delete_response=" + data.id + "<?php echo addslashes($filter_qs); ?>";
     openModal('studentDetailModal');
 }
+
+// FUNGSI DROPDOWN MENU EKSPOR SIMPAN REKOD
+function toggleExportMenu(e) {
+    e.stopPropagation();
+    const menu = document.getElementById('exportDropdownMenu');
+    if (menu) {
+        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    }
+}
+
+document.addEventListener('click', function(e) {
+    const menu = document.getElementById('exportDropdownMenu');
+    if (menu && !e.target.closest('.dropdown-export-container')) {
+        menu.style.display = 'none';
+    }
+});
 </script>
 
 <?php require_once '../includes/footer.php'; ?>
