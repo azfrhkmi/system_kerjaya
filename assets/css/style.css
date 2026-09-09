@@ -1156,7 +1156,18 @@ h1, h2, h3, h4, h5, .font-heading {
 .school-card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    gap: 22px;
+    justify-content: center;
+}
+
+/* Memusatkan kad ke-10 (Sekolah Kawalan) di tengah bawah Sekolah Pendidikan Khas untuk paparan laptop/desktop */
+@media (min-width: 992px) {
+    .school-card-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .school-card-grid > *:nth-child(10) {
+        grid-column: 2;
+    }
 }
 
 .school-card {
