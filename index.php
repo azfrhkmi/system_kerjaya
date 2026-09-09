@@ -82,11 +82,11 @@ require_once 'includes/header.php';
         </div>
     </section>
 
-    <!-- SEKSYEN 3: SENARAI PILIHAN SEKOLAH MENENGAH TERUNGGUL (TOP 10 MALAYSIA) -->
+    <!-- SEKSYEN 3: SENARAI PILIHAN SEKOLAH MENENGAH TERUNGGUL (TOP MALAYSIA) -->
     <section class="section-block">
         <div class="section-header">
             <h2>🏫 Senarai Pilihan Sekolah Menengah Terunggul di Malaysia</h2>
-            <p>Antara 10 Sekolah Berasrama Penuh (SBP) & MRSM Terbaik (Keputusan SPM / GPS 2025) yang menjadi inspirasi murid!</p>
+            <p>Antara Sekolah Berasrama Penuh (SBP) & MRSM Terbaik (Keputusan SPM / GPS 2025) yang menjadi inspirasi murid!</p>
         </div>
 
         <div class="school-card-grid">
@@ -175,9 +175,9 @@ require_once 'includes/header.php';
                 <div class="school-gps">📊 GPS 2025: <strong>1.470</strong></div>
             </div>
 
-            <!-- 7=. Sekolah Sultan Alam Shah (SAS) -->
+            <!-- 8=. Sekolah Sultan Alam Shah (SAS) -->
             <div class="school-card">
-                <div class="school-rank-badge rank-normal">⭐ Kedudukan #7=</div>
+                <div class="school-rank-badge rank-normal">⭐ Kedudukan #8=</div>
                 <div class="school-icon-box" style="background:#fef3c7; color:#b45309;">🌟</div>
                 <h3 class="school-title">Sekolah Sultan Alam Shah (SAS)</h3>
                 <div class="school-meta">
@@ -199,9 +199,9 @@ require_once 'includes/header.php';
                 <div class="school-gps">📊 GPS 2025: <strong>1.530</strong></div>
             </div>
 
-            <!-- 9=. Kolej Islam Sultan Alam Shah (KISAS) -->
+            <!-- 10=. Kolej Islam Sultan Alam Shah (KISAS) -->
             <div class="school-card">
-                <div class="school-rank-badge rank-normal">⭐ Kedudukan #9=</div>
+                <div class="school-rank-badge rank-normal">⭐ Kedudukan #10=</div>
                 <div class="school-icon-box" style="background:#fee2e2; color:#b91c1c;">🌙</div>
                 <h3 class="school-title">Kolej Islam Sultan Alam Shah (KISAS)</h3>
                 <div class="school-meta">
@@ -209,6 +209,30 @@ require_once 'includes/header.php';
                     <span class="school-tag tag-category">KISAS / SMKA</span>
                 </div>
                 <div class="school-gps">📊 GPS 2025: <strong>1.530</strong></div>
+            </div>
+
+            <!-- 11. SMS Kuala Terengganu (SESTER) -->
+            <div class="school-card">
+                <div class="school-rank-badge rank-normal">⭐ Kedudukan #11</div>
+                <div class="school-icon-box" style="background:#e0f2fe; color:#0369a1;">🌊</div>
+                <h3 class="school-title">SMS Kuala Terengganu (SESTER)</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Terengganu</span>
+                    <span class="school-tag tag-category">SMS / SBP</span>
+                </div>
+                <div class="school-gps">📊 GPS 2025: <strong>1.590</strong></div>
+            </div>
+
+            <!-- 12. SBP Integrasi Rawang (SEPINTAR) -->
+            <div class="school-card">
+                <div class="school-rank-badge rank-normal">⭐ Kedudukan #12</div>
+                <div class="school-icon-box" style="background:#fef3c7; color:#d97706;">📘</div>
+                <h3 class="school-title">SBP Integrasi Rawang (SEPINTAR)</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Selangor</span>
+                    <span class="school-tag tag-category">SBPI / SBP</span>
+                </div>
+                <div class="school-gps">📊 GPS 2025: <strong>1.610</strong></div>
             </div>
 
         </div>
