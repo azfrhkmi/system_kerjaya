@@ -27,115 +27,197 @@ require_once 'includes/header.php';
 
 <div class="container">
 
-    <!-- SEKSYEN 1: APA ITU KERJAYA? -->
+    <!-- SEKSYEN 1: KERJAYA STEM -->
     <section class="section-block">
         <div class="section-header">
-            <h2>🌈 Apa Itu Kerjaya?</h2>
-            <p>Memahami dunia pekerjaan dan persediaan masa depan sejak sekolah rendah</p>
+            <h2>🌈 Kerjaya STEM</h2>
+            <p>Memahami dunia STEM (Sains, Teknologi, Kejuruteraan & Matematik) dan persediaan kerjaya masa depan murid</p>
         </div>
 
-        <div style="background: white; border-radius: var(--radius-lg); padding: 36px; box-shadow: var(--shadow-soft); border: 2px solid #e0e7ff; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: center;">
-            <div>
-                <h3 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 14px;">
-                    🎯 Kenapa Kita Perlu Tahu Cita-Cita?
+        <div style="background: white; border-radius: var(--radius-lg); padding: 30px 24px; box-shadow: var(--shadow-soft); border: 2px solid #e0e7ff; margin-bottom: 24px;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h3 style="font-size: 1.4rem; color: var(--primary); margin-bottom: 8px;">
+                    🎯 Pilih Huruf STEM Di Bawah Untuk Menerokai Maksud & 10 Pekerjaan Berkaitan:
                 </h3>
-                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px;">
-                    <strong>Kerjaya</strong> ialah pekerjaan atau lapangan aktiviti yang dipilih oleh seseorang untuk membina masa depan mereka. Setiap orang mempunyai bakat, minat, dan kecerdasan yang unik!
-                </p>
-                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
-                    Dengan mengetahui minat seawal sekolah rendah, anda boleh belajar dengan lebih bersemangat, mengasah bakat semula jadi, dan mencapai kejayaan yang cemerlang di dunia & akhirat!
+                <p style="color: var(--text-muted); font-size: 0.95rem;">
+                    Tekan mana-mana butang S, T, E, atau M untuk melihat contoh bidang & cita-cita hebat!
                 </p>
             </div>
-            
-            <div style="background: linear-gradient(135deg, #e0e7ff, #fbcfe8); border-radius: 20px; padding: 24px; text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 10px;">🏆</div>
-                <h4 style="font-size: 1.3rem; color: #3730a3; margin-bottom: 8px;">Impian Anda, Masa Depan Anda!</h4>
-                <p style="font-size: 0.95rem; color: #4338ca;">
-                    "Setiap anak adalah bintang yang bersinar mengikut bakat tersendiri."
-                </p>
+
+            <!-- BUTANG MELINTANG S, T, E, M -->
+            <div class="stem-buttons-wrapper">
+                <button type="button" class="stem-btn stem-btn-s active" onclick="showStemDetail('S')">🧬 S - Sains</button>
+                <button type="button" class="stem-btn stem-btn-t" onclick="showStemDetail('T')">💻 T - Teknologi</button>
+                <button type="button" class="stem-btn stem-btn-e" onclick="showStemDetail('E')">⚙️ E - Kejuruteraan</button>
+                <button type="button" class="stem-btn stem-btn-m" onclick="showStemDetail('M')">🧮 M - Matematik</button>
             </div>
+
+            <!-- BEKAS PAPARAN DETAIL STEM -->
+            <div id="stemDisplay" class="stem-detail-display active" style="margin-top: 24px;"></div>
         </div>
     </section>
 
-    <!-- SEKSYEN 2: TEORI HOWARD GARDNER (9 KECERDASAN PELBAGAI) -->
+    <!-- SEKSYEN 2: TEORI HOWARD GARDNER (9 KECERDASAN PELBAGAI INTERAKTIF) -->
     <section class="section-block">
         <div class="section-header">
             <h2>🎁 Teori Kecerdasan Pelbagai Howard Gardner</h2>
-            <p>Terdapat 9 jenis kecerdasan pelbagai yang diguna pakai dalam sistem pendidikan:</p>
+            <p>Tekan mana-mana teori di bawah untuk membaca penerangan terperinci & 10 pekerjaan yang sesuai:</p>
         </div>
 
-        <div class="gardner-grid">
+        <div class="gardner-interactive-container">
+            <div class="gardner-buttons-wrapper">
+                <button type="button" class="gardner-btn gardner-btn-verbal" onclick="showGardnerDetail('verbal')">📚 Verbal-Linguistik</button>
+                <button type="button" class="gardner-btn gardner-btn-logik" onclick="showGardnerDetail('logik')">🔢 Logik-Matematik</button>
+                <button type="button" class="gardner-btn gardner-btn-visual" onclick="showGardnerDetail('visual')">🎨 Visual-Ruang</button>
+                <button type="button" class="gardner-btn gardner-btn-kinestetik" onclick="showGardnerDetail('kinestetik')">⚽ Kinestetik</button>
+                <button type="button" class="gardner-btn gardner-btn-muzik" onclick="showGardnerDetail('muzik')">🎵 Muzik</button>
+                <button type="button" class="gardner-btn gardner-btn-interpersonal" onclick="showGardnerDetail('interpersonal')">🤝 Interpersonal</button>
+                <button type="button" class="gardner-btn gardner-btn-intrapersonal" onclick="showGardnerDetail('intrapersonal')">🧘 Intrapersonal</button>
+                <button type="button" class="gardner-btn gardner-btn-naturalis" onclick="showGardnerDetail('naturalis')">🌿 Naturalis</button>
+                <button type="button" class="gardner-btn gardner-btn-eksistensial" onclick="showGardnerDetail('eksistensial')">🌌 Eksistensial</button>
+            </div>
+
+            <!-- Bekas Paparan Detail Teori Howard Gardner -->
+            <div id="gardnerDisplay" class="gardner-detail-display" style="margin-top:24px;"></div>
+        </div>
+    </section>
+
+    <!-- SEKSYEN 3: SENARAI PILIHAN SEKOLAH MENENGAH TERUNGGUL (TOP 10 MALAYSIA) -->
+    <section class="section-block">
+        <div class="section-header">
+            <h2>🏫 Senarai Pilihan Sekolah Menengah Terunggul di Malaysia</h2>
+            <p>Antara 10 Sekolah Berasrama Penuh (SBP) & MRSM Terbaik (Keputusan SPM / GPS 2025) yang menjadi inspirasi murid!</p>
+        </div>
+
+        <div class="school-card-grid">
             
-            <!-- 1. Verbal-Linguistik -->
-            <div class="gardner-card" style="--card-color-1:#3b82f6; --card-color-2:#60a5fa; --icon-bg:#dbeafe;">
-                <div class="gardner-icon">📚</div>
-                <h3>Verbal-Linguistik</h3>
-                <p>Kebolehan menggunakan bahasa, kata-kata, dan perkataan secara berkesan sama ada secara lisan atau tulisan.</p>
+            <!-- 1. MRSM Tun Ghafar Baba -->
+            <div class="school-card school-card-gold">
+                <div class="school-rank-badge">🥇 Kedudukan #1</div>
+                <div class="school-icon-box" style="background:#fef3c7; color:#b45309;">🏛️</div>
+                <h3 class="school-title">MRSM Tun Ghafar Baba</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Melaka</span>
+                    <span class="school-tag tag-category">MRSM</span>
+                </div>
+                <div class="school-gps">📊 GPS 2025: <strong>1.139</strong></div>
             </div>
 
-            <!-- 2. Logik-Matematik -->
-            <div class="gardner-card" style="--card-color-1:#6366f1; --card-color-2:#818cf8; --icon-bg:#e0e7ff;">
-                <div class="gardner-icon">🔢</div>
-                <h3>Logik-Matematik</h3>
-                <p>Kebolehan berfikir secara rasional, menganalisis masalah, dan menyelesaikan pengiraan nombor atau logik.</p>
+            <!-- 2. MRSM Gemencheh -->
+            <div class="school-card school-card-silver">
+                <div class="school-rank-badge">🥈 Kedudukan #2</div>
+                <div class="school-icon-box" style="background:#e0e7ff; color:#3730a3;">🏫</div>
+                <h3 class="school-title">MRSM Gemencheh</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Negeri Sembilan</span>
+                    <span class="school-tag tag-category">MRSM</span>
+                </div>
+                <div class="school-gps">📊 GPS 2025: <strong>1.195</strong></div>
             </div>
 
-            <!-- 3. Visual-Ruang -->
-            <div class="gardner-card" style="--card-color-1:#ec4899; --card-color-2:#f472b6; --icon-bg:#fce7f3;">
-                <div class="gardner-icon">🎨</div>
-                <h3>Visual-Ruang</h3>
-                <p>Kebolehan mengesan, membayangkan, dan menterjemahkan dunia visual serta ruang secara grafik.</p>
+            <!-- 3. MRSM Taiping -->
+            <div class="school-card school-card-bronze">
+                <div class="school-rank-badge">🥉 Kedudukan #3</div>
+                <div class="school-icon-box" style="background:#ffedd5; color:#c2410c;">🏫</div>
+                <h3 class="school-title">MRSM Taiping</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Perak</span>
+                    <span class="school-tag tag-category">MRSM</span>
+                </div>
+                <div class="school-gps">📊 GPS 2025: <strong>1.224</strong></div>
             </div>
 
-            <!-- 4. Kinestetik -->
-            <div class="gardner-card" style="--card-color-1:#ef4444; --card-color-2:#f87171; --icon-bg:#fee2e2;">
-                <div class="gardner-icon">⚽</div>
-                <h3>Kinestetik</h3>
-                <p>Kebolehan menggunakan seluruh anggota badan untuk melahirkan idea, perasaan, atau menyelesaikan masalah (pergerakan fizikal).</p>
+            <!-- 4. MRSM Pengkalan Chepa -->
+            <div class="school-card">
+                <div class="school-rank-badge rank-normal">⭐ Kedudukan #4</div>
+                <div class="school-icon-box" style="background:#dbeafe; color:#1d4ed8;">🎓</div>
+                <h3 class="school-title">MRSM Pengkalan Chepa</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Kelantan</span>
+                    <span class="school-tag tag-category">MRSM</span>
+                </div>
+                <div class="school-gps">📊 GPS 2025: <strong>1.254</strong></div>
             </div>
 
-            <!-- 5. Muzik -->
-            <div class="gardner-card" style="--card-color-1:#8b5cf6; --card-color-2:#a78bfa; --icon-bg:#ede9fe;">
-                <div class="gardner-icon">🎵</div>
-                <h3>Muzik</h3>
-                <p>Kebolehan mengesan irama, melodi, nada, dan bunyi serta menghargai seni muzik.</p>
+            <!-- 5. MRSM Kuala Kubu Bharu -->
+            <div class="school-card">
+                <div class="school-rank-badge rank-normal">⭐ Kedudukan #5</div>
+                <div class="school-icon-box" style="background:#ede9fe; color:#6d28d9;">📚</div>
+                <h3 class="school-title">MRSM Kuala Kubu Bharu</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Selangor</span>
+                    <span class="school-tag tag-category">MRSM</span>
+                </div>
+                <div class="school-gps">📊 GPS 2025: <strong>1.284</strong></div>
             </div>
 
-            <!-- 6. Interpersonal -->
-            <div class="gardner-card" style="--card-color-1:#f59e0b; --card-color-2:#fbbf24; --icon-bg:#fef3c7;">
-                <div class="gardner-icon">🤝</div>
-                <h3>Interpersonal</h3>
-                <p>Kebolehan memahami, menyelami, dan berinteraksi secara berkesan dengan orang lain.</p>
+            <!-- 6. Sekolah Tun Fatimah (STF) -->
+            <div class="school-card">
+                <div class="school-rank-badge rank-normal">⭐ Kedudukan #6</div>
+                <div class="school-icon-box" style="background:#fce7f3; color:#be185d;">👑</div>
+                <h3 class="school-title">Sekolah Tun Fatimah (STF)</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Johor</span>
+                    <span class="school-tag tag-category">SBP Elite</span>
+                </div>
+                <div class="school-gps">📊 GPS 2025: <strong>1.380</strong></div>
             </div>
 
-            <!-- 7. Intrapersonal -->
-            <div class="gardner-card" style="--card-color-1:#14b8a6; --card-color-2:#2dd4bf; --icon-bg:#ccfbf1;">
-                <div class="gardner-icon">🧘</div>
-                <h3>Intrapersonal</h3>
-                <p>Kebolehan memahami diri sendiri, emosi, kekuatan, kelemahan, serta matlamat peribadi.</p>
+            <!-- 7=. SMS Sultan Mahmud (SESMA) -->
+            <div class="school-card">
+                <div class="school-rank-badge rank-normal">⭐ Kedudukan #7=</div>
+                <div class="school-icon-box" style="background:#ccfbf1; color:#0f766e;">🏛️</div>
+                <h3 class="school-title">SMS Sultan Mahmud (SESMA)</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Terengganu</span>
+                    <span class="school-tag tag-category">SMS / SBP</span>
+                </div>
+                <div class="school-gps">📊 GPS 2025: <strong>1.470</strong></div>
             </div>
 
-            <!-- 8. Naturalis -->
-            <div class="gardner-card" style="--card-color-1:#10b981; --card-color-2:#34d399; --icon-bg:#d1fae5;">
-                <div class="gardner-icon">🌿</div>
-                <h3>Naturalis</h3>
-                <p>Kebolehan mengenali, menghargai, dan memahami alam semula jadi, flora, serta fauna.</p>
+            <!-- 7=. Sekolah Sultan Alam Shah (SAS) -->
+            <div class="school-card">
+                <div class="school-rank-badge rank-normal">⭐ Kedudukan #7=</div>
+                <div class="school-icon-box" style="background:#fef3c7; color:#b45309;">🌟</div>
+                <h3 class="school-title">Sekolah Sultan Alam Shah (SAS)</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Putrajaya</span>
+                    <span class="school-tag tag-category">SBP Elite</span>
+                </div>
+                <div class="school-gps">📊 GPS 2025: <strong>1.470</strong></div>
             </div>
 
-            <!-- 9. Eksistensial -->
-            <div class="gardner-card" style="--card-color-1:#64748b; --card-color-2:#94a3b8; --icon-bg:#f1f5f9;">
-                <div class="gardner-icon">🌌</div>
-                <h3>Eksistensial</h3>
-                <p>Kebolehan merenung dan memikirkan persoalan mendalam mengenai kewujudan manusia, makna hidup, dan tujuan ciptaan.</p>
+            <!-- 9=. SMS Tuanku Munawir (SASER) -->
+            <div class="school-card">
+                <div class="school-rank-badge rank-normal">⭐ Kedudukan #9=</div>
+                <div class="school-icon-box" style="background:#d1fae5; color:#047857;">🎓</div>
+                <h3 class="school-title">SMS Tuanku Munawir (SASER)</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Negeri Sembilan</span>
+                    <span class="school-tag tag-category">SMS / SBP</span>
+                </div>
+                <div class="school-gps">📊 GPS 2025: <strong>1.530</strong></div>
+            </div>
+
+            <!-- 9=. Kolej Islam Sultan Alam Shah (KISAS) -->
+            <div class="school-card">
+                <div class="school-rank-badge rank-normal">⭐ Kedudukan #9=</div>
+                <div class="school-icon-box" style="background:#fee2e2; color:#b91c1c;">🌙</div>
+                <h3 class="school-title">Kolej Islam Sultan Alam Shah (KISAS)</h3>
+                <div class="school-meta">
+                    <span class="school-tag tag-state">📍 Selangor</span>
+                    <span class="school-tag tag-category">KISAS / SMKA</span>
+                </div>
+                <div class="school-gps">📊 GPS 2025: <strong>1.530</strong></div>
             </div>
 
         </div>
     </section>
 
-    <!-- SEKSYEN 3: SERTAI SOAL JAWAB (BOTTOM CTA) -->
+    <!-- SEKSYEN 4: SERTAI SOAL JAWAB (BOTTOM CTA) -->
     <section class="cta-banner">
         <h2>Adakah Anda Bersedia Terokai Cita-Cita Anda? 🌟</h2>
-        <p>Isi borang soal jawab kerjaya sekarang untuk berkongsi minat dan luahan rasa bersama Guru Bimbingan & Kaunseling sekolah anda!</p>
+        <p>Isi borang soal jawab kerjaya sekarang untuk berkongsi minat bersama Guru Bimbingan & Kaunseling sekolah anda!</p>
         <a href="soal_jawab.php" class="btn-cta-big">
             🎁 Tekan Untuk Sertai Soal Jawab Kerjaya
         </a>

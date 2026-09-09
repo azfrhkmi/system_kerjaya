@@ -223,6 +223,244 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // DATA STEM (SAINS, TEKNOLOGI, KEJURUTERAAN, MATEMATIK)
+    const stemData = {
+        'S': {
+            title: 'S - Sains (Science)',
+            badge: '🧬 Meneroka Alam & Fenomena Alam',
+            desc: 'Bidang Sains melibatkan kajian tentang alam fizikal dan semula jadi melalui pemerhatian, eksperimen, dan pembuktian fakta.',
+            color: '#059669',
+            bg: '#d1fae5',
+            jobs: [
+                '🧫 Ahli Biologi Makmal',
+                '🔬 Saintis Kimia / Penyelidik',
+                '🪐 Ahli Astronomi / Penjelajah Angkasa',
+                '👨‍⚕️ Doktor Perubatan / Pakar Bedah',
+                '🌱 Ahli Botani & Tumbuhan',
+                '🌋 Ahli Geologi / Bumi',
+                '🌿 Saintis Alam Sekitar',
+                '💊 Ahli Farmasi',
+                '🌤️ Ahli Meteorologi (Cuaca)',
+                '🦁 Ahli Zoologi (Haiwan)'
+            ]
+        },
+        'T': {
+            title: 'T - Teknologi (Technology)',
+            badge: '💻 Pembinaan Perisian & AI',
+            desc: 'Bidang Teknologi berfokus kepada pembangunan perisian, kecerdasan buatan (AI), komputer, dan sistem digital masa kini.',
+            color: '#2563eb',
+            bg: '#dbeafe',
+            jobs: [
+                '💻 Jurutera Perisian / Programmer',
+                '🌐 Pembangun Aplikasi Web & Mobile',
+                '🛡️ Pakar Keselamatan Siber (Cybersecurity)',
+                '📊 Saintis Data (Data Scientist)',
+                '🎨 Pereka UX/UI Digital',
+                '🤖 Jurutera AI & Robotik',
+                '☁️ Pentadbir Sistem Awan (Cloud)',
+                '🗄️ Pentadbir Pangkalan Data (DBA)',
+                '🕹️ Pereka Permainan Video (Game Dev)',
+                '📡 Jurutera Rangkaian & IT'
+            ]
+        },
+        'E': {
+            title: 'E - Kejuruteraan (Engineering)',
+            badge: '⚙️ Pereka Bentuk & Mesin',
+            desc: 'Bidang Kejuruteraan mengaplikasikan sains dan matematik untuk Mereka, Membina, dan Menyelesaikan masalah fizikal & infrastruktur.',
+            color: '#d97706',
+            bg: '#fef3c7',
+            jobs: [
+                '🏗️ Jurutera Awam / Bangunan',
+                '⚡ Jurutera Elektrik & Elektronik',
+                '⚙️ Jurutera Mekanikal',
+                '✈️ Jurutera Aeronautikal (Pesawat)',
+                '🤖 Jurutera Mekatronik & Robotik',
+                '🦿 Jurutera Biomedikal',
+                '🏭 Jurutera Kimia & Proses',
+                '🚗 Jurutera Automotif',
+                '🌊 Jurutera Kelautan / Marin',
+                '🌱 Jurutera Alam Sekitar'
+            ]
+        },
+        'M': {
+            title: 'M - Matematik (Mathematics)',
+            badge: '🧮 Nombor, Logik & Analisis Data',
+            desc: 'Bidang Matematik memfokuskan kepada nombor, struktur, ruang, logik, dan analisis data kewangan & saintifik.',
+            color: '#7c3aed',
+            bg: '#ede9fe',
+            jobs: [
+                '🧮 Ahli Matematik Penyelidik',
+                '📈 Aktuari (Pakar Risiko Insurans)',
+                '📊 Penganalisis Statistik',
+                '🔐 Pakar Kriptografi (Keselamatan Data)',
+                '💼 Penganalisis Kewangan',
+                '🏢 Penganalisis Risiko Perniagaan',
+                '👩‍🏫 Guru / Pensyarah Matematik',
+                '📉 Penganalisis Penyelidikan Operasi',
+                '🏦 Pakar Ekonometrik Bank',
+                '🔍 Penganalisis Kuantitatif (Quant)'
+            ]
+        }
+    };
+
+    // DATA 10 APLIKASI AI FAMOUS
+    const aiData = {
+        'chatgpt': {
+            name: 'ChatGPT',
+            company: 'OpenAI',
+            icon: '🤖',
+            color: '#10a37f',
+            bg: '#d1fae5',
+            desc: 'Aplikasi AI pembantu teks paling popular di dunia. Boleh membantu menjawab soalan, menulis karangan, menterjemah bahasa, dan menjana idea kerjaya kreatif.'
+        },
+        'claude': {
+            name: 'Claude AI',
+            company: 'Anthropic',
+            icon: '🧠',
+            color: '#d97706',
+            bg: '#fef3c7',
+            desc: 'AI pintar dengan kebolehan analisis teks mendalam, penulisan cerita yang sangat mesra dan semula jadi, serta pemahaman jawapan yang tepat.'
+        },
+        'gemini': {
+            name: 'Google Gemini',
+            company: 'Google',
+            icon: '✨',
+            color: '#2563eb',
+            bg: '#dbeafe',
+            desc: 'AI serba boleh daripada Google yang terhubung terus dengan maklumat carian internet terkini, gambar, dan pelbagai aplikasi Google.'
+        },
+        'canva': {
+            name: 'Canva Magic Studio',
+            company: 'Canva',
+            icon: '🎨',
+            color: '#7c3aed',
+            bg: '#ede9fe',
+            desc: 'Alatan grafik AI yang membolehkan murid menghasilkan poster inspirasi kerjaya, infografik, dan persembahan slaid yang sangat cantik secara automatik.'
+        },
+        'copilot': {
+            name: 'Microsoft Copilot',
+            company: 'Microsoft',
+            icon: '💻',
+            color: '#0284c7',
+            bg: '#e0f2fe',
+            desc: 'Pembantu AI yang diintegrasikan dalam Word, PowerPoint, dan Windows untuk membantu penulisan dokumen dan rekaan pembentangan.'
+        },
+        'midjourney': {
+            name: 'Midjourney',
+            company: 'Midjourney Inc',
+            icon: '🖼️',
+            color: '#be185d',
+            bg: '#fce7f3',
+            desc: 'Aplikasi AI penjana lukisan & gambaran seni grafik bertaraf profesional tinggi hanya daripada carian ayat prompt.'
+        },
+        'perplexity': {
+            name: 'Perplexity AI',
+            company: 'Perplexity',
+            icon: '🔍',
+            color: '#0d9488',
+            bg: '#ccfbf1',
+            desc: 'Enjin carian berasaskan AI yang memberikan jawapan tepat lengkap bersama rujukan sumber sahih di internet.'
+        },
+        'dalle': {
+            name: 'DALL-E 3',
+            company: 'OpenAI',
+            icon: '🎭',
+            color: '#ea580c',
+            bg: '#ffedd5',
+            desc: 'AI khas untuk menghasilkan poster, lukisan imajinasi, dan gambar inspirasi kerjaya daripada ayat promosi pengguna.'
+        },
+        'poe': {
+            name: 'Poe AI',
+            company: 'Quora',
+            icon: '💡',
+            color: '#4f46e5',
+            bg: '#e0e7ff',
+            desc: 'Platform perantara yang mengumpulkan pelbagai jenis bot AI dalam satu aplikasi mudah untuk dicuba oleh murid.'
+        },
+        'elevenlabs': {
+            name: 'ElevenLabs',
+            company: 'ElevenLabs',
+            icon: '🎙️',
+            color: '#475569',
+            bg: '#f1f5f9',
+            desc: 'Teknologi AI suara (voice AI) yang boleh menukar teks kepada alihan suara yang sangat realistik dalam pelbagai bahasa.'
+        }
+    };
+
+    // FUNGSI PAPARAN INTERAKTIF STEM (S, T, E, M)
+    window.showStemDetail = function(letter) {
+        const data = stemData[letter];
+        if (!data) return;
+
+        document.querySelectorAll('.stem-btn').forEach(btn => btn.classList.remove('active'));
+        const activeBtn = document.querySelector(`.stem-btn-${letter.toLowerCase()}`);
+        if (activeBtn) activeBtn.classList.add('active');
+
+        const displayBox = document.getElementById('stemDisplay');
+        if (displayBox) {
+            displayBox.style.borderColor = data.color;
+            displayBox.innerHTML = `
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:15px; border-bottom:2px solid ${data.bg}; padding-bottom:12px; flex-wrap:wrap; gap:10px;">
+                    <div>
+                        <span style="background:${data.bg}; color:${data.color}; font-weight:800; padding:6px 14px; border-radius:50px; font-size:0.9rem;">
+                            ${data.badge}
+                        </span>
+                        <h3 style="font-size:1.6rem; color:${data.color}; margin-top:8px;">${data.title}</h3>
+                    </div>
+                    <div style="font-size:2.8rem;">🚀</div>
+                </div>
+                <p style="font-size:1.05rem; color:#475569; margin-bottom:20px; line-height:1.6;">${data.desc}</p>
+                <h4 style="font-size:1.15rem; color:#1e1b4b; margin-bottom:14px; display:flex; align-items:center; gap:8px;">
+                    🎯 10 Contoh Pekerjaan Berkaitan Bidang ${data.title.split('-')[1] || letter}:
+                </h4>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+                    ${data.jobs.map(j => `
+                        <div style="background:${data.bg}; color:${data.color}; padding:14px; border-radius:14px; font-weight:700; font-size:0.95rem; border:1px solid ${data.color}44;">
+                            ${j}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            displayBox.classList.add('active');
+        }
+    };
+
+    // FUNGSI PAPARAN INTERAKTIF APLIKASI AI
+    window.showAiDetail = function(code) {
+        const data = aiData[code];
+        if (!data) return;
+
+        document.querySelectorAll('.ai-btn').forEach(btn => btn.classList.remove('active'));
+        const eventBtn = event ? event.target.closest('.ai-btn') : null;
+        if (eventBtn) eventBtn.classList.add('active');
+
+        const displayBox = document.getElementById('aiDisplay');
+        if (displayBox) {
+            displayBox.style.borderColor = data.color;
+            displayBox.style.backgroundColor = 'white';
+            displayBox.innerHTML = `
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; border-bottom:2px solid ${data.bg}; padding-bottom:10px;">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <span style="font-size:2.2rem; background:${data.bg}; padding:8px; border-radius:14px;">${data.icon}</span>
+                        <div>
+                            <span style="background:${data.bg}; color:${data.color}; font-weight:800; padding:4px 10px; border-radius:50px; font-size:0.8rem;">
+                                ${data.company}
+                            </span>
+                            <h3 style="font-size:1.4rem; color:${data.color}; margin-top:4px;">${data.name}</h3>
+                        </div>
+                    </div>
+                </div>
+                <p style="font-size:1rem; color:#475569; line-height:1.6;">${data.desc}</p>
+            `;
+            displayBox.classList.add('active');
+        }
+    };
+
+    // Auto load STEM 'S' if container present
+    if (document.getElementById('stemDisplay')) {
+        showStemDetail('S');
+    }
+
     // MODAL CONTROL FUNCTIONS
     window.openModal = function(modalId) {
         const modal = document.getElementById(modalId);

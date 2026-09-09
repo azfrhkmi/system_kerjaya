@@ -200,47 +200,39 @@ require_once 'includes/header.php';
                 </div>
             </div>
 
-            <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
-
-            <!-- BAHAGIAN B: CERITALAH LUAHAN RASA -->
-            <h3 style="font-size:1.4rem; color:var(--secondary); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                💬 (b) Ceritalah Luahan Rasa
-            </h3>
-            <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:15px;">
-                Tuliskan apa sahaja impian, hobi, atau masalah belajar pada ruangan di bawah:
-            </p>
-            <div class="form-group">
-                <textarea name="luahan_rasa" class="form-control" rows="4" placeholder="Ceritakan cita-cita anda atau perkara yang anda suka buat waktu lapang..."><?php echo htmlspecialchars($_POST['luahan_rasa'] ?? ''); ?></textarea>
-            </div>
-
-            <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
-
-            <!-- BAHAGIAN C: E-PETICHERITALAH EXPLORASI KECERDASAN PELBAGAI (TEORI HOWARD GARDNER) -->
+            <hr style="border:0; border-top:2px dashed #e2e            <!-- BAHAGIAN B: PENGGUNAAN APLIKASI AI KERJAYA & TEORI KECERDASAN -->
             <h3 style="font-size:1.4rem; color:var(--accent-purple); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                🎁 (c) e-PETICHERITALAH Explorasi Kecerdasan Pelbagai (Teori Howard Gardner)
+                🤖 (b) Penggunaan Aplikasi AI Kerjaya & Teori Kecerdasan
             </h3>
+            <p style="color:var(--text-dark); font-size:1.05rem; font-weight:700; margin-bottom:4px;">
+                Dengan menggunakan teknologi AI, anda boleh menghasilkan hasil kerjaya yang kreatif
+            </p>
             <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:18px;">
-                Tekan mana-mana butang di bawah untuk membaca penerangan maksud & 10 pekerjaan yang sesuai, kemudian tandakan kategori kecerdasan pilihan anda!
+                Berikut merupakan antara aplikasi AI yang boleh digunakan:
             </p>
 
-            <div class="gardner-buttons-wrapper" style="margin-bottom:20px;">
-                <button type="button" class="gardner-btn gardner-btn-verbal" onclick="showGardnerDetail('verbal')">📚 Verbal-Linguistik</button>
-                <button type="button" class="gardner-btn gardner-btn-logik" onclick="showGardnerDetail('logik')">🔢 Logik-Matematik</button>
-                <button type="button" class="gardner-btn gardner-btn-visual" onclick="showGardnerDetail('visual')">🎨 Visual-Ruang</button>
-                <button type="button" class="gardner-btn gardner-btn-kinestetik" onclick="showGardnerDetail('kinestetik')">⚽ Kinestetik</button>
-                <button type="button" class="gardner-btn gardner-btn-muzik" onclick="showGardnerDetail('muzik')">🎵 Muzik</button>
-                <button type="button" class="gardner-btn gardner-btn-interpersonal" onclick="showGardnerDetail('interpersonal')">🤝 Interpersonal</button>
-                <button type="button" class="gardner-btn gardner-btn-intrapersonal" onclick="showGardnerDetail('intrapersonal')">🧘 Intrapersonal</button>
-                <button type="button" class="gardner-btn gardner-btn-naturalis" onclick="showGardnerDetail('naturalis')">🌿 Naturalis</button>
-                <button type="button" class="gardner-btn gardner-btn-eksistensial" onclick="showGardnerDetail('eksistensial')">🌌 Eksistensial</button>
+            <!-- 10 FAMOUS AI APPS BUTTONS GRID -->
+            <div class="ai-buttons-wrapper" style="margin-bottom:18px;">
+                <button type="button" class="ai-btn" onclick="showAiDetail('chatgpt')">🤖 ChatGPT</button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('claude')">🧠 Claude AI</button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('gemini')">✨ Google Gemini</button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('canva')">🎨 Canva Magic Studio</button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('copilot')">💻 Microsoft Copilot</button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('midjourney')">🖼️ Midjourney</button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('perplexity')">🔍 Perplexity AI</button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('dalle')">🎭 DALL-E</button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('poe')">💡 Poe AI</button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('elevenlabs')">🎙️ ElevenLabs</button>
             </div>
 
-            <!-- Bekas Paparan Detail Teori Howard Gardner -->
-            <div id="gardnerDisplay" class="gardner-detail-display" style="margin-bottom:24px;"></div>
+            <!-- Bekas Paparan Detail Aplikasi AI -->
+            <div id="aiDisplay" class="ai-detail-display" style="margin-bottom:24px;"></div>
 
             <!-- Penandaan Pilihan Murid (Susunan Kemas 3x3 Grid) -->
-            <div class="form-group">
-                <label class="form-label" style="margin-bottom:14px;">Tandakan Teori Kecerdasan Yang Paling Sesuai Dengan Anda (Boleh pilih lebih dari satu):</label>
+            <div class="form-group" style="margin-top:28px;">
+                <label class="form-label" style="margin-bottom:14px; font-size:1.1rem; color:#1e1b4b;">
+                    Tandakan Teori Kecerdasan Yang Paling Sesuai Dengan Anda (Boleh pilih lebih dari satu):
+                </label>
                 <div class="gardner-select-grid">
                     <?php 
                     $gardner_list = [
@@ -268,13 +260,22 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN D: SILA UPLOAD FILE KERJAYA ANDA -->
+            <!-- BAHAGIAN C: SILA UPLOAD BAHAN FILE INSPIRASI KERJAYA ANDA -->
             <h3 style="font-size:1.4rem; color:#0284c7; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                📁 (d) Sila Upload File Kerjaya Anda
+                📁 (c) Sila Upload Bahan File Inspirasi Kerjaya Anda
             </h3>
-            <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:15px;">
-                Sila layari <strong>DELIMa</strong> dan dengan menggunakan teknologi AI hasilkan bahan berkaitan inspirasi kerjaya anda dan muat turun di ruangan yang disediakan.
-            </p>
+            <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:16px; padding:18px; margin-bottom:18px;">
+                <p style="color:#0369a1; font-size:0.98rem; margin-bottom:10px; line-height:1.6;">
+                    Sila layari akaun <strong>DELIMa</strong> anda, dengan menggunakan aplikasi AI, hasilkan bahan berkaitan inspirasi kerjaya anda dan muat turun di ruangan yang disediakan.
+                </p>
+                <div style="background:white; border-radius:12px; padding:14px; border-left:5px solid #0284c7; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+                    <div style="font-weight:700; color:#0369a1; font-size:0.92rem; margin-bottom:4px;">💡 Contoh prompt untuk menghasilkan sebuah poster:</div>
+                    <em style="color:#1e293b; font-size:0.95rem; line-height:1.5; display:block;">
+                        "Saya (nama anda), saya ingin sambung belajar ke (nama pilihan sekolah anda). Inspirasi kerjaya saya ialah ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ). Tuliskan tugas pilihan kerjaya saya."
+                    </em>
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="file-upload-box" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px 20px;">
                     <input type="file" id="fail_kerjaya" name="fail_kerjaya" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="form-control" style="border:none; background:transparent; max-width:340px; margin:0 auto; text-align:center;">
@@ -286,9 +287,9 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN E: KOMEN SAYA (MCA) -->
+            <!-- BAHAGIAN D: KOMEN SAYA (MCA) -->
             <h3 style="font-size:1.4rem; color:var(--accent-green); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                ⭐ (e) Komen & Tindakan Selanjutnya
+                ⭐ (d) Komen & Tindakan Selanjutnya
             </h3>
             <div class="form-group">
                 <label class="form-label">Sila pilih satu komen maklum balas anda: <span style="color:#ef4444">*</span></label>
@@ -315,7 +316,7 @@ require_once 'includes/header.php';
             <!-- BUTANG HANTAR ANIMATED -->
             <div style="text-align:center; margin-top:40px;">
                 <button type="submit" class="btn-cta-big" style="width:100%; justify-content:center;">
-                    🚀 Hantar Soal Jawab Kerjaya Saya!
+                    🚀 Hantar!
                 </button>
             </div>
 
