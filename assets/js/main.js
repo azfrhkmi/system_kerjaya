@@ -490,11 +490,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Auto load STEM 'S' if container present
-    if (document.getElementById('stemDisplay')) {
-        showStemDetail('S');
-    }
-
     // MODAL CONTROL FUNCTIONS
     window.openModal = function(modalId) {
         const modal = document.getElementById(modalId);
