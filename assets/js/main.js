@@ -314,12 +314,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // DATA 10 APLIKASI AI FAMOUS
+    // DATA 10 APLIKASI AI FAMOUS (WITH PNG LOGOS)
     const aiData = {
         'chatgpt': {
             name: 'ChatGPT',
             company: 'OpenAI',
-            icon: '🤖',
+            logo: 'assets/images/ai-logos/chatgpt.png',
             color: '#10a37f',
             bg: '#d1fae5',
             desc: 'Aplikasi AI pembantu teks paling popular di dunia. Boleh membantu menjawab soalan, menulis karangan, menterjemah bahasa, dan menjana idea kerjaya kreatif.'
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'claude': {
             name: 'Claude AI',
             company: 'Anthropic',
-            icon: '🧠',
+            logo: 'assets/images/ai-logos/claude.png',
             color: '#d97706',
             bg: '#fef3c7',
             desc: 'AI pintar dengan kebolehan analisis teks mendalam, penulisan cerita yang sangat mesra dan semula jadi, serta pemahaman jawapan yang tepat.'
@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'gemini': {
             name: 'Google Gemini',
             company: 'Google',
-            icon: '✨',
+            logo: 'assets/images/ai-logos/gemini.png',
             color: '#2563eb',
             bg: '#dbeafe',
             desc: 'AI serba boleh daripada Google yang terhubung terus dengan maklumat carian internet terkini, gambar, dan pelbagai aplikasi Google.'
@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'canva': {
             name: 'Canva Magic Studio',
             company: 'Canva',
-            icon: '🎨',
+            logo: 'assets/images/ai-logos/canva-magic-studio.png',
             color: '#7c3aed',
             bg: '#ede9fe',
             desc: 'Alatan grafik AI yang membolehkan murid menghasilkan poster inspirasi kerjaya, infografik, dan persembahan slaid yang sangat cantik secara automatik.'
@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'copilot': {
             name: 'Microsoft Copilot',
             company: 'Microsoft',
-            icon: '💻',
+            logo: 'assets/images/ai-logos/microsoft-copilot.png',
             color: '#0284c7',
             bg: '#e0f2fe',
             desc: 'Pembantu AI yang diintegrasikan dalam Word, PowerPoint, dan Windows untuk membantu penulisan dokumen dan rekaan pembentangan.'
@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'midjourney': {
             name: 'Midjourney',
             company: 'Midjourney Inc',
-            icon: '🖼️',
+            logo: 'assets/images/ai-logos/midjourney.png',
             color: '#be185d',
             bg: '#fce7f3',
             desc: 'Aplikasi AI penjana lukisan & gambaran seni grafik bertaraf profesional tinggi hanya daripada carian ayat prompt.'
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'perplexity': {
             name: 'Perplexity AI',
             company: 'Perplexity',
-            icon: '🔍',
+            logo: 'assets/images/ai-logos/perplexity.png',
             color: '#0d9488',
             bg: '#ccfbf1',
             desc: 'Enjin carian berasaskan AI yang memberikan jawapan tepat lengkap bersama rujukan sumber sahih di internet.'
@@ -375,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'dalle': {
             name: 'DALL-E 3',
             company: 'OpenAI',
-            icon: '🎭',
+            logo: 'assets/images/ai-logos/dalle.png',
             color: '#ea580c',
             bg: '#ffedd5',
             desc: 'AI khas untuk menghasilkan poster, lukisan imajinasi, dan gambar inspirasi kerjaya daripada ayat promosi pengguna.'
@@ -383,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'poe': {
             name: 'Poe AI',
             company: 'Quora',
-            icon: '💡',
+            logo: 'assets/images/ai-logos/poe.png',
             color: '#4f46e5',
             bg: '#e0e7ff',
             desc: 'Platform perantara yang mengumpulkan pelbagai jenis bot AI dalam satu aplikasi mudah untuk dicuba oleh murid.'
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'elevenlabs': {
             name: 'ElevenLabs',
             company: 'ElevenLabs',
-            icon: '🎙️',
+            logo: 'assets/images/ai-logos/elevenlabs.png',
             color: '#475569',
             bg: '#f1f5f9',
             desc: 'Teknologi AI suara (voice AI) yang boleh menukar teks kepada alihan suara yang sangat realistik dalam pelbagai bahasa.'
@@ -448,7 +448,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // FUNGSI PAPARAN INTERAKTIF APLIKASI AI (WITH TOGGLE)
+    // FUNGSI PAPARAN INTERAKTIF APLIKASI AI (WITH TOGGLE & REAL LOGOS)
     window.showAiDetail = function(code) {
         const data = aiData[code];
         if (!data) return;
@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
             displayBox.innerHTML = `
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; border-bottom:2px solid ${data.bg}; padding-bottom:10px;">
                     <div style="display:flex; align-items:center; gap:12px;">
-                        <span style="font-size:2.2rem; background:${data.bg}; padding:8px; border-radius:14px;">${data.icon}</span>
+                        <img src="${data.logo}" alt="${data.name}" style="width:40px; height:40px; object-fit:contain; background:${data.bg}; padding:6px; border-radius:12px; border:1px solid ${data.color}33;">
                         <div>
                             <span style="background:${data.bg}; color:${data.color}; font-weight:800; padding:4px 10px; border-radius:50px; font-size:0.8rem;">
                                 ${data.company}

@@ -213,18 +213,38 @@ require_once 'includes/header.php';
                 Berikut merupakan antara aplikasi AI yang boleh digunakan:
             </p>
 
-            <!-- 10 FAMOUS AI APPS BUTTONS GRID -->
+            <!-- 10 FAMOUS AI APPS BUTTONS GRID WITH REAL LOGOS -->
             <div class="ai-buttons-wrapper" style="margin-bottom:18px;">
-                <button type="button" class="ai-btn" onclick="showAiDetail('chatgpt')">🤖 ChatGPT</button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('claude')">🧠 Claude AI</button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('gemini')">✨ Google Gemini</button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('canva')">🎨 Canva Magic Studio</button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('copilot')">💻 Microsoft Copilot</button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('midjourney')">🖼️ Midjourney</button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('perplexity')">🔍 Perplexity AI</button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('dalle')">🎭 DALL-E</button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('poe')">💡 Poe AI</button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('elevenlabs')">🎙️ ElevenLabs</button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('chatgpt')">
+                    <img src="assets/images/ai-logos/chatgpt.png" alt="ChatGPT" class="ai-btn-logo"> ChatGPT
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('claude')">
+                    <img src="assets/images/ai-logos/claude.png" alt="Claude AI" class="ai-btn-logo"> Claude AI
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('gemini')">
+                    <img src="assets/images/ai-logos/gemini.png" alt="Google Gemini" class="ai-btn-logo"> Google Gemini
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('canva')">
+                    <img src="assets/images/ai-logos/canva-magic-studio.png" alt="Canva Magic Studio" class="ai-btn-logo"> Canva Magic Studio
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('copilot')">
+                    <img src="assets/images/ai-logos/microsoft-copilot.png" alt="Microsoft Copilot" class="ai-btn-logo"> Microsoft Copilot
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('midjourney')">
+                    <img src="assets/images/ai-logos/midjourney.png" alt="Midjourney" class="ai-btn-logo"> Midjourney
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('perplexity')">
+                    <img src="assets/images/ai-logos/perplexity.png" alt="Perplexity AI" class="ai-btn-logo"> Perplexity AI
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('dalle')">
+                    <img src="assets/images/ai-logos/dalle.png" alt="DALL-E" class="ai-btn-logo"> DALL-E
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('poe')">
+                    <img src="assets/images/ai-logos/poe.png" alt="Poe AI" class="ai-btn-logo"> Poe AI
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('elevenlabs')">
+                    <img src="assets/images/ai-logos/elevenlabs.png" alt="ElevenLabs" class="ai-btn-logo"> ElevenLabs
+                </button>
             </div>
 
             <!-- Bekas Paparan Detail Aplikasi AI -->
