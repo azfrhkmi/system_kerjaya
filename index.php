@@ -84,7 +84,9 @@ require_once 'includes/header.php';
             <!-- 1. MRSM Tun Ghafar Baba -->
             <div class="school-card school-card-gold">
                 <div class="school-rank-badge">🥇 Kedudukan #1</div>
-                <div class="school-icon-box" style="background:#fef3c7; color:#b45309;">🏛️</div>
+                <div class="school-icon-box" style="border-color:#fde68a;">
+                    <img src="logo-sekolah/01-mrsm-tun-ghafar-baba.png" alt="Logo MRSM Tun Ghafar Baba">
+                </div>
                 <h3 class="school-title">MRSM Tun Ghafar Baba</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Melaka</span>
@@ -96,7 +98,9 @@ require_once 'includes/header.php';
             <!-- 2. MRSM Gemencheh -->
             <div class="school-card school-card-silver">
                 <div class="school-rank-badge">🥈 Kedudukan #2</div>
-                <div class="school-icon-box" style="background:#e0e7ff; color:#3730a3;">🏫</div>
+                <div class="school-icon-box" style="border-color:#cbd5e1;">
+                    <img src="logo-sekolah/02-mrsm-gemencheh.png" alt="Logo MRSM Gemencheh">
+                </div>
                 <h3 class="school-title">MRSM Gemencheh</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Negeri Sembilan</span>
@@ -108,7 +112,9 @@ require_once 'includes/header.php';
             <!-- 3. MRSM Taiping -->
             <div class="school-card school-card-bronze">
                 <div class="school-rank-badge">🥉 Kedudukan #3</div>
-                <div class="school-icon-box" style="background:#ffedd5; color:#c2410c;">🏫</div>
+                <div class="school-icon-box" style="border-color:#fed7aa;">
+                    <img src="logo-sekolah/03-mrsm-taiping.png" alt="Logo MRSM Taiping">
+                </div>
                 <h3 class="school-title">MRSM Taiping</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Perak</span>
@@ -120,7 +126,9 @@ require_once 'includes/header.php';
             <!-- 4. MRSM Pengkalan Chepa -->
             <div class="school-card">
                 <div class="school-rank-badge rank-normal">⭐ Kedudukan #4</div>
-                <div class="school-icon-box" style="background:#dbeafe; color:#1d4ed8;">🎓</div>
+                <div class="school-icon-box" style="border-color:#bfdbfe;">
+                    <img src="logo-sekolah/04-mrsm-pengkalan-chepa.png" alt="Logo MRSM Pengkalan Chepa">
+                </div>
                 <h3 class="school-title">MRSM Pengkalan Chepa</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Kelantan</span>
@@ -132,7 +140,9 @@ require_once 'includes/header.php';
             <!-- 5. MRSM Kuala Kubu Bharu -->
             <div class="school-card">
                 <div class="school-rank-badge rank-normal">⭐ Kedudukan #5</div>
-                <div class="school-icon-box" style="background:#ede9fe; color:#6d28d9;">📚</div>
+                <div class="school-icon-box" style="border-color:#ddd6fe;">
+                    <img src="logo-sekolah/05-mrsm-kuala-kubu-bharu.png" alt="Logo MRSM Kuala Kubu Bharu">
+                </div>
                 <h3 class="school-title">MRSM Kuala Kubu Bharu</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Selangor</span>
@@ -144,7 +154,9 @@ require_once 'includes/header.php';
             <!-- 6. Sekolah Tun Fatimah (STF) -->
             <div class="school-card">
                 <div class="school-rank-badge rank-normal">⭐ Kedudukan #6</div>
-                <div class="school-icon-box" style="background:#fce7f3; color:#be185d;">👑</div>
+                <div class="school-icon-box" style="border-color:#fbcfe8;">
+                    <img src="logo-sekolah/06-stf.png" alt="Logo Sekolah Tun Fatimah (STF)">
+                </div>
                 <h3 class="school-title">Sekolah Tun Fatimah (STF)</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Johor</span>
@@ -156,7 +168,9 @@ require_once 'includes/header.php';
             <!-- 7=. SMS Sultan Mahmud (SESMA) -->
             <div class="school-card">
                 <div class="school-rank-badge rank-normal">⭐ Kedudukan #7=</div>
-                <div class="school-icon-box" style="background:#ccfbf1; color:#0f766e;">🏛️</div>
+                <div class="school-icon-box" style="border-color:#99f6e4;">
+                    <img src="logo-sekolah/07-sesma.png" alt="Logo SMS Sultan Mahmud (SESMA)">
+                </div>
                 <h3 class="school-title">SMS Sultan Mahmud (SESMA)</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Terengganu</span>
@@ -168,7 +182,9 @@ require_once 'includes/header.php';
             <!-- 8=. Sekolah Sultan Alam Shah (SAS) -->
             <div class="school-card">
                 <div class="school-rank-badge rank-normal">⭐ Kedudukan #8=</div>
-                <div class="school-icon-box" style="background:#fef3c7; color:#b45309;">🌟</div>
+                <div class="school-icon-box" style="border-color:#fde68a;">
+                    <img src="logo-sekolah/08-sas.png" alt="Logo Sekolah Sultan Alam Shah (SAS)">
+                </div>
                 <h3 class="school-title">Sekolah Sultan Alam Shah (SAS)</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Putrajaya</span>
@@ -180,7 +196,9 @@ require_once 'includes/header.php';
             <!-- 9=. SMS Tuanku Munawir (SASER) -->
             <div class="school-card">
                 <div class="school-rank-badge rank-normal">⭐ Kedudukan #9=</div>
-                <div class="school-icon-box" style="background:#d1fae5; color:#047857;">🎓</div>
+                <div class="school-icon-box" style="border-color:#a7f3d0;">
+                    <img src="logo-sekolah/09-saser.png" alt="Logo SMS Tuanku Munawir (SASER)">
+                </div>
                 <h3 class="school-title">SMS Tuanku Munawir (SASER)</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Negeri Sembilan</span>
@@ -192,7 +210,9 @@ require_once 'includes/header.php';
             <!-- 10=. Kolej Islam Sultan Alam Shah (KISAS) -->
             <div class="school-card">
                 <div class="school-rank-badge rank-normal">⭐ Kedudukan #10=</div>
-                <div class="school-icon-box" style="background:#fee2e2; color:#b91c1c;">🌙</div>
+                <div class="school-icon-box" style="border-color:#fecaca;">
+                    <img src="logo-sekolah/10-kisas.png" alt="Logo Kolej Islam Sultan Alam Shah (KISAS)">
+                </div>
                 <h3 class="school-title">Kolej Islam Sultan Alam Shah (KISAS)</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Selangor</span>
@@ -204,7 +224,9 @@ require_once 'includes/header.php';
             <!-- 11. SMS Kuala Terengganu (SESTER) -->
             <div class="school-card">
                 <div class="school-rank-badge rank-normal">⭐ Kedudukan #11</div>
-                <div class="school-icon-box" style="background:#e0f2fe; color:#0369a1;">🌊</div>
+                <div class="school-icon-box" style="border-color:#bae6fd;">
+                    <img src="logo-sekolah/11-sester.png" alt="Logo SMS Kuala Terengganu (SESTER)">
+                </div>
                 <h3 class="school-title">SMS Kuala Terengganu (SESTER)</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Terengganu</span>
@@ -216,7 +238,9 @@ require_once 'includes/header.php';
             <!-- 12. SBP Integrasi Rawang (SEPINTAR) -->
             <div class="school-card">
                 <div class="school-rank-badge rank-normal">⭐ Kedudukan #12</div>
-                <div class="school-icon-box" style="background:#fef3c7; color:#d97706;">📘</div>
+                <div class="school-icon-box" style="border-color:#fef3c7;">
+                    <img src="logo-sekolah/12-sepintar.png" alt="Logo SBP Integrasi Rawang (SEPINTAR)">
+                </div>
                 <h3 class="school-title">SBP Integrasi Rawang (SEPINTAR)</h3>
                 <div class="school-meta">
                     <span class="school-tag tag-state">📍 Selangor</span>
