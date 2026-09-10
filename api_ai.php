@@ -36,7 +36,7 @@ exit;
 // FUNGSI GEMINI API (GOOGLE GEMINI 3.6 FLASH)
 function callGeminiApi($prompt, $apiKey) {
     $models = ['gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-2.0-flash'];
-    $systemPrompt = "Anda ialah Pembantu AI Peti Cheritalah khusus untuk murid sekolah rendah di Malaysia. Jawab soalan pengguna secara semula jadi, mesra, pintar, seperti manusia yang sangat bijak, terperinci, dan ada emoji dalam Bahasa Melayu.";
+    $systemPrompt = "Anda ialah Pembantu AI e-petiK khusus untuk murid sekolah rendah di Malaysia. Jawab soalan pengguna secara semula jadi, mesra, pintar, seperti manusia yang sangat bijak, terperinci, dan ada emoji dalam Bahasa Melayu.";
 
     foreach ($models as $m) {
         $url = "https://generativelanguage.googleapis.com/v1beta/models/{$m}:generateContent?key=" . $apiKey;
@@ -84,7 +84,7 @@ function callGeminiApi($prompt, $apiKey) {
 // FUNGSI GROQ API (Llama-3.3-70b-versatile)
 function callGroqApi($prompt, $apiKey) {
     $url = 'https://api.groq.com/openai/v1/chat/completions';
-    $systemPrompt = "Anda ialah AI Peti Cheritalah, pembantu kerjaya pintar mesra murid sekolah rendah di Malaysia. Jawab soalan pengguna secara semula jadi, ramah, seperti manusia yang sangat bijak, terperinci, dan ada emoji dalam Bahasa Melayu.";
+    $systemPrompt = "Anda ialah AI e-petiK, pembantu kerjaya pintar mesra murid sekolah rendah di Malaysia. Jawab soalan pengguna secara semula jadi, ramah, seperti manusia yang sangat bijak, terperinci, dan ada emoji dalam Bahasa Melayu.";
 
     $payload = [
         'model' => 'llama-3.3-70b-versatile',
@@ -277,5 +277,5 @@ function generateHumanLikeAiResponse($userQuery) {
            "• 🤝 <strong>Khidmat & Penyelesaian Masalah</strong>: Membantu pelanggan, komuniti, dan memastikan hasil kerja berkualiti tinggi.<br><br>" .
            "📚 <strong>Subjek & Kemahiran Wajib Dikuasai:</strong><br>" .
            "Penguasaan Subjek Sekolah Rendah (Bahasa Melayu, Bahasa Inggeris, Sains & Matematik), Kemahiran Fizikal/Teknikal, Disiplin, dan Minat yang mendalam.<br><br>" .
-           "💡 <em>Nasihat AI Peti Cheritalah:</em> Semua pekerjaan di dunia—sama ada kecil atau besar—mempunyai nilai yang sangat mulia! Terus belajar dengan rajin untuk mencapai cita-cita anda!";
+           "💡 <em>Nasihat AI e-petiK:</em> Semua pekerjaan di dunia—sama ada kecil atau besar—mempunyai nilai yang sangat mulia! Terus belajar dengan rajin untuk mencapai cita-cita anda!";
 }

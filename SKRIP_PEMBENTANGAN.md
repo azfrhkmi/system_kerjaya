@@ -1,11 +1,11 @@
-# 🎤 SKRIP PEMBENTANGAN: SISTEM PENEROKAAN PETI CHERITALAH (SEKOLAH RENDAH)
+# 🎤 SKRIP PEMBENTANGAN: SISTEM PENEROKAAN e-petiK (SEKOLAH RENDAH)
 
-Document ini menyediakan skrip pembentangan lengkap (berserta nota visual, cues, dan petua menjawab soalan juri/panel) untuk membentangkan **Sistem Penerokaan Peti Cheritalah**.
+Document ini menyediakan skrip pembentangan lengkap (berserta nota visual, cues, dan petua menjawab soalan juri/panel) untuk membentangkan **Sistem Penerokaan e-petiK**.
 
 ---
 
 ## 📋 MAKLUMAT PEMBENTANGAN
-- **Tajuk Sistem**: Sistem Penerokaan Peti Cheritalah (Sekolah Rendah)
+- **Tajuk Sistem**: Sistem Penerokaan e-petiK (Sekolah Rendah)
 - **Anggaran Masa**: 7 – 10 Minit
 - **Sasaran Penonton**: Juri / Panel Penilai / Pihak Pengurusan Sekolah / Guru Besar / Guru Bimbingan & Kaunseling (GBK)
 - **Mod Demo**: Peranti Komputer / Tablet (Web-Based)
@@ -15,7 +15,7 @@ Document ini menyediakan skrip pembentangan lengkap (berserta nota visual, cues,
 ## 🎬 SKRIP PEMBENTANGAN MENGIKUT SLAID & FASA
 
 ### 🔴 SLAID 1: PERKENALAN & TAJUK UTAMA
-** Visual Slaid**: *Paparan Laman Utama `index.php` (Hero Banner berwarna-warni & Tajuk "Sistem Penerokaan Peti Cheritalah").*
+** Visual Slaid**: *Paparan Laman Utama `index.php` (Hero Banner berwarna-warni & Tajuk "Sistem Penerokaan e-petiK").*
 
 > **🗣️ Skrip Pertuturan:**
 >
@@ -23,7 +23,7 @@ Document ini menyediakan skrip pembentangan lengkap (berserta nota visual, cues,
 >
 > Yang Dihormati barisan Panel Penilai / Pihak Pengurusan Sekolah, dan rakan-rakan sekalian.
 > 
-> Hari ini, saya sangat teruja untuk membentangkan **Sistem Penerokaan Peti Cheritalah** — sebuah aplikasi web penerokaan kerjaya dan potensi diri yang interaktif, moden, berwarna-warni, serta mesra kanak-kanak, khas untuk murid-murid sekolah rendah dari Tahun 1 hingga Tahun 6, termasuk Program Pendidikan Khas Integrasi (PPKI)."
+> Hari ini, saya sangat teruja untuk membentangkan **Sistem Penerokaan e-petiK** — sebuah aplikasi web penerokaan kerjaya dan potensi diri yang interaktif, moden, berwarna-warni, serta mesra kanak-kanak, khas untuk murid-murid sekolah rendah dari Tahun 1 hingga Tahun 6, termasuk Program Pendidikan Khas Integrasi (PPKI)."
 
 ---
 
@@ -36,7 +36,7 @@ Document ini menyediakan skrip pembentangan lengkap (berserta nota visual, cues,
 > 1. Murid-murid sukar membayangkan kerjaya masa depan jika disampaikan secara teori atauborang kertas yang membosankan.
 > 2. Pihak Guru Bimbingan dan Kaunseling (GBK) mengambil masa yang lama untuk mengumpul, menganalisis, dan mengenal pasti murid yang memerlukan sesi kaunseling sokongan.
 > 
-> Justeru, **Sistem Peti Cheritalah** dibangunkan untuk merapatkan jurang ini dengan membawakan pendekatan digital yang menyeronokkan, berasaskan teori psikologi pendidikan serta integrasi teknologi Kecerdasan Buatan (AI)."
+> Justeru, **Sistem e-petiK** dibangunkan untuk merapatkan jurang ini dengan membawakan pendekatan digital yang menyeronokkan, berasaskan teori psikologi pendidikan serta integrasi teknologi Kecerdasan Buatan (AI)."
 
 ---
 
@@ -64,7 +64,7 @@ Document ini menyediakan skrip pembentangan lengkap (berserta nota visual, cues,
 > 
 > 1. **Maklumat Diri**: Murid memasukkan e-mel, nama, serta memilih Tahun (Tahun 1-6 / PPKI) dan Kelas (seperti Amanah, Bestari, Cemerlang).
 > 2. **Ruangan Luahan Rasa**: Tempat murid secara bebas menceritakan tentang cita-cita, hobi, atau isu pembelajaran mereka.
-> 3. **e-PETICHERITALAH Explorasi Kecerdasan**: Murid boleh menekan butang kecerdasan untuk membaca penerangan ringkas dan contoh 10 pekerjaan yang padan sebelum memilih kecerdasan mereka.
+> 3. **e-petiK Explorasi Kecerdasan**: Murid boleh menekan butang kecerdasan untuk membaca penerangan ringkas dan contoh 10 pekerjaan yang padan sebelum memilih kecerdasan mereka.
 > 4. **Muat Naik Fail DELIMa**: Murid boleh memuat naik hasil tugasan kerjaya dari portal DELIMa (menyokong format PDF, DOCX, PNG, JPG).
 > 5. **Status Tindakan Kaunseling**: Murid menanda penjelas status seperti *'Berpuas hati'*, *'Perlu bantuan PRS'*, atau *'Ingin berjumpa guru kaunseling'*."
 
@@ -75,7 +75,7 @@ Document ini menyediakan skrip pembentangan lengkap (berserta nota visual, cues,
 
 > **🗣️ Skrip Pertuturan:**
 >
-> "Salah satu keunikan dan inovasi terbesar sistem ini ialah **Pembantu AI Peti Cheritalah**:
+> "Salah satu keunikan dan inovasi terbesar sistem ini ialah **Pembantu AI e-petiK**:
 > 
 > - **Chatbot Mesra Kanak-kanak**: Berkuasakan enjin AI **Groq Llama-3.3-70B** dan **Google Gemini**, AI ini menjawab soalan kerjaya seperti *'Apa tugas polis?'* atau *'Macam mana nak jadi doktor?'* dalam Bahasa Melayu yang santai dan bermotivasi.
 > - **Penjana Gambar 3D Pixar**: Murid hanya perlu menaip *"Jana gambar chef 3D"*, dan enjin AI (*Pollinations AI*) akan serta-merta menjana lukisan inspirasi gaya 3D Pixar berkualiti tinggi berserta butang muat turun PNG secara **percuma dan tanpa had**!"
@@ -124,7 +124,7 @@ Document ini menyediakan skrip pembentangan lengkap (berserta nota visual, cues,
 
 > **🗣️ Skrip Pertuturan:**
 >
-> "Sebagai kesimpulan, **Sistem Penerokaan Peti Cheritalah** bukan sekadar borang digital biasa, tetapi satu ekosistem penerokaan kerjaya berasaskan AI dan Psikologi Pendidikan.
+> "Sebagai kesimpulan, **Sistem Penerokaan e-petiK** bukan sekadar borang digital biasa, tetapi satu ekosistem penerokaan kerjaya berasaskan AI dan Psikologi Pendidikan.
 > 
 > Sistem ini menyuntik semangat kecintaan murid terhadap kerjaya dan bidang STEM sejak bangku sekolah rendah, di samping memberi alat analisis yang berkesan kepada Guru Bimbingan & Kaunseling.
 > 

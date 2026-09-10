@@ -1,6 +1,6 @@
 # 📘 PANDUAN PELAN NAIK TARAF: SISTEM KERJAYA MULTI-SEKOLAH (STANDALONE LOCALHOST PACKAGE)
 
-Dokumen ini merupakan **cetak biru (blueprint) dan panduan terperinci** untuk menukarkan **Sistem Penerokaan Peti Cheritalah** daripada sistem khusus satu sekolah kepada **Pakej Perisian Komersial Multi-Sekolah** yang boleh dipasang dan disesuaikan di pelbagai sekolah secara *Standalone Localhost* (komputer bilik UBK).
+Dokumen ini merupakan **cetak biru (blueprint) dan panduan terperinci** untuk menukarkan **Sistem Penerokaan e-petiK** daripada sistem khusus satu sekolah kepada **Pakej Perisian Komersial Multi-Sekolah** yang boleh dipasang dan disesuaikan di pelbagai sekolah secara *Standalone Localhost* (komputer bilik UBK).
 
 ---
 
@@ -75,7 +75,7 @@ Tolong laksanakan pelan naik taraf Multi-Sekolah berasaskan panduan PANDUAN_NAIK
 Apabila anda menjual sistem ini kepada sekolah lain:
 
 1. **Format Agihan**:
-   - Salin keseluruhan folder projek `kerjaya_saya` dan zipkan sebagai `PetiCheritalah_Pakej_UBK_v1.0.zip`.
+   - Salin keseluruhan folder projek `kerjaya_saya` dan zipkan sebagai `e-petiK_Pakej_UBK_v1.0.zip`.
 2. **Pemasangan di Sekolah**:
    - Pihak sekolah hanya perlu memuat turun dan mengesrak zip ke folder `C:\xampp\htdocs\kerjaya_saya`.
    - Buka pelayar web di Komputer Bilik UBK: `http://localhost/kerjaya_saya`.

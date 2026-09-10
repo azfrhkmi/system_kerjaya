@@ -1,5 +1,5 @@
 // =========================================================
-// SISTEM PETI CHERITALAH - DYNAMIC AI CHAT ENGINE
+// SISTEM e-petiK - DYNAMIC AI CHAT ENGINE
 // =========================================================
 
 function toggleAiChat() {
@@ -117,7 +117,7 @@ function generateDynamicAiResponse(userQuery) {
         • 🤝 <strong>Membantu Masyarakat</strong>: Menjaga kebajikan dan membantu orang ramai.<br><br>
         📚 <strong>Subjek & Kemahiran Yang Perlu Dikuasai:</strong><br>
         Penguasaan Subjek Sekolah Rendah (Bahasa Melayu, Bahasa Inggeris, Sains & Matematik), Kemahiran Fizikal/Teknikal, Disiplin, dan Minat yang mendalam.<br><br>
-        💡 <em>Nasihat AI Peti Cheritalah:</em> Semua pekerjaan di dunia—sama ada besar atau kecil—mempunyai nilai yang sangat mulia! Terus belajar dengan rajin untuk mencapai cita-cita anda!
+        💡 <em>Nasihat AI e-petiK:</em> Semua pekerjaan di dunia—sama ada besar atau kecil—mempunyai nilai yang sangat mulia! Terus belajar dengan rajin untuk mencapai cita-cita anda!
     `;
 }
 
@@ -127,7 +127,7 @@ function appendMessage(sender, text, isHtml = false) {
     const bubble = document.createElement('div');
     bubble.className = `chat-bubble ${sender === 'user' ? 'user-bubble' : 'ai-bubble'}`;
 
-    const senderTitle = sender === 'user' ? '👤 Anda:' : '🤖 AI Peti Cheritalah:';
+    const senderTitle = sender === 'user' ? '👤 Anda:' : '🤖 AI e-petiK:';
     
     if (isHtml) {
         bubble.innerHTML = `<div class="bubble-sender">${senderTitle}</div>${text}`;
@@ -146,7 +146,7 @@ function appendLoadingBubble() {
     bubble.id = id;
     bubble.className = 'chat-bubble ai-bubble';
     bubble.innerHTML = `
-        <div class="bubble-sender">🤖 AI Peti Cheritalah:</div>
+        <div class="bubble-sender">🤖 AI e-petiK:</div>
         <div class="ai-typing-dots">
             <span>.</span><span>.</span><span>.</span> AI sedang berfikir & merangka jawapan... 💡
         </div>

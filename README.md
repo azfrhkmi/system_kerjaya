@@ -1,6 +1,6 @@
-# 🎁 Sistem Penerokaan Peti Cheritalah (Sekolah Rendah)
+# 🎁 Sistem Penerokaan e-petiK (Sekolah Rendah)
 
-**Sistem Penerokaan Peti Cheritalah** ialah sebuah aplikasi web penerokaan kerjaya yang interaktif, moden, berwarna-warni, dan mesra kanak-kanak yang dibangunkan khas untuk murid-murid sekolah rendah di Malaysia (Tahun 1 hingga 6 serta Program Pendidikan Khas Integrasi - PPKI).
+**Sistem Penerokaan e-petiK** ialah sebuah aplikasi web penerokaan kerjaya yang interaktif, moden, berwarna-warni, dan mesra kanak-kanak yang dibangunkan khas untuk murid-murid sekolah rendah di Malaysia (Tahun 1 hingga 6 serta Program Pendidikan Khas Integrasi - PPKI).
 
 Sistem ini membantu Guru Bimbingan & Kaunseling serta pihak pengurusan sekolah mengenal pasti potensi diri, minat, dan kecerdasan pelbagai murid mengikut **Teori 9 Kecerdasan Pelbagai Howard Gardner** serta integrasi alatan kecerdasan buatan (**Pembantu AI Kerjaya**).
 
@@ -13,7 +13,7 @@ Sistem ini mengandungi 3 tahap peranan pengguna dengan hak akses yang terperinci
 1. 👦 **Pelajar / Murid (Normal User)**:
    - Meneliti penerangan *"Apa Itu Kerjaya?"* dan 9 jenis kecerdasan pelbagai Teori Howard Gardner.
    - Menyertai sesi Soal Jawab Kerjaya Interaktif di `soal_jawab.php`.
-   - Berinteraksi dengan **Pembantu AI Peti Cheritalah** untuk soalan kerjaya dan menjana gambar cita-cita 3D Pixar secara percuma & tanpa had.
+   - Berinteraksi dengan **Pembantu AI e-petiK** untuk soalan kerjaya dan menjana gambar cita-cita 3D Pixar secara percuma & tanpa had.
    - Muat naik fail hasil tugasan kerjaya daripada portal **DELIMa**.
 
 2. 👨‍🏫 **Admin (Guru Bimbingan & Kaunseling)**:
@@ -46,7 +46,7 @@ Sistem ini mengandungi 3 tahap peranan pengguna dengan hak akses yang terperinci
   - Tahun / Peringkat Persekolahan (Pilihan Kad Radio: `Tahun 1` hingga `Tahun 6` dan `PPKI`).
   - Nama Kelas (Pilihan Kad Radio: `Amanah`, `Bestari`, `Cemerlang`, `Dedikasi`, `Efektif`, `Fasih`, `Gigih`, `Hebat`, `Viva`, `Persona`).
 - **Seksyen (b) Ceritalah Luahan Rasa Anda**: Ruangan luahan cerita impian, hobi, atau masalah pembelajaran murid.
-- **Seksyen (c) 🎁 e-PETICHERITALAH Explorasi Kecerdasan Pelbagai**:
+- **Seksyen (c) 🎁 e-petiK Explorasi Kecerdasan Pelbagai**:
   - 9 Butang Interaktif: Tekan mana-mana butang untuk membaca maksud kecerdasan & 10 contoh pekerjaan yang sesuai.
   - Grid Susunan Kemas 3x3 untuk murid menanda kecerdasan pilihan mereka.
 - **Seksyen (d) 📁 Muat Naik Fail Kerjaya DELIMa**:
@@ -55,7 +55,7 @@ Sistem ini mengandungi 3 tahap peranan pengguna dengan hak akses yang terperinci
 - **Seksyen (e) Status Tindakan Kaunseling**:
   - Pilihan maklum balas: *Berpuas hati*, *Perlu bantuan PRS*, atau *Ingin berjumpa guru bimbingan dan kaunseling*.
 
-### 3. 🤖 Pembantu AI Peti Cheritalah (`includes/ai_chat_widget.php` & `assets/js/ai_chat.js` & `api_ai.php`)
+### 3. 🤖 Pembantu AI e-petiK (`includes/ai_chat_widget.php` & `assets/js/ai_chat.js` & `api_ai.php`)
 - **Widget Terapung (Floating FAB)**: Boleh dibuka pada bila-bila masa di penjuru bawah skrin.
 - **Enjin AI Dinamik & Fleksibel (`api_ai.php`)**:
   - Memproses soalan bebas murid mengenai pelbagai kerjaya (*Askar, Doktor, Jurutera, Polis, Bomba, Pilot, Chef, Guru, Pelukis, Saintis, dll.*).
@@ -138,4 +138,4 @@ Sistem ini dibina dengan **Dual-Engine Database Configuration** (`config/db.php`
 
 ---
 
-© 2026 **Sistem Penerokaan Peti Cheritalah Sekolah Rendah** • Unit Bimbingan dan Kaunseling SKPP 8 (2).
+© 2026 **Sistem Penerokaan e-petiK Sekolah Rendah** • Unit Bimbingan dan Kaunseling SKPP 8 (2).

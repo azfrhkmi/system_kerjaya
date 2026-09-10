@@ -9,7 +9,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($page_title) ? htmlspecialchars($page_title) . " - " : ""; ?>Sistem Penerokaan Kerjaya Cherita</title>
+    <title><?php echo isset($page_title) ? htmlspecialchars($page_title) . " - " : ""; ?>e-petiK</title>
     
     <!-- Meta SEO & Mobile Viewport -->
     <meta name="description" content="Sistem Penerokaan Kerjaya Interaktif Sekolah Rendah berdasarkan Teori Howard Gardner dan RIASEC.">
@@ -84,11 +84,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
             
             <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">
-                Imbas Kod QR ini menggunakan kamera telefon pintar anda untuk terus membuka portal <strong>Peti Cheritalah</strong>!
+                Imbas Kod QR ini menggunakan kamera telefon pintar anda untuk terus membuka portal <strong>e-petiK</strong>!
             </p>
 
             <div style="background:#f8fafc; padding:18px; border-radius:18px; border:2px dashed #cbd5e1; display:inline-block; margin-bottom:15px;">
-                <img src="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../assets/images/qr_code.png' : 'assets/images/qr_code.png'; ?>" alt="QR Code Peti Cheritalah" style="width:220px; height:220px; border-radius:10px;">
+                <img src="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../assets/images/qr_code.png' : 'assets/images/qr_code.png'; ?>" alt="QR Code e-petiK" style="width:220px; height:220px; border-radius:10px;">
             </div>
 
             <div style="font-size:0.82rem; color:#64748b; background:#f1f5f9; padding:8px 12px; border-radius:8px; word-break:break-all; margin-bottom:20px;">
@@ -97,7 +97,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
 
             <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-                <a href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../assets/images/qr_code.png' : 'assets/images/qr_code.png'; ?>" download="Kod_QR_PetiCheritalah.png" class="btn-primary nav-btn" style="text-decoration:none; padding:10px 16px; font-size:0.85rem;">
+                <a href="<?php echo (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) ? '../assets/images/qr_code.png' : 'assets/images/qr_code.png'; ?>" download="Kod_QR_e-petiK.png" class="btn-primary nav-btn" style="text-decoration:none; padding:10px 16px; font-size:0.85rem;">
                     📥 Muat Turun PNG
                 </a>
                 <button type="button" class="btn-outline nav-btn" onclick="closeModal('qrCodeModal')" style="padding:10px 16px; font-size:0.85rem;">Tutup</button>

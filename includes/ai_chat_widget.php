@@ -1,5 +1,5 @@
 <!-- =========================================================
-   AI CHAT ASSISTANT & IMAGE GENERATOR WIDGET (KERJAYA CHERITA)
+   AI CHAT ASSISTANT & IMAGE GENERATOR WIDGET (KERJAYA e-petiK)
    ========================================================= -->
 
 <!-- BUTANG TERAPUNG AI (FLOATING FAB) -->
@@ -61,7 +61,7 @@
             <button type="submit" id="aiSendBtn" class="ai-send-btn">🚀 Hantar</button>
         </form>
         <div style="text-align:center; margin-top:6px; font-size:0.75rem; color:#94a3b8;">
-            ⚡ Dikuasai oleh AI Peti Cheritalah • Penerangan Sebarang Cita-Cita Di Dunia
+            ⚡ Dikuasai oleh AI e-petiK • Penerangan Sebarang Cita-Cita Di Dunia
         </div>
     </div>
 
