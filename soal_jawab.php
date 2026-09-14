@@ -326,7 +326,7 @@ require_once 'includes/header.php';
             </h3>
             <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:16px; padding:18px; margin-bottom:18px;">
                 <p style="color:#0369a1; font-size:0.98rem; margin-bottom:10px; line-height:1.6;">
-                    Sila layari akaun <strong>DELIMa</strong> anda, dengan menggunakan aplikasi AI, hasilkan bahan berkaitan inspirasi kerjaya anda dan muat turun di ruangan yang disediakan.
+                    Sila layari <a href="https://d3.delima.edu.my/landing" target="_blank" rel="noopener noreferrer" style="color:#0284c7; font-weight:bold; text-decoration:underline;">laman web DELIMa</a> anda, dengan menggunakan aplikasi AI, hasilkan bahan berkaitan inspirasi kerjaya anda dan muat turun di ruangan yang disediakan.
                 </p>
                 <div style="background:white; border-radius:12px; padding:14px; border-left:5px solid #0284c7; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
                     <div style="font-weight:700; color:#0369a1; font-size:0.92rem; margin-bottom:4px;">💡 Contoh prompt untuk menghasilkan sebuah poster:</div>
