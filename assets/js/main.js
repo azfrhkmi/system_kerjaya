@@ -395,6 +395,14 @@ document.addEventListener('DOMContentLoaded', () => {
             color: '#475569',
             bg: '#f1f5f9',
             desc: 'Teknologi AI suara (voice AI) yang boleh menukar teks kepada alihan suara yang sangat realistik dalam pelbagai bahasa.'
+        },
+        'notebooklm': {
+            name: 'NotebookLM',
+            company: 'Google',
+            logo: 'assets/images/ai-logos/notebooklm.png',
+            color: '#4285f4',
+            bg: '#e8f0fe',
+            desc: 'Aplikasi AI pembantu nota daripada Google yang menukar bahan sumber, nota, dan dokumen PDF anda kepada ringkasan maklumat serta perbincangan audio podcast secara automatik.'
         }
     };
 

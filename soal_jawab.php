@@ -278,6 +278,9 @@ require_once 'includes/header.php';
                 <button type="button" class="ai-btn" onclick="showAiDetail('elevenlabs')">
                     <img src="assets/images/ai-logos/elevenlabs.png" alt="ElevenLabs" class="ai-btn-logo"> ElevenLabs
                 </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('notebooklm')">
+                    <img src="assets/images/ai-logos/notebooklm.png" alt="NotebookLM" class="ai-btn-logo"> NotebookLM
+                </button>
             </div>
 
             <!-- Bekas Paparan Detail Aplikasi AI -->
