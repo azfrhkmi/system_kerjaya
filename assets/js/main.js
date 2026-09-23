@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // DATA APLIKASI AI KERJAYA & PENDIDIKAN (WITH REAL LOGOS)
+    // DATA APLIKASI AI KERJAYA & PENDIDIKAN (WITH REAL LOGOS & LINKS)
     const aiData = {
         'chatgpt': {
             name: 'ChatGPT',
@@ -322,6 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/chatgpt.png',
             color: '#10a37f',
             bg: '#d1fae5',
+            url: 'https://chatgpt.com/',
             desc: 'Aplikasi AI pembantu teks paling popular di dunia. Boleh membantu menjawab soalan, menulis karangan, menterjemah bahasa, dan menjana idea kerjaya kreatif.'
         },
         'claude': {
@@ -330,6 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/claude.png',
             color: '#d97706',
             bg: '#fef3c7',
+            url: 'https://claude.ai/login',
             desc: 'AI pintar dengan kebolehan analisis teks mendalam, penulisan cerita yang sangat mesra dan semula jadi, serta pemahaman jawapan yang tepat.'
         },
         'gemini': {
@@ -338,6 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/gemini.png',
             color: '#2563eb',
             bg: '#dbeafe',
+            url: 'https://gemini.google.com/app',
             desc: 'AI serba boleh daripada Google yang terhubung terus dengan maklumat carian internet terkini, gambar, dan pelbagai aplikasi Google.'
         },
         'copilot': {
@@ -346,6 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/microsoft-copilot.png',
             color: '#0284c7',
             bg: '#e0f2fe',
+            url: 'https://copilot.microsoft.com/',
             desc: 'Pembantu AI yang diintegrasikan dalam Word, PowerPoint, dan Windows untuk membantu penulisan dokumen dan rekaan pembentangan.'
         },
         'perplexity': {
@@ -354,6 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/perplexity.png',
             color: '#0d9488',
             bg: '#ccfbf1',
+            url: 'https://www.perplexity.ai/',
             desc: 'Enjin carian berasaskan AI yang memberikan jawapan tepat lengkap bersama rujukan sumber sahih di internet.'
         },
         'notebooklm': {
@@ -362,6 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/notebooklm.png',
             color: '#4285f4',
             bg: '#e8f0fe',
+            url: 'https://notebooklm.google.com/?pli=1',
             desc: 'Aplikasi AI pembantu nota daripada Google yang menukar bahan sumber, nota, dan dokumen PDF anda kepada ringkasan maklumat serta perbincangan audio podcast secara automatik.'
         },
         'ai_101_teachers': {
@@ -370,6 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/AI_101_For_Teachers.jpeg',
             color: '#4f46e5',
             bg: '#e0e7ff',
+            url: 'https://code.org/en-US/professional-learning/artificial-intelligence-101',
             desc: 'Siri kursus asas percuma untuk pendidik memahami konsep kecerdasan buatan dan integrasinya secara berkesan dalam bilik darjah.'
         },
         'bing_image': {
@@ -378,6 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/bing.jpeg',
             color: '#0284c7',
             bg: '#e0f2fe',
+            url: 'https://www.bing.com/images/create/ai-image-generator?FORM=IRPGEN',
             desc: 'Penjana imej berasaskan DALL-E daripada Microsoft untuk menghasilkan gambar dan poster inspirasi kerjaya secara automatik.'
         },
         'conker_ai': {
@@ -386,6 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/conkerai.jpeg',
             color: '#7c3aed',
             bg: '#ede9fe',
+            url: 'https://app.conker.ai/create',
             desc: 'Platform AI untuk menghasilkan kuiz interaktif, soalan ujian, dan bahan penilaian pembelajaran murid dengan mudah dan pantas.'
         },
         'intro_gen_ai': {
@@ -394,6 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/Intro_to_Generative_AI.jpeg',
             color: '#2563eb',
             bg: '#dbeafe',
+            url: 'https://www.cloudskillsboost.google/course_templates/536#',
             desc: 'Modul pembelajaran asas daripada Google yang menerangkan konsep AI Generatif dan cara penerapannya dalam kehidupan seharian.'
         },
         'iste_ai': {
@@ -402,6 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/ISTE.jpeg',
             color: '#059669',
             bg: '#d1fae5',
+            url: 'https://iste.org/',
             desc: 'Panduan etika dan sumber pendidikan daripada ISTE untuk membantu pendidik dan murid menggunakan teknologi AI secara berkesan dan bertanggungjawab.'
         },
         'khan_ai': {
@@ -410,6 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/KhanAcademy.jpeg',
             color: '#16a34a',
             bg: '#dcfce7',
+            url: 'https://www.khanacademy.org/',
             desc: 'Platform pembelajaran interaktif berasaskan tutor AI (Khanmigo) untuk membantu murid memahami pelbagai topik mata pelajaran.'
         },
         'ms_learn_ai': {
@@ -418,6 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/microsoftLearn.jpeg',
             color: '#0284c7',
             bg: '#e0f2fe',
+            url: 'https://learn.microsoft.com/en-us/training/paths/ai-education/',
             desc: 'Laluan latihan rasmi Microsoft untuk membimbing warga pendidik memanfaatkan keupayaan kecerdasan buatan dalam dunia pendidikan.'
         },
         'suno_ai': {
@@ -426,6 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: 'assets/images/ai-logos/suno.jpeg',
             color: '#dc2626',
             bg: '#fee2e2',
+            url: 'https://suno.com/home',
             desc: 'Aplikasi penjana muzik AI yang membolehkan pengguna menghasilkan lagu dan audio inspirasi kerjaya hanya daripada input teks lirik.'
         }
     };
@@ -480,7 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // FUNGSI PAPARAN INTERAKTIF APLIKASI AI (WITH TOGGLE & REAL LOGOS)
+    // FUNGSI PAPARAN INTERAKTIF APLIKASI AI (WITH TOGGLE & REAL LOGOS & DIRECT LINKS)
     window.showAiDetail = function(code) {
         const data = aiData[code];
         if (!data) return;
@@ -515,7 +529,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 </div>
-                <p style="font-size:1rem; color:#475569; line-height:1.6;">${data.desc}</p>
+                <p style="font-size:1rem; color:#475569; line-height:1.6; margin-bottom:16px;">${data.desc}</p>
+                ${data.url ? `
+                    <div style="display:flex; justify-content:flex-end; margin-top:16px; border-top:1px dashed #e2e8f0; padding-top:14px;">
+                        <a href="${data.url}" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:8px; background:${data.color}; color:white; padding:10px 22px; border-radius:50px; text-decoration:none; font-weight:700; font-size:0.92rem; box-shadow: 0 4px 12px ${data.color}44; transition: transform 0.2s ease;">
+                            🚀 Layari Laman Web ${data.name} ↗
+                        </a>
+                    </div>
+                ` : ''}
             `;
             displayBox.classList.add('active');
             displayBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
