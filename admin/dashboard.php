@@ -10,6 +10,15 @@ if (!isset($_SESSION['user_role']) || !in_array($_SESSION['user_role'], ['admin'
     exit;
 }
 
+// FUNGSI BANTUAN PENJANAAN URL PAGING
+function build_page_url($target_page, $search, $filter_kelas, $filter_tahun, $per_page) {
+    $p = ['page' => $target_page, 'per_page' => $per_page];
+    if (!empty($search)) $p['search'] = $search;
+    if (!empty($filter_kelas)) $p['kelas'] = $filter_kelas;
+    if (!empty($filter_tahun)) $p['tahun'] = $filter_tahun;
+    return 'dashboard.php?' . http_build_query($p);
+}
+
 // TAPISAN CARIAN
 $search = sanitize_input($_GET['search'] ?? '');
 $filter_kelas = sanitize_input($_GET['kelas'] ?? '');
@@ -72,6 +81,8 @@ if (isset($_GET['delete_response'])) {
     if (!empty($search)) $redirect_params['search'] = $search;
     if (!empty($filter_kelas)) $redirect_params['kelas'] = $filter_kelas;
     if (!empty($filter_tahun)) $redirect_params['tahun'] = $filter_tahun;
+    if (isset($_GET['per_page'])) $redirect_params['per_page'] = (int)$_GET['per_page'];
+    if (isset($_GET['page'])) $redirect_params['page'] = (int)$_GET['page'];
 
     $redirect_url = 'dashboard.php';
     if (!empty($redirect_params)) {
@@ -86,6 +97,12 @@ if (isset($_GET['delete_response'])) {
 $msg_success = $_SESSION['flash_success'] ?? null;
 $msg_error = $_SESSION['flash_error'] ?? null;
 unset($_SESSION['flash_success'], $_SESSION['flash_error']);
+
+// TETAPKAN TETAPAN PAGING & TAPISAN CARIAN
+$per_page_raw = (int)($_GET['per_page'] ?? 10);
+$allowed_per_page = [10, 25, 50, 100];
+$per_page = in_array($per_page_raw, $allowed_per_page, true) ? $per_page_raw : 10;
+$page = max(1, (int)($_GET['page'] ?? 1));
 
 // KEUPIAN QUERY DENGAN TAPISAN
 $where_clauses = [];
@@ -107,11 +124,27 @@ if (!empty($filter_tahun)) {
     $params[] = $filter_tahun;
 }
 
+// Kira jumlah rekod berdasarkan tapisan
+$sql_count = "SELECT COUNT(*) FROM responses";
+if (count($where_clauses) > 0) {
+    $sql_count .= " WHERE " . implode(" AND ", $where_clauses);
+}
+$stmt_count = $pdo->prepare($sql_count);
+$stmt_count->execute($params);
+$total_filtered = (int)$stmt_count->fetchColumn();
+
+// Pengiraan Muka Surat & Offset
+$total_pages = max(1, (int)ceil($total_filtered / $per_page));
+if ($page > $total_pages) {
+    $page = $total_pages;
+}
+$offset = ($page - 1) * $per_page;
+
 $sql = "SELECT * FROM responses";
 if (count($where_clauses) > 0) {
     $sql .= " WHERE " . implode(" AND ", $where_clauses);
 }
-$sql .= " ORDER BY submitted_at DESC";
+$sql .= " ORDER BY submitted_at DESC LIMIT $per_page OFFSET $offset";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
@@ -297,20 +330,27 @@ require_once '../includes/header.php';
             <!-- BORANG TAPISAN & CARIAN -->
             <form action="dashboard.php" method="GET" style="display:flex; gap:10px; flex-wrap:wrap;">
                 
-                <input type="text" name="search" class="form-control" style="width:200px; padding:8px 14px;" placeholder="Cari Nama / E-mel..." value="<?php echo htmlspecialchars($search); ?>">
+                <input type="text" name="search" class="form-control" style="width:190px; padding:8px 14px;" placeholder="Cari Nama / E-mel..." value="<?php echo htmlspecialchars($search); ?>">
 
-                <select name="tahun" class="form-control" style="width:130px; padding:8px 14px;">
+                <select name="tahun" class="form-control" style="width:125px; padding:8px 14px;">
                     <option value="">-- Semua Tahun --</option>
                     <?php foreach (['1','2','3','4','5','6','PPKI'] as $t): ?>
                         <option value="<?php echo $t; ?>" <?php echo ($filter_tahun === $t) ? 'selected' : ''; ?>><?php echo ($t === 'PPKI') ? 'PPKI' : 'Tahun ' . $t; ?></option>
                     <?php endforeach; ?>
                 </select>
 
-                <select name="kelas" class="form-control" style="width:140px; padding:8px 14px;">
+                <select name="kelas" class="form-control" style="width:135px; padding:8px 14px;">
                     <option value="">-- Semua Kelas --</option>
                     <?php foreach (['Amanah', 'Bestari', 'Cemerlang', 'Dedikasi', 'Efektif', 'Fasih', 'Gigih', 'Hebat', 'Viva', 'Persona'] as $k): ?>
                         <option value="<?php echo $k; ?>" <?php echo ($filter_kelas === $k) ? 'selected' : ''; ?>><?php echo $k; ?></option>
                     <?php endforeach; ?>
+                </select>
+
+                <select name="per_page" class="form-control" style="width:110px; padding:8px 14px;" onchange="this.form.submit()">
+                    <option value="10" <?php echo ($per_page === 10) ? 'selected' : ''; ?>>10 / ms</option>
+                    <option value="25" <?php echo ($per_page === 25) ? 'selected' : ''; ?>>25 / ms</option>
+                    <option value="50" <?php echo ($per_page === 50) ? 'selected' : ''; ?>>50 / ms</option>
+                    <option value="100" <?php echo ($per_page === 100) ? 'selected' : ''; ?>>100 / ms</option>
                 </select>
 
                 <button type="submit" class="btn-primary nav-btn" style="padding:8px 16px;">🔍 Tapis</button>
@@ -320,6 +360,8 @@ require_once '../includes/header.php';
                 if (!empty($search)) $current_filter_params['search'] = $search;
                 if (!empty($filter_kelas)) $current_filter_params['kelas'] = $filter_kelas;
                 if (!empty($filter_tahun)) $current_filter_params['tahun'] = $filter_tahun;
+                if ($per_page !== 10) $current_filter_params['per_page'] = $per_page;
+                if ($page > 1) $current_filter_params['page'] = $page;
                 $filter_qs = !empty($current_filter_params) ? '&' . http_build_query($current_filter_params) : '';
                 ?>
 
@@ -382,7 +424,7 @@ require_once '../includes/header.php';
                     <?php if (count($responses) > 0): ?>
                         <?php foreach ($responses as $idx => $r): ?>
                             <tr>
-                                <td><strong><?php echo $idx + 1; ?></strong></td>
+                                <td><strong><?php echo $offset + $idx + 1; ?></strong></td>
                                 <td style="font-size:0.85rem; color:var(--text-muted);">
                                     <?php echo date('d/m/Y h:i A', strtotime($r['submitted_at'])); ?>
                                 </td>
@@ -440,6 +482,58 @@ require_once '../includes/header.php';
                     <?php endif; ?>
                 </tbody>
             </table>
+        </div>
+
+        <!-- BAR NAVIGASI PAGING REKOD MURID -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:20px; padding-top:16px; border-top:1px solid #e2e8f0;">
+            <div style="color:var(--text-muted); font-size:0.9rem;">
+                <?php 
+                $start_rec = ($total_filtered > 0) ? $offset + 1 : 0;
+                $end_rec = min($offset + $per_page, $total_filtered);
+                echo "Menunjukkan <strong>{$start_rec}</strong> hingga <strong>{$end_rec}</strong> daripada <strong>{$total_filtered}</strong> rekod murid";
+                if (!empty($search) || !empty($filter_kelas) || !empty($filter_tahun)) {
+                    echo " (ditapis daripada keseluruhan {$total_responses} rekod)";
+                }
+                ?>
+            </div>
+
+            <?php if ($total_pages > 1): ?>
+                <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+                    <!-- Butang Pertama & Sebelum -->
+                    <?php if ($page > 1): ?>
+                        <a href="<?php echo build_page_url(1, $search, $filter_kelas, $filter_tahun, $per_page); ?>" class="btn-outline nav-btn" style="padding:6px 12px; font-size:0.85rem; text-decoration:none;">« Pertama</a>
+                        <a href="<?php echo build_page_url($page - 1, $search, $filter_kelas, $filter_tahun, $per_page); ?>" class="btn-outline nav-btn" style="padding:6px 12px; font-size:0.85rem; text-decoration:none;">‹ Sebelum</a>
+                    <?php else: ?>
+                        <span class="btn-outline nav-btn" style="padding:6px 12px; font-size:0.85rem; opacity:0.4; cursor:not-allowed;">« Pertama</span>
+                        <span class="btn-outline nav-btn" style="padding:6px 12px; font-size:0.85rem; opacity:0.4; cursor:not-allowed;">‹ Sebelum</span>
+                    <?php endif; ?>
+
+                    <!-- Nombor Muka Surat -->
+                    <?php
+                    $range = 2;
+                    for ($p = 1; $p <= $total_pages; $p++):
+                        if ($p == 1 || $p == $total_pages || ($p >= $page - $range && $p <= $page + $range)):
+                    ?>
+                            <?php if ($p == $page): ?>
+                                <span style="background:var(--primary); color:#fff; padding:6px 14px; border-radius:6px; font-weight:700; font-size:0.85rem;"><?php echo $p; ?></span>
+                            <?php else: ?>
+                                <a href="<?php echo build_page_url($p, $search, $filter_kelas, $filter_tahun, $per_page); ?>" class="btn-outline nav-btn" style="padding:6px 12px; font-size:0.85rem; text-decoration:none;"><?php echo $p; ?></a>
+                            <?php endif; ?>
+                        <?php elseif ($p == $page - $range - 1 || $p == $page + $range + 1): ?>
+                            <span style="color:var(--text-muted); font-size:0.85rem; padding:0 4px;">...</span>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+
+                    <!-- Butang Berikut & Akhir -->
+                    <?php if ($page < $total_pages): ?>
+                        <a href="<?php echo build_page_url($page + 1, $search, $filter_kelas, $filter_tahun, $per_page); ?>" class="btn-outline nav-btn" style="padding:6px 12px; font-size:0.85rem; text-decoration:none;">Berikut ›</a>
+                        <a href="<?php echo build_page_url($total_pages, $search, $filter_kelas, $filter_tahun, $per_page); ?>" class="btn-outline nav-btn" style="padding:6px 12px; font-size:0.85rem; text-decoration:none;">Akhir »</a>
+                    <?php else: ?>
+                        <span class="btn-outline nav-btn" style="padding:6px 12px; font-size:0.85rem; opacity:0.4; cursor:not-allowed;">Berikut ›</span>
+                        <span class="btn-outline nav-btn" style="padding:6px 12px; font-size:0.85rem; opacity:0.4; cursor:not-allowed;">Akhir »</span>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
         </div>
 
     </div>
