@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // DATA 10 APLIKASI AI FAMOUS (WITH PNG LOGOS)
+    // DATA APLIKASI AI KERJAYA & PENDIDIKAN (WITH REAL LOGOS)
     const aiData = {
         'chatgpt': {
             name: 'ChatGPT',
@@ -340,14 +340,6 @@ document.addEventListener('DOMContentLoaded', () => {
             bg: '#dbeafe',
             desc: 'AI serba boleh daripada Google yang terhubung terus dengan maklumat carian internet terkini, gambar, dan pelbagai aplikasi Google.'
         },
-        'canva': {
-            name: 'Canva Magic Studio',
-            company: 'Canva',
-            logo: 'assets/images/ai-logos/canva-magic-studio.png',
-            color: '#7c3aed',
-            bg: '#ede9fe',
-            desc: 'Alatan grafik AI yang membolehkan murid menghasilkan poster inspirasi kerjaya, infografik, dan persembahan slaid yang sangat cantik secara automatik.'
-        },
         'copilot': {
             name: 'Microsoft Copilot',
             company: 'Microsoft',
@@ -355,14 +347,6 @@ document.addEventListener('DOMContentLoaded', () => {
             color: '#0284c7',
             bg: '#e0f2fe',
             desc: 'Pembantu AI yang diintegrasikan dalam Word, PowerPoint, dan Windows untuk membantu penulisan dokumen dan rekaan pembentangan.'
-        },
-        'midjourney': {
-            name: 'Midjourney',
-            company: 'Midjourney Inc',
-            logo: 'assets/images/ai-logos/midjourney.png',
-            color: '#be185d',
-            bg: '#fce7f3',
-            desc: 'Aplikasi AI penjana lukisan & gambaran seni grafik bertaraf profesional tinggi hanya daripada carian ayat prompt.'
         },
         'perplexity': {
             name: 'Perplexity AI',
@@ -372,30 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
             bg: '#ccfbf1',
             desc: 'Enjin carian berasaskan AI yang memberikan jawapan tepat lengkap bersama rujukan sumber sahih di internet.'
         },
-        'dalle': {
-            name: 'DALL-E 3',
-            company: 'OpenAI',
-            logo: 'assets/images/ai-logos/dalle.png',
-            color: '#ea580c',
-            bg: '#ffedd5',
-            desc: 'AI khas untuk menghasilkan poster, lukisan imajinasi, dan gambar inspirasi kerjaya daripada ayat promosi pengguna.'
-        },
-        'poe': {
-            name: 'Poe AI',
-            company: 'Quora',
-            logo: 'assets/images/ai-logos/poe.png',
-            color: '#4f46e5',
-            bg: '#e0e7ff',
-            desc: 'Platform perantara yang mengumpulkan pelbagai jenis bot AI dalam satu aplikasi mudah untuk dicuba oleh murid.'
-        },
-        'elevenlabs': {
-            name: 'ElevenLabs',
-            company: 'ElevenLabs',
-            logo: 'assets/images/ai-logos/elevenlabs.png',
-            color: '#475569',
-            bg: '#f1f5f9',
-            desc: 'Teknologi AI suara (voice AI) yang boleh menukar teks kepada alihan suara yang sangat realistik dalam pelbagai bahasa.'
-        },
         'notebooklm': {
             name: 'NotebookLM',
             company: 'Google',
@@ -403,6 +363,70 @@ document.addEventListener('DOMContentLoaded', () => {
             color: '#4285f4',
             bg: '#e8f0fe',
             desc: 'Aplikasi AI pembantu nota daripada Google yang menukar bahan sumber, nota, dan dokumen PDF anda kepada ringkasan maklumat serta perbincangan audio podcast secara automatik.'
+        },
+        'ai_101_teachers': {
+            name: 'AI 101 For Teachers',
+            company: 'Khan Academy & Code.org',
+            logo: 'assets/images/ai-logos/AI_101_For_Teachers.jpeg',
+            color: '#4f46e5',
+            bg: '#e0e7ff',
+            desc: 'Siri kursus asas percuma untuk pendidik memahami konsep kecerdasan buatan dan integrasinya secara berkesan dalam bilik darjah.'
+        },
+        'bing_image': {
+            name: 'Bing Image Creator',
+            company: 'Microsoft',
+            logo: 'assets/images/ai-logos/bing.jpeg',
+            color: '#0284c7',
+            bg: '#e0f2fe',
+            desc: 'Penjana imej berasaskan DALL-E daripada Microsoft untuk menghasilkan gambar dan poster inspirasi kerjaya secara automatik.'
+        },
+        'conker_ai': {
+            name: 'Conker AI',
+            company: 'Conker',
+            logo: 'assets/images/ai-logos/conkerai.jpeg',
+            color: '#7c3aed',
+            bg: '#ede9fe',
+            desc: 'Platform AI untuk menghasilkan kuiz interaktif, soalan ujian, dan bahan penilaian pembelajaran murid dengan mudah dan pantas.'
+        },
+        'intro_gen_ai': {
+            name: 'Intro to Generative AI',
+            company: 'Google Cloud',
+            logo: 'assets/images/ai-logos/Intro_to_Generative_AI.jpeg',
+            color: '#2563eb',
+            bg: '#dbeafe',
+            desc: 'Modul pembelajaran asas daripada Google yang menerangkan konsep AI Generatif dan cara penerapannya dalam kehidupan seharian.'
+        },
+        'iste_ai': {
+            name: 'ISTE: AI in Education',
+            company: 'ISTE',
+            logo: 'assets/images/ai-logos/ISTE.jpeg',
+            color: '#059669',
+            bg: '#d1fae5',
+            desc: 'Panduan etika dan sumber pendidikan daripada ISTE untuk membantu pendidik dan murid menggunakan teknologi AI secara berkesan dan bertanggungjawab.'
+        },
+        'khan_ai': {
+            name: 'Khan Academy: AI For Education',
+            company: 'Khan Academy',
+            logo: 'assets/images/ai-logos/KhanAcademy.jpeg',
+            color: '#16a34a',
+            bg: '#dcfce7',
+            desc: 'Platform pembelajaran interaktif berasaskan tutor AI (Khanmigo) untuk membantu murid memahami pelbagai topik mata pelajaran.'
+        },
+        'ms_learn_ai': {
+            name: 'Microsoft Learn AI For Educator',
+            company: 'Microsoft',
+            logo: 'assets/images/ai-logos/microsoftLearn.jpeg',
+            color: '#0284c7',
+            bg: '#e0f2fe',
+            desc: 'Laluan latihan rasmi Microsoft untuk membimbing warga pendidik memanfaatkan keupayaan kecerdasan buatan dalam dunia pendidikan.'
+        },
+        'suno_ai': {
+            name: 'SUNO AI',
+            company: 'Suno',
+            logo: 'assets/images/ai-logos/suno.jpeg',
+            color: '#dc2626',
+            bg: '#fee2e2',
+            desc: 'Aplikasi penjana muzik AI yang membolehkan pengguna menghasilkan lagu dan audio inspirasi kerjaya hanya daripada input teks lirik.'
         }
     };
 

@@ -246,7 +246,7 @@ require_once 'includes/header.php';
                 Berikut merupakan antara aplikasi AI yang boleh digunakan:
             </p>
 
-            <!-- 10 FAMOUS AI APPS BUTTONS GRID WITH REAL LOGOS -->
+            <!-- 14 AI APPS BUTTONS GRID WITH REAL LOGOS -->
             <div class="ai-buttons-wrapper" style="margin-bottom:18px;">
                 <button type="button" class="ai-btn" onclick="showAiDetail('chatgpt')">
                     <img src="assets/images/ai-logos/chatgpt.png" alt="ChatGPT" class="ai-btn-logo"> ChatGPT
@@ -257,29 +257,38 @@ require_once 'includes/header.php';
                 <button type="button" class="ai-btn" onclick="showAiDetail('gemini')">
                     <img src="assets/images/ai-logos/gemini.png" alt="Google Gemini" class="ai-btn-logo"> Google Gemini
                 </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('canva')">
-                    <img src="assets/images/ai-logos/canva-magic-studio.png" alt="Canva Magic Studio" class="ai-btn-logo"> Canva Magic Studio
-                </button>
                 <button type="button" class="ai-btn" onclick="showAiDetail('copilot')">
                     <img src="assets/images/ai-logos/microsoft-copilot.png" alt="Microsoft Copilot" class="ai-btn-logo"> Microsoft Copilot
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('midjourney')">
-                    <img src="assets/images/ai-logos/midjourney.png" alt="Midjourney" class="ai-btn-logo"> Midjourney
                 </button>
                 <button type="button" class="ai-btn" onclick="showAiDetail('perplexity')">
                     <img src="assets/images/ai-logos/perplexity.png" alt="Perplexity AI" class="ai-btn-logo"> Perplexity AI
                 </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('dalle')">
-                    <img src="assets/images/ai-logos/dalle.png" alt="DALL-E" class="ai-btn-logo"> DALL-E
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('poe')">
-                    <img src="assets/images/ai-logos/poe.png" alt="Poe AI" class="ai-btn-logo"> Poe AI
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('elevenlabs')">
-                    <img src="assets/images/ai-logos/elevenlabs.png" alt="ElevenLabs" class="ai-btn-logo"> ElevenLabs
-                </button>
                 <button type="button" class="ai-btn" onclick="showAiDetail('notebooklm')">
                     <img src="assets/images/ai-logos/notebooklm.png" alt="NotebookLM" class="ai-btn-logo"> NotebookLM
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('ai_101_teachers')">
+                    <img src="assets/images/ai-logos/AI_101_For_Teachers.jpeg" alt="AI 101 For Teachers" class="ai-btn-logo"> AI 101 For Teachers
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('bing_image')">
+                    <img src="assets/images/ai-logos/bing.jpeg" alt="Bing Image Creator" class="ai-btn-logo"> Bing Image Creator
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('conker_ai')">
+                    <img src="assets/images/ai-logos/conkerai.jpeg" alt="Conker AI" class="ai-btn-logo"> Conker AI
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('intro_gen_ai')">
+                    <img src="assets/images/ai-logos/Intro_to_Generative_AI.jpeg" alt="Intro to Generative AI" class="ai-btn-logo"> Intro to Generative AI
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('iste_ai')">
+                    <img src="assets/images/ai-logos/ISTE.jpeg" alt="ISTE: AI in Education" class="ai-btn-logo"> ISTE: Artificial Intelligence in Education
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('khan_ai')">
+                    <img src="assets/images/ai-logos/KhanAcademy.jpeg" alt="Khan Academy: AI For Education" class="ai-btn-logo"> Khan Academy: AI For Education
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('ms_learn_ai')">
+                    <img src="assets/images/ai-logos/microsoftLearn.jpeg" alt="Microsoft Learn AI For Educator" class="ai-btn-logo"> Microsoft Learn AI For Educator
+                </button>
+                <button type="button" class="ai-btn" onclick="showAiDetail('suno_ai')">
+                    <img src="assets/images/ai-logos/suno.jpeg" alt="SUNO AI" class="ai-btn-logo"> SUNO AI
                 </button>
             </div>
 
@@ -323,9 +332,9 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN D: SILA UPLOAD BAHAN FILE INSPIRASI KERJAYA ANDA -->
+            <!-- BAHAGIAN D: SILA UPLOAD BAHAN FILE INSPIRASI KERJAYA ANDA "VISION BOARD" -->
             <h3 style="font-size:1.4rem; color:#0284c7; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                📁 (d) Sila Upload Bahan File Inspirasi Kerjaya Anda
+                📁 (d) Sila Upload Bahan File Inspirasi Kerjaya Anda “Vision Board”
             </h3>
             <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:16px; padding:18px; margin-bottom:18px;">
                 <p style="color:#0369a1; font-size:0.98rem; margin-bottom:10px; line-height:1.6;">
@@ -350,9 +359,9 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN E: KOMEN SAYA (MCA) -->
+            <!-- BAHAGIAN E: MAKLUM BALAS -->
             <h3 style="font-size:1.4rem; color:var(--accent-green); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                ⭐ (e) Komen & Tindakan Selanjutnya
+                ⭐ (e) Maklum Balas
             </h3>
             <div class="form-group">
                 <label class="form-label">Sila pilih satu komen maklum balas anda: <span style="color:#ef4444">*</span></label>
@@ -374,6 +383,22 @@ require_once 'includes/header.php';
                         </div>
                     <?php endforeach; ?>
                 </div>
+            </div>
+
+            <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
+
+            <!-- BAHAGIAN F: KONGSIKAN CERITA ANDA -->
+            <h3 style="font-size:1.4rem; color:#8b5cf6; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+                💬 (f) Kongsikan cerita anda.
+            </h3>
+            <div class="form-group">
+                <label class="form-label" for="luahan_rasa">
+                    Ruangan perkongsian cerita, minat atau luahan rasa anda (maksimum 500 patah perkataan):
+                </label>
+                <textarea id="luahan_rasa" name="luahan_rasa" class="form-control" rows="6" placeholder="Tuliskan cerita, impian kerjaya, atau luahan rasa anda di sini..." style="resize:vertical; width:100%; border-radius:12px; padding:14px; line-height:1.6;"><?php echo htmlspecialchars($_POST['luahan_rasa'] ?? ''); ?></textarea>
+                <small style="color:var(--text-muted); display:block; margin-top:6px;">
+                    📝 Perkongsian anda akan disampaikan kepada Guru Bimbingan dan Kaunseling.
+                </small>
             </div>
 
             <!-- BUTANG HANTAR ANIMATED -->

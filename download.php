@@ -131,7 +131,7 @@ require_once 'includes/header.php';
             </div>
             <?php if (!empty($student_info['luahan_rasa'])): ?>
             <div style="margin-top:12px; background:#fff; padding:10px 14px; border-radius:8px; border:1px solid #e2e8f0;">
-                <strong>Luahan Rasa Murid:</strong>
+                <strong>Perkongsian daripada Murid:</strong>
                 <p style="margin:4px 0 0 0; color:#334155; white-space:pre-wrap;"><?php echo htmlspecialchars($student_info['luahan_rasa']); ?></p>
             </div>
             <?php endif; ?>

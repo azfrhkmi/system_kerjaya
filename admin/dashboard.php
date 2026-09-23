@@ -633,9 +633,9 @@ function viewStudentDetail(data) {
         </div>
 
         <div>
-            <h4 style="color:#1e1b4b; font-size:1.1rem; margin-bottom:6px;">💬 Cerita & Luahan Rasa Murid:</h4>
+            <h4 style="color:#1e1b4b; font-size:1.1rem; margin-bottom:6px;">💬 Perkongsian daripada Murid:</h4>
             <div style="background:#fff1f2; color:#9f1239; padding:16px; border-radius:12px; border:1px solid #fecdd3; font-style:italic; line-height:1.6;">
-                "${data.luahan_rasa ? data.luahan_rasa : 'Murid tidak meninggalkan sebarang luahan rasa.'}"
+                "${data.luahan_rasa ? data.luahan_rasa : 'Murid tidak meninggalkan sebarang perkongsian.'}"
             </div>
         </div>
     `;
