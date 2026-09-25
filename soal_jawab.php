@@ -337,9 +337,14 @@ require_once 'includes/header.php';
                 📁 (d) Sila Upload Bahan File Inspirasi Kerjaya Anda “Vision Board”
             </h3>
             <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:16px; padding:18px; margin-bottom:18px;">
-                <p style="color:#0369a1; font-size:0.98rem; margin-bottom:10px; line-height:1.6;">
-                    Sila layari <a href="https://d3.delima.edu.my/landing" target="_blank" rel="noopener noreferrer" style="color:#0284c7; font-weight:bold; text-decoration:underline;">laman web DELIMa</a> anda, dengan menggunakan aplikasi AI, hasilkan bahan berkaitan inspirasi kerjaya anda dan muat turun di ruangan yang disediakan.
+                <p style="color:#0369a1; font-size:0.98rem; margin-bottom:14px; line-height:1.6;">
+                    Sila layari laman web DELIMa anda, dengan menggunakan aplikasi AI, hasilkan bahan berkaitan inspirasi kerjaya anda dan muat turun di ruangan yang disediakan.
                 </p>
+                <div style="margin-bottom:16px;">
+                    <a href="https://d3.delima.edu.my/landing" target="_blank" rel="noopener noreferrer" class="btn-primary nav-btn" style="display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, #0284c7, #0369a1); color:white; padding:10px 22px; border-radius:50px; font-weight:700; text-decoration:none; box-shadow:0 4px 12px rgba(2, 132, 199, 0.3);">
+                        🌐 Layari Laman Web DELIMa KPM ↗
+                    </a>
+                </div>
                 <div style="background:white; border-radius:12px; padding:14px; border-left:5px solid #0284c7; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
                     <div style="font-weight:700; color:#0369a1; font-size:0.92rem; margin-bottom:4px;">💡 Contoh prompt untuk menghasilkan sebuah poster:</div>
                     <em style="color:#1e293b; font-size:0.95rem; line-height:1.5; display:block;">
