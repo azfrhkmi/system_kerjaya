@@ -246,13 +246,10 @@ require_once 'includes/header.php';
                 Berikut merupakan antara aplikasi AI yang boleh digunakan:
             </p>
 
-            <!-- 14 AI APPS BUTTONS GRID WITH REAL LOGOS -->
+            <!-- 9 AI APPS BUTTONS GRID WITH REAL LOGOS -->
             <div class="ai-buttons-wrapper" style="margin-bottom:18px;">
                 <button type="button" class="ai-btn" onclick="showAiDetail('chatgpt')">
                     <img src="assets/images/ai-logos/chatgpt.png" alt="ChatGPT" class="ai-btn-logo"> ChatGPT
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('claude')">
-                    <img src="assets/images/ai-logos/claude.png" alt="Claude AI" class="ai-btn-logo"> Claude AI
                 </button>
                 <button type="button" class="ai-btn" onclick="showAiDetail('gemini')">
                     <img src="assets/images/ai-logos/gemini.png" alt="Google Gemini" class="ai-btn-logo"> Google Gemini
@@ -266,26 +263,14 @@ require_once 'includes/header.php';
                 <button type="button" class="ai-btn" onclick="showAiDetail('notebooklm')">
                     <img src="assets/images/ai-logos/notebooklm.png" alt="NotebookLM" class="ai-btn-logo"> NotebookLM
                 </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('ai_101_teachers')">
-                    <img src="assets/images/ai-logos/AI_101_For_Teachers.jpeg" alt="AI 101 For Teachers" class="ai-btn-logo"> AI 101 For Teachers
-                </button>
                 <button type="button" class="ai-btn" onclick="showAiDetail('bing_image')">
                     <img src="assets/images/ai-logos/bing.jpeg" alt="Bing Image Creator" class="ai-btn-logo"> Bing Image Creator
                 </button>
                 <button type="button" class="ai-btn" onclick="showAiDetail('conker_ai')">
                     <img src="assets/images/ai-logos/conkerai.jpeg" alt="Conker AI" class="ai-btn-logo"> Conker AI
                 </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('intro_gen_ai')">
-                    <img src="assets/images/ai-logos/Intro_to_Generative_AI.jpeg" alt="Intro to Generative AI" class="ai-btn-logo"> Intro to Generative AI
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('iste_ai')">
-                    <img src="assets/images/ai-logos/ISTE.jpeg" alt="ISTE: AI in Education" class="ai-btn-logo"> ISTE: Artificial Intelligence in Education
-                </button>
                 <button type="button" class="ai-btn" onclick="showAiDetail('khan_ai')">
                     <img src="assets/images/ai-logos/KhanAcademy.jpeg" alt="Khan Academy: AI For Education" class="ai-btn-logo"> Khan Academy: AI For Education
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('ms_learn_ai')">
-                    <img src="assets/images/ai-logos/microsoftLearn.jpeg" alt="Microsoft Learn AI For Educator" class="ai-btn-logo"> Microsoft Learn AI For Educator
                 </button>
                 <button type="button" class="ai-btn" onclick="showAiDetail('suno_ai')">
                     <img src="assets/images/ai-logos/suno.jpeg" alt="SUNO AI" class="ai-btn-logo"> SUNO AI

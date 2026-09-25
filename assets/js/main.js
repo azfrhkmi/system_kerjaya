@@ -324,14 +324,6 @@ document.addEventListener('DOMContentLoaded', () => {
             bg: '#d1fae5',
             desc: 'Aplikasi AI pembantu teks paling popular di dunia. Boleh membantu menjawab soalan, menulis karangan, menterjemah bahasa, dan menjana idea kerjaya kreatif.'
         },
-        'claude': {
-            name: 'Claude AI',
-            company: 'Anthropic',
-            logo: 'assets/images/ai-logos/claude.png',
-            color: '#d97706',
-            bg: '#fef3c7',
-            desc: 'AI pintar dengan kebolehan analisis teks mendalam, penulisan cerita yang sangat mesra dan semula jadi, serta pemahaman jawapan yang tepat.'
-        },
         'gemini': {
             name: 'Google Gemini',
             company: 'Google',
@@ -364,14 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
             bg: '#e8f0fe',
             desc: 'Aplikasi AI pembantu nota daripada Google yang menukar bahan sumber, nota, dan dokumen PDF anda kepada ringkasan maklumat serta perbincangan audio podcast secara automatik.'
         },
-        'ai_101_teachers': {
-            name: 'AI 101 For Teachers',
-            company: 'Khan Academy & Code.org',
-            logo: 'assets/images/ai-logos/AI_101_For_Teachers.jpeg',
-            color: '#4f46e5',
-            bg: '#e0e7ff',
-            desc: 'Siri kursus asas percuma untuk pendidik memahami konsep kecerdasan buatan dan integrasinya secara berkesan dalam bilik darjah.'
-        },
         'bing_image': {
             name: 'Bing Image Creator',
             company: 'Microsoft',
@@ -388,22 +372,6 @@ document.addEventListener('DOMContentLoaded', () => {
             bg: '#ede9fe',
             desc: 'Platform AI untuk menghasilkan kuiz interaktif, soalan ujian, dan bahan penilaian pembelajaran murid dengan mudah dan pantas.'
         },
-        'intro_gen_ai': {
-            name: 'Intro to Generative AI',
-            company: 'Google Cloud',
-            logo: 'assets/images/ai-logos/Intro_to_Generative_AI.jpeg',
-            color: '#2563eb',
-            bg: '#dbeafe',
-            desc: 'Modul pembelajaran asas daripada Google yang menerangkan konsep AI Generatif dan cara penerapannya dalam kehidupan seharian.'
-        },
-        'iste_ai': {
-            name: 'ISTE: AI in Education',
-            company: 'ISTE',
-            logo: 'assets/images/ai-logos/ISTE.jpeg',
-            color: '#059669',
-            bg: '#d1fae5',
-            desc: 'Panduan etika dan sumber pendidikan daripada ISTE untuk membantu pendidik dan murid menggunakan teknologi AI secara berkesan dan bertanggungjawab.'
-        },
         'khan_ai': {
             name: 'Khan Academy: AI For Education',
             company: 'Khan Academy',
@@ -411,14 +379,6 @@ document.addEventListener('DOMContentLoaded', () => {
             color: '#16a34a',
             bg: '#dcfce7',
             desc: 'Platform pembelajaran interaktif berasaskan tutor AI (Khanmigo) untuk membantu murid memahami pelbagai topik mata pelajaran.'
-        },
-        'ms_learn_ai': {
-            name: 'Microsoft Learn AI For Educator',
-            company: 'Microsoft',
-            logo: 'assets/images/ai-logos/microsoftLearn.jpeg',
-            color: '#0284c7',
-            bg: '#e0f2fe',
-            desc: 'Laluan latihan rasmi Microsoft untuk membimbing warga pendidik memanfaatkan keupayaan kecerdasan buatan dalam dunia pendidikan.'
         },
         'suno_ai': {
             name: 'SUNO AI',
