@@ -7,7 +7,7 @@ require_once 'includes/header.php';
 <!-- HERO BANNER SECTION -->
 <section class="hero-section">
     <h1 class="hero-title">
-        Terokai Minat & <span class="highlight">Bina Kerjaya STEM!</span> 🎁
+        Terokai Minat & <span class="highlight">Bina Kerjaya STEM & AI!</span> 🎁
     </h1>
     
     <p class="hero-subtitle">
@@ -17,10 +17,10 @@ require_once 'includes/header.php';
 
 <div class="container">
 
-    <!-- SEKSYEN 1: KERJAYA STEM -->
+    <!-- SEKSYEN 1: KERJAYA STEM & AI -->
     <section class="section-block">
         <div class="section-header">
-            <h2>🌈 Kerjaya STEM</h2>
+            <h2>🌈 Kerjaya STEM & AI</h2>
             <p>Memahami dunia STEM (Sains, Teknologi, Kejuruteraan & Matematik) dan persediaan kerjaya masa depan murid</p>
         </div>
 
@@ -47,17 +47,17 @@ require_once 'includes/header.php';
         </div>
     </section>
 
-    <!-- SEKSYEN 2: PENGGUNAAN APLIKASI AI KERJAYA -->
+    <!-- SEKSYEN 2: APLIKASI AI -->
     <section class="section-block">
         <div class="section-header">
-            <h2>🤖 Penggunaan Aplikasi AI Kerjaya</h2>
+            <h2>🤖 Aplikasi AI</h2>
             <p>Dengan menggunakan teknologi AI, anda boleh menghasilkan hasil kerjaya yang kreatif</p>
         </div>
 
         <div class="gardner-interactive-container">
             <div style="text-align: center; margin-bottom: 20px;">
                 <h3 style="font-size: 1.4rem; color: var(--accent-purple); margin-bottom: 8px;">
-                    🤖 Pilihan Aplikasi AI Kerjaya:
+                    🤖 Pilihan Aplikasi AI:
                 </h3>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">
                     Tekan mana-mana ikon aplikasi AI di bawah untuk melihat ringkasan & kegunaannya:
