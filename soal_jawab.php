@@ -235,56 +235,9 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN B: PENGGUNAAN APLIKASI AI KERJAYA -->
-            <h3 style="font-size:1.4rem; color:var(--accent-purple); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                🤖 (b) Penggunaan Aplikasi AI Kerjaya
-            </h3>
-            <p style="color:var(--text-dark); font-size:1.05rem; font-weight:700; margin-bottom:4px;">
-                Dengan menggunakan teknologi AI, anda boleh menghasilkan hasil kerjaya yang kreatif
-            </p>
-            <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:18px;">
-                Berikut merupakan antara aplikasi AI yang boleh digunakan:
-            </p>
-
-            <!-- 9 AI APPS BUTTONS GRID WITH REAL LOGOS -->
-            <div class="ai-buttons-wrapper" style="margin-bottom:18px;">
-                <button type="button" class="ai-btn" onclick="showAiDetail('chatgpt')">
-                    <img src="assets/images/ai-logos/chatgpt.png" alt="ChatGPT" class="ai-btn-logo"> ChatGPT
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('gemini')">
-                    <img src="assets/images/ai-logos/gemini.png" alt="Google Gemini" class="ai-btn-logo"> Google Gemini
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('copilot')">
-                    <img src="assets/images/ai-logos/microsoft-copilot.png" alt="Microsoft Copilot" class="ai-btn-logo"> Microsoft Copilot
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('perplexity')">
-                    <img src="assets/images/ai-logos/perplexity.png" alt="Perplexity AI" class="ai-btn-logo"> Perplexity AI
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('notebooklm')">
-                    <img src="assets/images/ai-logos/notebooklm.png" alt="NotebookLM" class="ai-btn-logo"> NotebookLM
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('bing_image')">
-                    <img src="assets/images/ai-logos/bing.jpeg" alt="Bing Image Creator" class="ai-btn-logo"> Bing Image Creator
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('conker_ai')">
-                    <img src="assets/images/ai-logos/conkerai.jpeg" alt="Conker AI" class="ai-btn-logo"> Conker AI
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('khan_ai')">
-                    <img src="assets/images/ai-logos/KhanAcademy.jpeg" alt="Khan Academy: AI For Education" class="ai-btn-logo"> Khan Academy: AI For Education
-                </button>
-                <button type="button" class="ai-btn" onclick="showAiDetail('suno_ai')">
-                    <img src="assets/images/ai-logos/suno.jpeg" alt="SUNO AI" class="ai-btn-logo"> SUNO AI
-                </button>
-            </div>
-
-            <!-- Bekas Paparan Detail Aplikasi AI -->
-            <div id="aiDisplay" class="ai-detail-display" style="margin-bottom:24px;"></div>
-
-            <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
-
-            <!-- BAHAGIAN C: TEORI KECERDASAN PELBAGAI HOWARD GARDNER -->
+            <!-- BAHAGIAN B: TEORI KECERDASAN PELBAGAI HOWARD GARDNER -->
             <h3 style="font-size:1.4rem; color:#ec4899; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                🎁 (c) Explorasi Teori Kecerdasan Pelbagai
+                🎁 (b) Explorasi Teori Kecerdasan Pelbagai
             </h3>
             <div class="form-group" style="margin-top:14px;">
                 <label class="form-label" style="margin-bottom:14px; font-size:1.05rem; color:#1e1b4b;">
@@ -317,9 +270,9 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN D: SILA UPLOAD BAHAN FILE INSPIRASI KERJAYA ANDA "VISION BOARD" -->
+            <!-- BAHAGIAN C: SILA UPLOAD BAHAN FILE INSPIRASI KERJAYA ANDA "VISION BOARD" -->
             <h3 style="font-size:1.4rem; color:#0284c7; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                📁 (d) Sila Upload Bahan File Inspirasi Kerjaya Anda “Vision Board”
+                📁 (c) Sila Upload Bahan File Inspirasi Kerjaya Anda “Vision Board”
             </h3>
             <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:16px; padding:18px; margin-bottom:18px;">
                 <p style="color:#0369a1; font-size:0.98rem; margin-bottom:14px; line-height:1.6;">
@@ -349,9 +302,9 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN E: MAKLUM BALAS -->
+            <!-- BAHAGIAN D: MAKLUM BALAS -->
             <h3 style="font-size:1.4rem; color:var(--accent-green); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                ⭐ (e) Maklum Balas
+                ⭐ (d) Maklum Balas
             </h3>
             <div class="form-group">
                 <label class="form-label">Sila pilih satu komen maklum balas anda: <span style="color:#ef4444">*</span></label>
@@ -377,9 +330,9 @@ require_once 'includes/header.php';
 
             <hr style="border:0; border-top:2px dashed #e2e8f0; margin:30px 0;">
 
-            <!-- BAHAGIAN F: KONGSIKAN CERITA ANDA -->
+            <!-- BAHAGIAN E: KONGSIKAN CERITA ANDA -->
             <h3 style="font-size:1.4rem; color:#8b5cf6; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-                💬 (f) Kongsikan cerita anda.
+                💬 (e) Kongsikan cerita anda.
             </h3>
             <div class="form-group">
                 <label class="form-label" for="luahan_rasa">
