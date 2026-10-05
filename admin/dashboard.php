@@ -388,6 +388,14 @@ require_once '../includes/header.php';
                                         <small style="color:#64748b; font-weight:normal; font-size:0.78rem;">Gambar Murid mengikut Nama</small>
                                     </div>
                                 </a>
+                                <div style="border-top:1px solid #e2e8f0;"></div>
+                                <a href="backup.php" style="display:flex; align-items:center; gap:12px; padding:12px 16px; color:#0f172a; text-decoration:none; font-weight:600; font-size:0.9rem; transition:background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">
+                                    <span style="font-size:1.3rem;">🔄</span>
+                                    <div>
+                                        <div style="color:#7c3aed; font-weight:700;">Migrasi ke Localhost (.JSON)</div>
+                                        <small style="color:#64748b; font-weight:normal; font-size:0.78rem;">Pindahkan Data & Gambar Lengkap</small>
+                                    </div>
+                                </a>
                             </div>
                         </div>
 
