@@ -2,8 +2,8 @@
 // =========================================================
 // SIKRIP BACKUP & MIGRASI DATA (RAILWAY <-> LOCALHOST)
 // =========================================================
-ini_set('memory_limit', '512M');
-set_time_limit(300);
+ini_set('memory_limit', '1024M');
+set_time_limit(600);
 
 require_once '../config/db.php';
 require_once '../includes/logger.php';
@@ -55,9 +55,28 @@ if ($action === 'export') {
 // 2. IMPORT BACKUP KE LOCALHOST (.JSON)
 // =========================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'import') {
+    $json_content = null;
+
+    // Semak pilihan 1: Muat naik fail melalui borang
     if (isset($_FILES['backup_file']) && $_FILES['backup_file']['error'] === UPLOAD_ERR_OK) {
         $file_tmp = $_FILES['backup_file']['tmp_name'];
         $json_content = file_get_contents($file_tmp);
+    } 
+    // Semak pilihan 2: Masukkan laluan fail fizikal pada disk (untuk fail > 40MB)
+    elseif (!empty($_POST['local_filepath'])) {
+        $local_path = trim($_POST['local_filepath']);
+        if (file_exists($local_path)) {
+            $json_content = file_get_contents($local_path);
+        } else {
+            $message = "Fail tidak dijumpai di laluan: " . htmlspecialchars($local_path);
+            $message_type = "danger";
+        }
+    } else {
+        $message = "⚠️ Had Muat Naik Terlampaui (POST Limit): Fail bersaiz besar (seperti 110MB) melepasi had `post_max_size` PHP. Sila gunakan pilihan **Laluan Fail Fizikal** di bawah.";
+        $message_type = "danger";
+    }
+
+    if ($json_content !== null) {
         $data = json_decode($json_content, true);
 
         if (!$data || !isset($data['system']) || $data['system'] !== 'sistem_kerjaya') {
@@ -73,6 +92,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'import') {
                 @mkdir($upload_dir, 0777, true);
             }
 
+            if (!empty($data['users']) && is_array($data['users'])) {
+                foreach ($data['users'] as $u) {
+                    try {
+                        $check_u = $pdo->prepare("SELECT id FROM users WHERE email = ? LIMIT 1");
+                        $check_u->execute([$u['email']]);
+                        if (!$check_u->fetchColumn()) {
+                            $stmt_u = $pdo->prepare("INSERT INTO users (nama, email, password, role, created_at) VALUES (?, ?, ?, ?, ?)");
+                            $stmt_u->execute([$u['nama'], $u['email'], $u['password'], $u['role'], $u['created_at']]);
+                        }
+                    } catch (Exception $e_user) {}
+                }
+            }
+
             if (!empty($data['responses']) && is_array($data['responses'])) {
                 foreach ($data['responses'] as $r) {
                     $email = $r['email'] ?? '';
@@ -86,32 +118,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'import') {
                     $komen = $r['komen_status'] ?? 'Belum Dibaca';
                     $submitted_at = $r['submitted_at'] ?? date('Y-m-d H:i:s');
 
-                    // Jika fail_blob wujud tetapi fail fizikal tiada di uploads/, bina semula fail gambar fizikal
+                    // Bina semula fail gambar fizikal di folder uploads/ jika BLOB wujud
                     if (!empty($fail_blob) && !empty($fail_path)) {
                         $phys_file = __DIR__ . '/../' . ltrim($fail_path, '/');
-                        if (!file_exists($phys_file)) {
-                            $decoded_raw = base64_decode($fail_blob);
-                            if ($decoded_raw !== false) {
-                                @file_put_contents($phys_file, $decoded_raw);
-                                $imported_images++;
+                        $decoded_raw = base64_decode($fail_blob);
+                        if ($decoded_raw !== false && strlen($decoded_raw) > 0) {
+                            $dir_of_file = dirname($phys_file);
+                            if (!file_exists($dir_of_file)) {
+                                @mkdir($dir_of_file, 0777, true);
                             }
+                            @file_put_contents($phys_file, $decoded_raw);
+                            $imported_images++;
                         }
                     }
 
-                    // Semak jika rekod sudah wujud berdasarkan email & submitted_at
-                    $check_stmt = $pdo->prepare("SELECT id FROM responses WHERE email = ? AND (submitted_at = ? OR (nama = ? AND kelas = ?)) LIMIT 1");
-                    $check_stmt->execute([$email, $submitted_at, $nama, $kelas]);
-                    $existing_id = $check_stmt->fetchColumn();
+                    // Semak & Simpan rekod ke dalam pangkalan data
+                    try {
+                        $check_stmt = $pdo->prepare("SELECT id FROM responses WHERE email = ? AND (submitted_at = ? OR (nama = ? AND kelas = ?)) LIMIT 1");
+                        $check_stmt->execute([$email, $submitted_at, $nama, $kelas]);
+                        $existing_id = $check_stmt->fetchColumn();
 
-                    if ($existing_id) {
-                        // Kemaskini rekod sedia ada
-                        $update_stmt = $pdo->prepare("UPDATE responses SET nama=?, tahun=?, kelas=?, luahan_rasa=?, riasec_pilihan=?, fail_kerjaya=?, fail_kerjaya_blob=?, komen_status=?, submitted_at=? WHERE id=?");
-                        $update_stmt->execute([$nama, $tahun, $kelas, $luahan, $riasec, $fail_path, $fail_blob, $komen, $submitted_at, $existing_id]);
-                    } else {
-                        // Masukkan rekod baru
-                        $insert_stmt = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, fail_kerjaya_blob, komen_status, submitted_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                        $insert_stmt->execute([$email, $nama, $tahun, $kelas, $luahan, $riasec, $fail_path, $fail_blob, $komen, $submitted_at]);
-                        $imported_responses++;
+                        if ($existing_id) {
+                            $update_stmt = $pdo->prepare("UPDATE responses SET nama=?, tahun=?, kelas=?, luahan_rasa=?, riasec_pilihan=?, fail_kerjaya=?, fail_kerjaya_blob=?, komen_status=?, submitted_at=? WHERE id=?");
+                            $update_stmt->execute([$nama, $tahun, $kelas, $luahan, $riasec, $fail_path, $fail_blob, $komen, $submitted_at, $existing_id]);
+                        } else {
+                            $insert_stmt = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, fail_kerjaya_blob, komen_status, submitted_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            $insert_stmt->execute([$email, $nama, $tahun, $kelas, $luahan, $riasec, $fail_path, $fail_blob, $komen, $submitted_at]);
+                            $imported_responses++;
+                        }
+                    } catch (Exception $e_resp) {
+                        try {
+                            $insert_stmt = $pdo->prepare("INSERT INTO responses (email, nama, tahun, kelas, luahan_rasa, riasec_pilihan, fail_kerjaya, komen_status, submitted_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            $insert_stmt->execute([$email, $nama, $tahun, $kelas, $luahan, $riasec, $fail_path, $komen, $submitted_at]);
+                            $imported_responses++;
+                        } catch (Exception $e_fb) {}
                     }
                 }
             }
@@ -121,9 +161,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'import') {
             
             log_security_event($pdo, 'DATA_IMPORT_SUCCESS', "Admin mengimport data backup ke pangkalan data.");
         }
-    } else {
-        $message = "Sila pilih fail .json backup yang sah untuk dimuat naik.";
-        $message_type = "danger";
     }
 }
 
@@ -174,12 +211,20 @@ require_once '../includes/header.php';
                     2️⃣ Import Data (Di Localhost)
                 </h3>
                 <p style="color:#334155; font-size:0.88rem; line-height:1.5;">
-                    Pilih fail <code>.json</code> yang di-download tadi dan tekan Import untuk masukkan semua rekod & gambar ke Localhost.
+                    Pilih fail <code>.json</code> melalui borang atau masukkan laluan fail fizikal jika bersaiz besar (>40MB).
                 </p>
                 
                 <form method="POST" action="backup.php" enctype="multipart/form-data" style="margin-top:10px;">
                     <input type="hidden" name="action" value="import">
-                    <input type="file" name="backup_file" accept=".json" required style="width:100%; margin-bottom:12px; font-size:0.85rem; padding:6px; background:#fff; border:1px solid #cbd5e1; border-radius:8px;">
+                    
+                    <label style="font-size:0.82rem; font-weight:700; color:#475569;">Pilihan A: Pilih Fail .JSON</label>
+                    <input type="file" name="backup_file" accept=".json" style="width:100%; margin-bottom:12px; font-size:0.85rem; padding:6px; background:#fff; border:1px solid #cbd5e1; border-radius:8px;">
+                    
+                    <div style="text-align:center; color:#94a3b8; font-weight:700; font-size:0.8rem; margin-bottom:8px;">— ATAU —</div>
+
+                    <label style="font-size:0.82rem; font-weight:700; color:#475569;">Pilihan B: Laluan Fail Fizikal (Fail Saiz Besar)</label>
+                    <input type="text" name="local_filepath" placeholder="C:\Users\...\backup.json" style="width:100%; margin-bottom:14px; font-size:0.85rem; padding:8px; background:#fff; border:1px solid #cbd5e1; border-radius:8px;">
+
                     <button type="submit" class="btn-primary" style="width:100%; padding:12px; background:linear-gradient(135deg, #10b981, #047857); border:none; font-weight:700; cursor:pointer; border-radius:8px;">
                         📤 Import Ke Localhost
                     </button>
